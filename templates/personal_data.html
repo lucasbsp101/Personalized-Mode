@@ -1,12 +1,13 @@
+<!-- templates/personal_data.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Welcome to the AI Course for Beginners</h1>
-
+    <img src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
     <form method="POST" action="/">
     {{ form.hidden_tag() }}
     <label for="name">Name:</label><br>
@@ -29,7 +30,7 @@
     {{ form.submit() }}<br>
     <br>
 
-    <img src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
+
 </form>
     <div>
         <a href="/comparison">BACK</a>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Conceitos Básicos de IA - Fluxograma</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
@@ -10,19 +10,6 @@
 </head>
 <body>
     <h1>Basic Concepts of Artificial Intelligence - Fluxograma</h1>
-    <!--somente um teste -->!
-    <div class="mermaid">
-
-        graph TD;
-            A[Artificial Intelligence] --> B[Machine Learning];
-            A --> C[Artificial Neural Networks];
-            A --> D[Natural Language Processing];
-            A --> E[Computer Vision];
-            B --> F[Supervised Learning];
-            B --> G[Unsupervised Learning];
-            B --> H[Reinforcement Learning];
-    </div>
-    <!--somente um teste -->!
     <div class="mermaid">
         {{ content }}
     </div>

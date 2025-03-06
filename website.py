@@ -5,6 +5,8 @@ import sqlite3
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from PIL import Image
+import graphviz
+
 
 #Imports PHI-4
 import os
@@ -94,6 +96,62 @@ def generate_comparison_analysis(person):
     return comparison_analysis
 # Analysis of comparison
 
+# Think map creation
+# Função para gerar conteúdo personalizado
+def generate_custom_content(preference, base_content):
+    # Configuração do cliente do modelo phi-4
+    endpoint = "https://models.inference.ai.azure.com"
+    model_name = "Phi-4"
+    token = os.environ["GITHUB_TOKEN"]
+
+    client = ChatCompletionsClient(
+        endpoint=endpoint,
+        credential=AzureKeyCredential(token),
+    )
+
+    if preference == 'Think Map':
+        # Use o modelo phi-4 para extrair os principais conceitos do texto
+        prompt = f"Extraia os principais conceitos e suas relações do seguinte texto: {base_content}"
+        response = client.complete(
+            messages=[UserMessage(content=prompt)],
+            temperature=1.0,
+            top_p=1.0,
+            max_tokens=1000,
+            model=model_name
+        )
+        concepts = response.choices[0].message.content
+
+        # Use graphviz para gerar o fluxograma
+        dot = graphviz.Digraph(comment='Fluxograma de IA')
+        for line in concepts.split('\n'):
+            if '->' in line:
+                parts = line.split('->')
+                if len(parts) == 2:
+                    node1 = parts[0].strip()
+                    node2 = parts[1].strip()
+                    dot.node(node1)
+                    dot.node(node2)
+                    dot.edge(node1, node2)
+
+        # Formate o fluxograma para mermaid.js
+        mermaid_content = f"graph TD;\n{dot.source}"
+        return mermaid_content
+    else:
+        prompt = f"Altere o seguinte texto para a preferência de aprendizado '{preference}': {base_content}"
+
+        response = client.complete(
+            messages=[UserMessage(content=prompt)],
+            temperature=1.0,
+            top_p=1.0,
+            max_tokens=1000,
+            model=model_name
+        )
+
+        generated_content = response.choices[0].message.content
+        return generated_content
+
+# Think map creation
+
 
 # Page - Personal data
 @app.route('/', methods=['GET', 'POST'])
@@ -148,33 +206,6 @@ def test_1():
 
     return render_template('test_1.html')
 
-# Função para gerar conteúdo personalizado
-def generate_custom_content(preference, base_content):
-            # Configuração do cliente do modelo phi-4
-            endpoint = "https://models.inference.ai.azure.com"
-            model_name = "Phi-4"
-            token = os.environ["GITHUB_TOKEN"]
-
-            client = ChatCompletionsClient(
-                endpoint=endpoint,
-                credential=AzureKeyCredential(token),
-            )
-
-            if preference == 'Think Map':
-                prompt = f"Transforme o seguinte texto em um fluxograma no formato mermaid.js: {base_content}"
-            else:
-                prompt = f"Altere o seguinte texto para a preferência de aprendizado '{preference}': {base_content}"
-
-            response = client.complete(
-                messages=[UserMessage(content=prompt)],
-                temperature=1.0,
-                top_p=1.0,
-                max_tokens=1000,
-                model=model_name
-            )
-
-            generated_content = response.choices[0].message.content
-            return generated_content
 
 # Page - course
 @app.route('/course')
