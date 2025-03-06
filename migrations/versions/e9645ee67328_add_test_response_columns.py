@@ -1,8 +1,8 @@
 """Add test response columns
 
-Revision ID: 7df0b97aed26
+Revision ID: e9645ee67328
 Revises: 
-Create Date: 2025-02-26 15:36:09.211753
+Create Date: 2025-03-05 15:48:41.898236
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7df0b97aed26'
+revision = 'e9645ee67328'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,10 +22,13 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('phone_number', sa.String(length=50), nullable=False),
+    sa.Column('learning_preference', sa.String(length=50), nullable=False),
     sa.Column('AQ1', sa.String(length=500), nullable=True),
     sa.Column('AQ2', sa.String(length=500), nullable=True),
     sa.Column('AQ3', sa.String(length=500), nullable=True),
     sa.Column('AQ4', sa.String(length=500), nullable=True),
+    sa.Column('test_1_score', sa.Integer(), nullable=True),
+    sa.Column('test_2_score', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

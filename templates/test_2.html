@@ -4,15 +4,28 @@
 <html>
 <head>
     <title>Teste de Conhecimento</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>Knowledge TEST - 2</h1>
     <form method="POST" action="/test_2">
-        <label for="AQ3">What it's IA?</label><br>
-        <textarea id="AQ3" name="AQ3" rows="4" cols="50" required></textarea><br><br>
+        <label for="AQ3">What is AI?</label><br>
+        <input type="radio" id="ai" name="AQ3" value="Artificial Intelligence" required>
+        <label for="ai">Artificial Intelligence</label><br>
+        <input type="radio" id="ai" name="AQ3" value="Automated Interface" required>
+        <label for="ai">Automated Interface</label><br>
+        <input type="radio" id="ai" name="AQ3" value="Advanced Integration" required>
+        <label for="ai">Advanced Integration</label><br><br>
 
-        <label for="AQ4">Describe the subtopics of IA?</label><br>
-        <textarea id="AQ4" name="AQ4" rows="4" cols="50" required></textarea><br><br>
+        <label for="AQ4">Describe the subtopics of AI?</label><br>
+        <input type="radio" id="ml" name="AQ4" value="Machine Learning" required>
+        <label for="ml">Machine Learning</label><br>
+        <input type="radio" id="ann" name="AQ4" value="Artificial Neural Networks" required>
+        <label for="ann">Artificial Neural Networks</label><br>
+        <input type="radio" id="nlp" name="AQ4" value="Natural Language Processing" required>
+        <label for="nlp">Natural Language Processing</label><br>
+        <input type="radio" id="cv" name="AQ4" value="Computer Vision" required>
+        <label for="cv">Computer Vision</label><br><br>
 
         <!-- Campos ocultos para AQ1 e AQ2 -->
         <input type="hidden" name="AQ1" value="{{ AQ1 }}">
@@ -20,5 +33,12 @@
 
         <button type="submit">Go to comparison</button>
     </form>
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/course">BACK</a>
+        <a href="/comparison">NEXT</a>
+    </div>
+
 </body>
 </html>

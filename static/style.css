@@ -1,14 +1,61 @@
+/* static/styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    text-align: center;
-    padding: 50px;
+    background-color: #f0f8ff; /* Azul Alice */
+    color: #333;
+    margin: 0;
+    padding: 20px;
 }
 
 h1 {
-    color: #500;
+    color: #ff4500; /* Laranja Vermelho */
+}
+
+h2 {
+    color: #32cd32; /* Verde Lima */
 }
 
 p {
-    color: #666;
+    line-height: 1.6;
+    color: #4682b4; /* Azul Aço */
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+button {
+    background-color: #ff69b4; /* Rosa Choque */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #ff1493; /* Rosa Profundo */
+}
+
+#loading {
+    display: none;
+    color: #ff69b4; /* Rosa Choque */
+    font-weight: bold;
+}
+
+a {
+    color: #ff4500; /* Laranja Vermelho */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.mermaid {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

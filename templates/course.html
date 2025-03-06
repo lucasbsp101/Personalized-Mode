@@ -1,27 +1,53 @@
-<!-- OK-->
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Conceitos Básicos de IA</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-    <body>
-        <h1>Basic Concepts of Artificial Intelligence</h1>
-        <p>AI stands for Artificial Intelligence, a field of computer science dedicated to creating machines capable of performing tasks that would normally require human intelligence.</p>
-        <p>There are several subgroups of AI, such as:</p>
-        <ul>
-            <li>Machine Learning</li>
-            <li>Artificial Neural Networks</li>
-            <li>Natural Language Processing (NLP)</li>
-            <li>Computer Vision</li>
-        </ul>
-        <p>AI has applications in various areas, from virtual assistants to autonomous cars.</p>
+<body>
+    <h1>Basic Concepts of Artificial Intelligence</h1>
+    <p>{{ content }}</p>
 
-        <a href="/">Back to the home page</a>
+    <!-- Campo de pergunta e resposta -->
+    <h2>Faça uma pergunta sobre IA:</h2>
+    <form id="questionForm">
+        <label for="question">Pergunta:</label><br>
+        <textarea id="question" name="question" rows="4" cols="50" required></textarea><br><br>
+        <button type="button" onclick="askQuestion()">Enviar Pergunta</button>
+    </form>
+    <h3>Resposta:</h3>
+    <p id="answer"></p>
+    <div id="loading" style="display: none;">Carregando...</div>
 
-        <!-- Formulário com botão para redirecionar para a página test_2 -->
-        <form action="{{ url_for('test_2', AQ1=AQ1, AQ2=AQ2) }}" method="get">
-            <button type="submit">Ir para Test 2</button>
-        </form>
-    </body>
-    </html>
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/test_1">BACK</a>
+        <a href="/test_2">NEXT</a>
+    </div>
+
+    <script>
+        async function askQuestion() {
+            const question = document.getElementById('question').value;
+            document.getElementById('loading').style.display = 'block';
+            const response = await fetch('/ask_phi_4', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            });
+            const result = await response.json();
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('answer').innerText = result.answer;
+        }
+    </script>
+
+    <a href="/">Back to the home page</a>
+
+    <!-- Formulário com botão para redirecionar para a página test_2 -->
+    <form action="{{ url_for('test_2', AQ1=AQ1, AQ2=AQ2) }}" method="get">
+        <button type="submit">Ir para Test 2</button>
+    </form>
+
+</body>
+</html>
