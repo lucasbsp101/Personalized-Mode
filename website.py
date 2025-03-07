@@ -98,6 +98,17 @@ def generate_comparison_analysis(person):
 
 # Think map creation
 # Função para gerar conteúdo personalizado
+# Função para validar a sintaxe mermaid
+def is_valid_mermaid_syntax(content):
+    try:
+        # Tente compilar o conteúdo mermaid usando a biblioteca graphviz
+        graphviz.Source(content)
+        return True
+    except Exception as e:
+        print(f"Erro de sintaxe mermaid: {e}")
+        return False
+
+# Função para gerar conteúdo personalizado
 def generate_custom_content(preference, base_content):
     # Configuração do cliente do modelo phi-4
     endpoint = "https://models.inference.ai.azure.com"
@@ -110,8 +121,8 @@ def generate_custom_content(preference, base_content):
     )
 
     if preference == 'Think Map':
-        # Use o modelo phi-4 para extrair os principais conceitos do texto
-        prompt = f"Extraia os principais conceitos e suas relações do seguinte texto: {base_content}"
+        # Use o modelo phi-4 para gerar o fluxograma diretamente no formato mermaid
+        prompt = f"Generate a mermaid flowchart code from the following text: {base_content}. The flowchart should represent the main concepts and their relationships. Ensure the mermaid syntax is correct. Return ONLY the mermaid code, without any additional text or explanations."
         response = client.complete(
             messages=[UserMessage(content=prompt)],
             temperature=1.0,
@@ -119,25 +130,15 @@ def generate_custom_content(preference, base_content):
             max_tokens=1000,
             model=model_name
         )
-        concepts = response.choices[0].message.content
+        mermaid_content = response.choices[0].message.content
 
-        # Use graphviz para gerar o fluxograma
-        dot = graphviz.Digraph(comment='Fluxograma de IA')
-        for line in concepts.split('\n'):
-            if '->' in line:
-                parts = line.split('->')
-                if len(parts) == 2:
-                    node1 = parts[0].strip()
-                    node2 = parts[1].strip()
-                    dot.node(node1)
-                    dot.node(node2)
-                    dot.edge(node1, node2)
-
-        # Formate o fluxograma para mermaid.js
-        mermaid_content = f"graph TD;\n{dot.source}"
-        return mermaid_content
+        # Valide o conteúdo mermaid gerado
+        if is_valid_mermaid_syntax(mermaid_content):
+            return mermaid_content
+        else:
+            return "Erro: O conteúdo gerado não é um código mermaid válido."
     else:
-        prompt = f"Altere o seguinte texto para a preferência de aprendizado '{preference}': {base_content}"
+        prompt = f"Change the following text to the learning preference '{preference}': {base_content}"
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
@@ -210,6 +211,9 @@ def test_1():
 # Page - course
 @app.route('/course')
 def course():
+    if 'person_id' not in session:
+        return redirect(url_for('index'))
+
     AQ1 = request.args.get('AQ1')
     AQ2 = request.args.get('AQ2')
     person = db.session.get(Person, session['person_id'])
@@ -227,11 +231,12 @@ def course():
     """
 
     custom_content = generate_custom_content(learning_preference, base_content)
+    print("Mermaid Content:", custom_content)
 
     if learning_preference == 'Audio':
         return render_template('course_audio.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
     elif learning_preference == 'Think Map':
-        return render_template('course_fluxograma.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
+        return render_template('course_fluxograma.html', AQ1=AQ1, AQ2=AQ2, mermaid_content=custom_content)
     else:
         return render_template('course.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
 

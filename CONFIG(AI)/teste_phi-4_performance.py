@@ -16,9 +16,9 @@ client = ChatCompletionsClient(
 def benchmark_model():
     messages = [
         UserMessage("what it is 5s in mechanical eng.?"),
-        UserMessage("WHat it is first law of thermodynamics?"),
-        UserMessage("How machine learning works? explain in 2 lines maximum"),
-        UserMessage("Como funciona uma classe em machine learning?")
+        UserMessage("What it is first law of thermodynamics?"),
+        UserMessage("How machine learning works?"),
+        UserMessage("Explain class about machine learning?")
     ]
 
     for message in messages:
