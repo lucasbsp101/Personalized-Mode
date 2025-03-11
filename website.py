@@ -69,6 +69,8 @@ class Person(db.Model):
     test_2_score = db.Column(db.Integer, nullable=True)
     grade_test_1 = db.Column(db.Integer, nullable=True)
     grade_test_2 = db.Column(db.Integer, nullable=True)
+    hobbies = db.Column(db.String(500), nullable=True)
+    work = db.Column(db.String(500), nullable=True)
 
 # Analysis of comparison
 def generate_comparison_analysis(person):
@@ -98,17 +100,6 @@ def generate_comparison_analysis(person):
 
 # Think map creation
 # Função para gerar conteúdo personalizado
-# Função para validar a sintaxe mermaid
-def is_valid_mermaid_syntax(content):
-    try:
-        # Tente compilar o conteúdo mermaid usando a biblioteca graphviz
-        graphviz.Source(content)
-        return True
-    except Exception as e:
-        print(f"Erro de sintaxe mermaid: {e}")
-        return False
-
-# Função para gerar conteúdo personalizado
 def generate_custom_content(preference, base_content):
     # Configuração do cliente do modelo phi-4
     endpoint = "https://models.inference.ai.azure.com"
@@ -122,7 +113,7 @@ def generate_custom_content(preference, base_content):
 
     if preference == 'Think Map':
         # Use o modelo phi-4 para gerar o fluxograma diretamente no formato mermaid
-        prompt = f"Generate a mermaid flowchart code from the following text: {base_content}. The flowchart should represent the main concepts and their relationships. Ensure the mermaid syntax is correct. Return ONLY the mermaid code, without any additional text or explanations."
+        prompt = f"Crie um código mermaid do seguinte texto, garante todas as pontuações, elimine ```mermaid: {base_content}. O diagrama deve conter os principais conceitos. Garanta que a sintaxe esteja correta. Retorne APENAS o código mermaid."
         response = client.complete(
             messages=[UserMessage(content=prompt)],
             temperature=1.0,
@@ -130,7 +121,7 @@ def generate_custom_content(preference, base_content):
             max_tokens=1000,
             model=model_name
         )
-        mermaid_content = response.choices[0].message.content
+        mermaid_content = response.choices[0].message.content.strip()
 
         # Valide o conteúdo mermaid gerado
         if is_valid_mermaid_syntax(mermaid_content):
@@ -148,10 +139,20 @@ def generate_custom_content(preference, base_content):
             model=model_name
         )
 
-        generated_content = response.choices[0].message.content
+        generated_content = response.choices[0].message.content.strip()
         return generated_content
-
 # Think map creation
+
+# Função para validar a sintaxe mermaid
+def is_valid_mermaid_syntax(content):
+    try:
+        # Tente compilar o conteúdo mermaid usando a biblioteca graphviz
+        graphviz.Source(content)
+        return True
+    except Exception as e:
+        print(f"Erro de sintaxe mermaid: {e}")
+        return False
+# Função para validar a sintaxe mermaid
 
 
 # Page - Personal data
@@ -169,6 +170,8 @@ def index():
         phone_number = form.phone_number.data
         learning_preference = request.form['learning_preference']
         age = request.form['age']
+        hobbies = request.form['hobbies']
+        work = request.form['work']
 
         # Save data to the database
         person = Person(name=name, phone_number=phone_number, learning_preference=learning_preference, age=age)
