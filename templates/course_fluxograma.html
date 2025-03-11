@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Conceitos Básicos de IA - Fluxograma</title>
+    <title>Basic Concepts of Artificial Intelligence - Diagram</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script type="module">
+<script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         // Adiciona um pequeno atraso antes de inicializar o mermaid
         setTimeout(() => {
@@ -12,7 +12,7 @@
     </script>
 </head>
 <body>
-    <h1>Basic Concepts of Artificial Intelligence - Fluxograma</h1>
+    <h1>Basic Concepts of Artificial Intelligence - Diagram</h1>
     <div class="mermaid">
         {{ mermaid_content }}
     </div>
@@ -21,7 +21,7 @@
 
     <!-- Formulário com botão para redirecionar para a página test_2 -->
     <form action="{{ url_for('test_2', AQ1=AQ1, AQ2=AQ2) }}" method="get">
-        <button type="submit">Ir para Test 2</button>
+        <button type="submit">Go to Test 2</button>
     </form>
 
     <!-- Botões de navegação -->

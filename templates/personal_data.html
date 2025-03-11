@@ -6,8 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Welcome to the AI Course for Beginners</h1>
-    <img src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
+    <h1 class="fade-in">Welcome to the AI Course for Beginners</h1>
+    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a" class="slide-in">
     <form method="POST" action="/">
     {{ form.hidden_tag() }}
     <label for="name">Name:</label><br>

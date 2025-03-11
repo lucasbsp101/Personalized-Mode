@@ -100,7 +100,8 @@ def generate_comparison_analysis(person):
 
 # Think map creation
 # Função para gerar conteúdo personalizado
-def generate_custom_content(preference, base_content):
+
+def generate_custom_content(preference, base_content, hobbies=None, work=None):
     # Configuração do cliente do modelo phi-4
     endpoint = "https://models.inference.ai.azure.com"
     model_name = "Phi-4"
@@ -127,7 +128,21 @@ def generate_custom_content(preference, base_content):
         if is_valid_mermaid_syntax(mermaid_content):
             return mermaid_content
         else:
-            return "Erro: O conteúdo gerado não é um código mermaid válido."
+            return "Error: The generated content is not valid Mermaid code."
+    elif preference == 'Text':
+        # Personalize o conteúdo com base nos hobbies e no trabalho
+        prompt = f"Considering that the person has hobbies: {hobbies} and works with: {work}, customize the following text about AI to make it more interesting and relevant for them: {base_content}. Keep the content informative and suitable for beginners."
+
+        response = client.complete(
+            messages=[UserMessage(content=prompt)],
+            temperature=1.0,
+            top_p=1.0,
+            max_tokens=1000,
+            model=model_name
+        )
+
+        generated_content = response.choices[0].message.content.strip()
+        return generated_content
     else:
         prompt = f"Change the following text to the learning preference '{preference}': {base_content}"
 
@@ -150,7 +165,7 @@ def is_valid_mermaid_syntax(content):
         graphviz.Source(content)
         return True
     except Exception as e:
-        print(f"Erro de sintaxe mermaid: {e}")
+        print(f"Syntax error in text {e}")
         return False
 # Função para validar a sintaxe mermaid
 
@@ -170,11 +185,11 @@ def index():
         phone_number = form.phone_number.data
         learning_preference = request.form['learning_preference']
         age = request.form['age']
-        hobbies = request.form['hobbies']
-        work = request.form['work']
+        hobbies = form.hobbies.data
+        work = form.work.data
 
         # Save data to the database
-        person = Person(name=name, phone_number=phone_number, learning_preference=learning_preference, age=age)
+        person = Person(name=name, phone_number=phone_number, learning_preference=learning_preference, age=age, hobbies=hobbies, work=work)
         db.session.add(person)
         db.session.commit()
 
@@ -221,8 +236,10 @@ def course():
     AQ2 = request.args.get('AQ2')
     person = db.session.get(Person, session['person_id'])
     learning_preference = person.learning_preference
+    hobbies = person.hobbies
+    work = person.work
 
-#vERIFICAR COMO ALTERAR ESTE CONTENT MELHOR, pois colocar todo o conteudo aqui fica dificil
+#Colocar futuramente esse texto em um arquivo txt fora e melhorar
     base_content = """
     AI stands for Artificial Intelligence, a field of computer science dedicated to creating machines capable of performing tasks that would normally require human intelligence.
     There are several subgroups of AI, such as:
@@ -233,8 +250,8 @@ def course():
     AI has applications in various areas, from virtual assistants to autonomous cars.
     """
 
-    custom_content = generate_custom_content(learning_preference, base_content)
-    print("Mermaid Content:", custom_content)
+    custom_content = generate_custom_content(learning_preference, base_content, hobbies, work)
+    print("Mermaid Content:", custom_content)  # Adicione esta linha
 
     if learning_preference == 'Audio':
         return render_template('course_audio.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
@@ -242,7 +259,6 @@ def course():
         return render_template('course_fluxograma.html', AQ1=AQ1, AQ2=AQ2, mermaid_content=custom_content)
     else:
         return render_template('course.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
-
 
 # Page - test_2
 @app.route('/test_2', methods=['GET', 'POST'])
