@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from PIL import Image
 import graphviz
+import re
 
 
 #Imports PHI-4
@@ -114,15 +115,32 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
 
     if preference == 'Think Map':
         # Use o modelo phi-4 para gerar o fluxograma diretamente no formato mermaid
-        prompt = f"Crie um código mermaid do seguinte texto, garante todas as pontuações, elimine ```mermaid: {base_content}. O diagrama deve conter os principais conceitos. Garanta que a sintaxe esteja correta. Retorne APENAS o código mermaid."
+        prompt = f"""
+        Crie um código mermaid do seguinte texto: {base_content}.
+        O diagrama deve conter os principais conceitos. 
+        Garanta que a sintaxe esteja correta.
+        Retorne APENAS o código mermaid.
+        Não usar parênteses dentro de chave, ao gerar código mermaid.
+        
+        Exemplo de código mermaid:
+        graph TD
+            A[Início] --> B(Processo)
+            B --> C{{Decisão}}
+            C -- Sim --> D[Fim]
+            C -- Não --> E[Outro Processo]
+            E --> B
+        """
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=1.0,
+            temperature=0.8, # Alterando a temperatura, controla a criatividade do modelo(Menor temperatura = menor aleatoriedade)
             top_p=1.0,
             max_tokens=1000,
             model=model_name
         )
         mermaid_content = response.choices[0].message.content.strip()
+
+        # Remova os parênteses dentro das chaves
+        mermaid_content = remove_parentheses_from_braces(mermaid_content)
 
         # Valide o conteúdo mermaid gerado
         if is_valid_mermaid_syntax(mermaid_content):
@@ -135,7 +153,7 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=1.0,
+            temperature=0.8,
             top_p=1.0,
             max_tokens=1000,
             model=model_name
@@ -148,7 +166,7 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=1.0,
+            temperature=0.8,
             top_p=1.0,
             max_tokens=1000,
             model=model_name
@@ -169,6 +187,9 @@ def is_valid_mermaid_syntax(content):
         return False
 # Função para validar a sintaxe mermaid
 
+# To remove parentheses from braces
+def remove_parentheses_from_braces(mermaid_code):
+    return re.sub(r'\{\((.*?)\)\}', r'{\1}', mermaid_code)
 
 # Page - Personal data
 @app.route('/', methods=['GET', 'POST'])
@@ -245,7 +266,7 @@ def course():
     There are several subgroups of AI, such as:
     - Machine Learning
     - Artificial Neural Networks
-    - Natural Language Processing (NLP)
+    - Natural Language Processing
     - Computer Vision
     AI has applications in various areas, from virtual assistants to autonomous cars.
     """
