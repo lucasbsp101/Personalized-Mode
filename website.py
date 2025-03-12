@@ -85,7 +85,8 @@ def generate_comparison_analysis(person):
         credential=AzureKeyCredential(token),
     )
 
-    prompt = f"Compare os resultados dos testes 1 e 2 e forneça uma análise detalhada para a pessoa com as seguintes notas: Teste 1: {person.grade_test_1}, Teste 2: {person.grade_test_2}."
+    prompt = (f"Compare os resultados dos testes 1 e 2 e forneça uma análise detalhada para a pessoa com as seguintes notas: "
+              f"Teste 1: {person.grade_test_1}, Teste 2: {person.grade_test_2}.")
 
     response = client.complete(
         messages=[UserMessage(content=prompt)],
@@ -219,7 +220,7 @@ def index():
 
         return redirect(url_for('test_1'))
 
-    return render_template('personal_data.html', form=form)
+    return render_template('page_1.html', form=form)
 
 # Page - test_1
 @app.route('/test_1', methods=['GET', 'POST'])
@@ -244,7 +245,7 @@ def test_1():
         else:
             return "Form data is missing", 400
 
-    return render_template('test_1.html')
+    return render_template('page_2.html')
 
 
 # Page - course
@@ -260,26 +261,23 @@ def course():
     hobbies = person.hobbies
     work = person.work
 
-#Colocar futuramente esse texto em um arquivo txt fora e melhorar
-    base_content = """
-    AI stands for Artificial Intelligence, a field of computer science dedicated to creating machines capable of performing tasks that would normally require human intelligence.
-    There are several subgroups of AI, such as:
-    - Machine Learning
-    - Artificial Neural Networks
-    - Natural Language Processing
-    - Computer Vision
-    AI has applications in various areas, from virtual assistants to autonomous cars.
-    """
+    # Read base_content.txt from file with error handling
+    try:
+        with open('base_content.txt', 'r') as file:
+            base_content = file.read()
+    except FileNotFoundError:
+        return "Error: base_content.txt not found.", 500
+    except IOError:
+        return "Error: An error occurred while reading base_content.txt", 500
 
     custom_content = generate_custom_content(learning_preference, base_content, hobbies, work)
-    print("Mermaid Content:", custom_content)  # Adicione esta linha
+    print("Mermaid Content:", custom_content)
 
-    if learning_preference == 'Audio':
-        return render_template('course_audio.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
-    elif learning_preference == 'Think Map':
-        return render_template('course_fluxograma.html', AQ1=AQ1, AQ2=AQ2, mermaid_content=custom_content)
+
+    if learning_preference == 'Think Map':
+        return render_template('page_3.1.html', AQ1=AQ1, AQ2=AQ2, mermaid_content=custom_content)
     else:
-        return render_template('course.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
+        return render_template('page_3.html', AQ1=AQ1, AQ2=AQ2, content=custom_content)
 
 # Page - test_2
 @app.route('/test_2', methods=['GET', 'POST'])
@@ -306,7 +304,7 @@ def test_2():
         else:
             return "Form data is missing", 400
 
-    return render_template('test_2.html')
+    return render_template('page_4.html')
 
 # Page - comparison (developing...)
 @app.route('/comparison')
@@ -328,7 +326,7 @@ def comparison():
     # Gerar análise de comparação usando o modelo phi-4
     comparison_analysis = generate_comparison_analysis(person)
 
-    return render_template('comparison.html',
+    return render_template('(last_page).html',
                            test_1_score=person.test_1_score,
                            test_2_score=person.test_2_score,
                            grade_test_1=grade_test_1,
