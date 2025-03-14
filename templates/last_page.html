@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TEST RESULTS</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Test's Result</h1>
+    <p>Test 1 Score: {{ test_1_score }}</p>
+    <p>Test 1 Grade: {{ grade_test_1 }}</p>
+    <p>Test 2 Score: {{ test_2_score }}</p>
+    <p>Test 2 Grade: {{ grade_test_2 }}</p>
+
+    <h2>Comparison analysis:</h2>
+    <p>{{ comparison_analysis }}</p>
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/test_2">BACK</a>
+        <a href="/personal_data">NEXT</a>
+    </div>
+
+    <a href="/">Back to the home page</a>
+</body>
+</html>

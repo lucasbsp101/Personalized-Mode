@@ -1,0 +1,32 @@
+<!-- This page will be about Computer vision -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Course - Page {{ page_num }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>AI Course - Page {{ page_num }}</h1>
+    {% if mermaid_content %}
+        <div class="mermaid">
+            {{ mermaid_content }}
+        </div>
+    {% else %}
+        <div class="course-content">
+            {{ content }}
+        </div>
+    {% endif %}
+
+    <!-- Botão "Next" -->
+    {% if page_num < num_pages %}
+        <a href="{{ url_for('course', page_num=page_num + 1, AQ1=AQ1, AQ2=AQ2) }}">Next</a>
+    {% endif %}
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/test_1">BACK</a>
+    </div>
+    <a href="/">Back to the home page</a>
+</body>
+</html>
