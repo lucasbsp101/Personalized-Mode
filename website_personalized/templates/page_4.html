@@ -1,0 +1,44 @@
+<!-- templates/page_4.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Conhecimento</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Knowledge TEST - 2</h1>
+    <form method="POST" action="/page_4">
+        <label for="AQ3">What is AI?</label><br>
+        <input type="radio" id="ai_ai" name="AQ3" value="Artificial Intelligence" required>
+        <label for="ai_ai">Artificial Intelligence</label><br>
+        <input type="radio" id="ai_ai2" name="AQ3" value="Automated Interface" required>
+        <label for="ai_ai2">Automated Interface</label><br>
+        <input type="radio" id="ai_ai3" name="AQ3" value="Advanced Integration" required>
+        <label for="ai_ai3">Advanced Integration</label><br><br>
+
+        <label for="AQ4">Describe the subtopics of AI?</label><br>
+        <input type="radio" id="ml_ml" name="AQ4" value="Machine Learning" required>
+        <label for="ml_ml">Machine Learning</label><br>
+        <input type="radio" id="ann_ann" name="AQ4" value="Artificial Neural Networks" required>
+        <label for="ann_ann">Artificial Neural Networks</label><br>
+        <input type="radio" id="nlp_nlp" name="AQ4" value="Natural Language Processing" required>
+        <label for="nlp_nlp">Natural Language Processing</label><br>
+        <input type="radio" id="cv_cv" name="AQ4" value="Computer Vision" required>
+        <label for="cv_cv">Computer Vision</label><br><br>
+
+        <!-- Campos ocultos para AQ1 e AQ2 -->
+        <input type="hidden" name="AQ1" value="{{ AQ1 }}">
+        <input type="hidden" name="AQ2" value="{{ AQ2 }}">
+
+        <button type="submit">Send Answers</button>
+    </form>
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/page_3_2">BACK</a>
+        <a href="/last_page">NEXT</a>
+        <a href="/">Back to the home page</a>
+    </div>
+
+</body>
+</html>

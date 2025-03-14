@@ -1,0 +1,25 @@
+<!--This page will be INDEX (generic)-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Concepts of AI - INDEX</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Basic Concepts of Artificial Intelligence - INDEX</h1>
+    <ul>
+        {% for item in content %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/page_2">BACK</a>
+        <a href="/page_3_1">NEXT</a>
+    </div>
+
+    <a href="/">Back to the home page</a>
+</body>
+</html>
