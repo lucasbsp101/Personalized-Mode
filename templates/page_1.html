@@ -8,7 +8,7 @@
 <body>
     <h1 class="fade-in">Welcome to the AI Course for Beginners</h1>
     <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a" class="slide-in">
-    <form method="POST" action="/">
+    <form method="POST" action="page_1">
     {{ form.hidden_tag() }}
     <label for="name">Name:</label><br>
     {{ form.name(id="name", size=32) }}<br><br>
