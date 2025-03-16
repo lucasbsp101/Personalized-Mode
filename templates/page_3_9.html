@@ -1,0 +1,27 @@
+<!-- This page will be about Student project -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Course - Page {{ page_num }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>AI Course - Page {{ page_num }}</h1>
+    {% if mermaid_content %}
+        <div class="mermaid">
+            {{ mermaid_content }}
+        </div>
+    {% else %}
+        <div class="course-content">
+            {{ content }}
+        </div>
+
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/test_1">BACK</a>
+    </div>
+    <a href="/">Back to the home page</a>
+</body>
+</html>

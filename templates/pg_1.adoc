@@ -1,0 +1,23 @@
+=  **Welcome to the AI Course for Beginners**
+
+### Please full the below spaces with your personal information
+
+###### Obs: It's important that you copwrite the maximum details is possible, so we can know you better and help you in the best way.
+====================================================================================================
+
+- Please, tell me your complete name: <<name>>
+- How old are you budy? <<age>>
+- Tell about your Hobbies and Interests: <<hobbies>>
+- Do you work or study? Tell me about your job or your studies <<work>>
+
+
+====================================================================================================
+
+### How do you prefer to learn in this course?
+
+- [ ] More Reading and less images?
+- [ ] Less Reading and more images?
+- [ ] Reading, images and diagrams?
+
+
+

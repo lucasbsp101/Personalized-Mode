@@ -1,0 +1,47 @@
+<!-- templates/page_1.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1 class="fade-in">Welcome to the AI Course for Beginners</h1>
+    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a" class="slide-in">
+    <form method="POST" action="/">
+    {{ form.hidden_tag() }}
+    <label for="name">Name:</label><br>
+    {{ form.name(id="name", size=32) }}<br><br>
+
+    <label for="phone_number">Phone Number:</label><br>
+    {{ form.phone_number(id="phone_number", size=32) }}<br><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="hobbies">Hobbies:</label><br>
+    <textarea id="hobbies" name="hobbies" rows="4" cols="50"></textarea><br><br>
+
+    <label for="work">Work:</label><br>
+    <textarea id="work" name="work" rows="4" cols="50"></textarea><br><br>
+
+    <label for="learning_preference">Wich your easiest way to learn?</label><br>
+    <input type="radio" id="reading" name="learning_preference" value="Text" required>
+    <label for="reading">Reading</label><br>
+    <input type="radio" id="listening" name="learning_preference" value="listening" required>
+    <label for="listening">Listening(developing...)</label><br>
+    <input type="radio" id="Think_Map" name="learning_preference" value="Think Map" required>
+    <label for="Think_Map">Think Map(developing...)</label><br><br>
+
+    {{ form.submit() }}<br>
+    <br>
+
+
+</form>
+    <div>
+        <a href="/last_page">BACK</a>
+        <a href="/page_2">NEXT</a>
+    </div>
+
+</body>
+</html>

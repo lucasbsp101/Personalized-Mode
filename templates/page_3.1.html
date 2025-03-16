@@ -1,0 +1,36 @@
+    <!-- This page will be about AI -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Concepts of Artificial Intelligence - Diagram</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        // Adiciona um pequeno atraso antes de inicializar o mermaid
+        setTimeout(() => {
+            mermaid.initialize({ startOnLoad: true });
+        }, 100);
+    </script>
+</head>
+<body>
+    <h1>Basic Concepts of Artificial Intelligence - Diagram</h1>
+    <div class="mermaid">
+        {{ mermaid_content }}
+    </div>
+
+    <a href="/">Back to the home page</a>
+
+    <!-- Formulário com botão para redirecionar para a página test_2 -->
+    <form action="{{ url_for('test_2', AQ1=AQ1, AQ2=AQ2) }}" method="get">
+        <button type="submit">Go to Test 2</button>
+    </form>
+
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/test_1">BACK</a>
+        <a href="/test_2">NEXT</a>
+    </div>
+</body>
+</html>
