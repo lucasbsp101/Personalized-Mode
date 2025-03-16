@@ -237,7 +237,7 @@ def index():
         session['person_id'] = new_person.id
 
         return redirect(url_for('page_2'))
-    return render_template('page_1.html', form=form)
+    return render_template('pg_1.html', form=form)
 
 
 # TEST 1

@@ -39,41 +39,11 @@
         {{ content|safe }}
     </div>
 
-    <!-- Campo de pergunta e resposta -->
-    <h2>Make your question:</h2>
-    <form id="questionForm">
-        <label for="question">Pergunta:</label><br>
-        <textarea id="question" name="question" rows="4" cols="50" required></textarea><br><br>
-        <button type="button" onclick="askQuestion()">Send a question</button>
-    </form>
-    <h3>Answer:</h3>
-    <p id="answer"></p>
-    <div id="loading" style="display: none;">Loading...</div>
-
-
-
     <!-- Botões de navegação -->
     <div>
         <a href="/page_3">BACK</a>
         <a href="/page_3_2">NEXT</a>
     </div>
-
-    <script>
-        async function askQuestion() {
-            const question = document.getElementById('question').value;
-            document.getElementById('loading').style.display = 'block';
-            const response = await fetch('/ask_phi_4', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question: question })
-            });
-            const result = await response.json();
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('answer').innerText = result.answer;
-        }
-    </script>
 
     <a href="/">Back to the home page</a>
 

@@ -1,9 +1,7 @@
-:stylesheet: custom_styles.css
-:stylesdir: ./styles
+
 
 = Welcome to the AI Course for Beginners
 
-[custom-class]
 ### Please fill the below spaces with your personal information
 
 - Please, tell me your complete name: <<name>>
@@ -14,7 +12,7 @@
 
 ====================================================================================================
 
-### How do you prefer to learn in this course?
+###### How do you prefer to learn in this course?
 
 - [ ] More Reading and less images?
 - [ ] Less Reading and more images?
