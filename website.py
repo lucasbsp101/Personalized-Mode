@@ -372,7 +372,7 @@ def last_page():
         comparison_analysis = "Análise não disponível."
 
     return render_template(
-        'last_page.html',
+        '(last_page.html)',
         test_1_score=session.get('test_1_score', 0),
         grade_test_1=session.get('grade_test_1', 'N/A'),
         test_2_score=session.get('test_2_score', 0),

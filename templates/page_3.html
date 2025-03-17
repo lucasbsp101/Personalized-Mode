@@ -4,22 +4,77 @@
 <html>
 <head>
     <title>Basic Concepts of AI - INDEX</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_3.css') }}">
+    <style>
+        /* Animação de Fade In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px); /* Efeito de leve subida */
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Centralizar a lista */
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            list-style-type: none; /* Remove os marcadores padrão */
+            padding: 0;
+            width: 60%; /* Define uma largura para os itens */
+            margin: 0 auto; /* Centraliza a lista na página */
+        }
+
+        /* Estilo para os itens da lista */
+        li {
+            opacity: 0; /* Inicialmente invisível */
+            animation: fadeIn 1s ease-in-out forwards;
+            font-size: 1.5em; /* Aumenta a fonte */
+            padding: 10px 0; /* Espaçamento entre os itens */
+            width: 100%; /* Faz o item ocupar toda a largura do contêiner */
+            text-align: left; /* Justifica o texto */
+            display: inline-block; /* Permite que a justificação funcione corretamente */
+        }
+
+        /* Fundo branco atrás do texto */
+        .highlight {
+            background-color: white; /* Fundo branco */
+            padding: 10px 20px; /* Espaçamento interno */
+            border-radius: 8px; /* Bordas arredondadas */
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            display: inline-block; /* Faz com que o fundo branco se ajuste ao tamanho do texto */
+        }
+    </style>
 </head>
 <body>
     <h1>Basic Concepts of Artificial Intelligence - INDEX</h1>
-    <ul>
+
+    <ul id="fade-list">
         {% for item in content %}
             <li>{{ item }}</li>
         {% endfor %}
-    </ul>
+    </ul><br><br>
 
     <!-- Botões de navegação -->
     <div>
-        <a href="/page_2">BACK</a>
-        <a href="/page_3_1">NEXT</a>
+        <a href="/page_2">BACK</a><br><br>
+        <a href="/page_3_1">NEXT</a><br><br>
     </div>
 
     <a href="/">Back to the home page</a>
+
+    <script>
+        // Adiciona um delay crescente para cada item da lista
+        document.addEventListener("DOMContentLoaded", function() {
+            const listItems = document.querySelectorAll("#fade-list li");
+            listItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.3}s`; // Cada item aparece com 0.3s de diferença
+            });
+        });
+    </script>
 </body>
 </html>

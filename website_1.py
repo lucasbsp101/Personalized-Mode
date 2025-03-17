@@ -39,6 +39,7 @@ def is_image_format_correct(image_path, allowed_formats=('JPEG', 'PNG')):
 
 
 # Test result
+#repassar depois para um txt também
 def calculate_score(answers):
     correct_answers = {
         'AQ1': 'Artificial Intelligence',
@@ -211,16 +212,15 @@ def ask_phi_4():
     return jsonify({'answer': answer})
 
 
-# Rotas das paginas
-# Personal DATAS
+# ROTAS DE PÁGINAS
+# Personal DATAS - page_1 - pg_1
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = PersonalDataForm()
-    if form.validate_on_submit():
-        session['name'] = form.name.data
-        session['phone_number'] = form.phone_number.data
-        session['hobbies'] = form.hobbies.data
-        session['work'] = form.work.data
+    if request.method == 'POST':
+        session['name'] = request.form['name']
+        session['hobbies'] = request.form['hobbies']
+        session['work'] = request.form['work']
         session['learning_preference'] = request.form['learning_preference']
         session['age'] = request.form['age']
 
@@ -237,10 +237,10 @@ def index():
         session['person_id'] = new_person.id
 
         return redirect(url_for('page_2'))
-    return render_template('pg_1.html', form=form)
+    return render_template('page_1.html', form=form)
 
 
-# TEST 1
+# TEST 1 - page_2 pg_2
 @app.route('/page_2', methods=['GET', 'POST'])
 def page_2():
     if request.method == 'POST':
@@ -288,44 +288,137 @@ def page_3_1():
 # TOPIC 2
 @app.route('/page_3_2')
 def page_3_2():
-    return render_template('page_3_2.html')
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
+    return render_template('page_3_2.html', content="Conteúdo sobre Artificial Intelligence (AI)")
 
 
 # TOPIC 3
 @app.route('/page_3_3')
 def page_3_3():
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
     return render_template('page_3_3.html', content="Conteúdo sobre Machine Learning")
 
 
 # TOPIC 4
 @app.route('/page_3_4')
 def page_3_4():
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
     return render_template('page_3_4.html', page_num=4, num_pages=9, content="Conteúdo sobre Deep Learning")
 
 
 # TOPIC 5
 @app.route('/page_3_5')
 def page_3_5():
-    return render_template('page_3_5.html', page_num=5, num_pages=9,
-                           content="Conteúdo sobre Natural Language Processing")
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
+    return render_template('page_3_5.html', page_num=5, num_pages=9, content="Conteúdo sobre Natural Language Processing")
 
 
 # TOPIC 6
 @app.route('/page_3_6')
 def page_3_6():
-    return render_template('page_3_6.html', page_num=6, num_pages=9, content="Conteúdo sobre Computer Vision")
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
 
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
+    return render_template('page_3_6.html', page_num=6, num_pages=9, content="Conteúdo sobre Computer Vision")
 
 # TOPIC 7
 @app.route('/page_3_7')
 def page_3_7():
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
     return render_template('page_3_7.html', page_num=7, num_pages=9,
                            content="Conteúdo sobre Image Segmentation Architectures")
 
-
 # TOPIC 8
-# ...
+@app.route('/page_3_8')
+def page_3_8():
+    with open('base_content_1.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        content = generate_custom_content(preference, base_content, hobbies, work)
+    else:
+        content = "Dados do usuário não encontrados."
+    return render_template('page_3_8.html', page_num=7, num_pages=9,
+                           content="Conteúdo sobre GENERATIVE AI")
+
 # TOPIC 9
+#...Fazer depois
 
 # isso aqui é test_1 e ele renderiza em page_2
 # PAGE_2

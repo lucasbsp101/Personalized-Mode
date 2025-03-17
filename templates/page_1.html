@@ -3,45 +3,59 @@
 <html>
 <head>
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
+    <style>
+        /* Ajuste para inputs de rádio e labels ficarem na mesma linha */
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espaço entre input e label */
+            margin-bottom: 10px; /* Espaço entre opções */
+        }
+    </style>
 </head>
 <body>
     <h1 class="fade-in">Welcome to the AI Course for Beginners</h1>
-    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a" class="slide-in">
-    <form method="POST" action="page_1">
-    {{ form.hidden_tag() }}
-    <label for="name">Name:</label><br>
-    {{ form.name(id="name", size=32) }}<br><br>
+    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
 
-    <label for="phone_number">Phone Number:</label><br>
-    {{ form.phone_number(id="phone_number", size=32) }}<br><br>
+    <form method="POST" action="{{ url_for('index') }}">
+        {{ form.hidden_tag() }}
 
-    <label for="age">Age:</label>
-    <input type="number" id="age" name="age" required><br><br>
+        <label for="name">Please, tell me your complete name</label><br>
+        <input type="text" id="name" name="name" size="32" required><br><br>
 
-    <label for="hobbies">Hobbies:</label><br>
-    <textarea id="hobbies" name="hobbies" rows="4" cols="50"></textarea><br><br>
+        <label for="age">How old are you, buddy?</label>
+        <input type="number" id="age" name="age" required><br><br>
 
-    <label for="work">Work:</label><br>
-    <textarea id="work" name="work" rows="4" cols="50"></textarea><br><br>
+        <label for="hobbies">Tell about your Hobbies and Interests</label><br>
+        <textarea id="hobbies" name="hobbies" rows="4" cols="50"></textarea><br><br>
 
-    <label for="learning_preference">Wich your easiest way to learn?</label><br>
-    <input type="radio" id="reading" name="learning_preference" value="Text" required>
-    <label for="reading">Reading</label><br>
-    <input type="radio" id="listening" name="learning_preference" value="listening" required>
-    <label for="listening">Listening(developing...)</label><br>
-    <input type="radio" id="Think_Map" name="learning_preference" value="Think Map" required>
-    <label for="Think_Map">Think Map(developing...)</label><br><br>
+        <label for="work">Do you work or study? Tell me about your job or your studies:</label><br>
+        <textarea id="work" name="work" rows="4" cols="50"></textarea><br><br>
 
-    {{ form.submit() }}<br>
-    <br>
+        <label for="learning_preference">How do you prefer to learn in this course?</label><br>
 
+        <div class="radio-group">
+            <input type="radio" id="MoreReading" name="learning_preference" value="More Reading and less images" required>
+            <label for="MoreReading">More Reading and less images</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="LessReading" name="learning_preference" value="Less Reading and more images" required>
+            <label for="LessReading">Less Reading and more images</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="ReadingImages" name="learning_preference" value="Reading, images and diagrams" required>
+            <label for="ReadingImages">Reading, images and diagrams</label>
+        </div>
 
-</form>
+        <button type="submit">Send!</button><br>
+        <label>Please, verify your data before sending</label>
+        <br>
+    </form>
+
     <div>
         <a href="/last_page">BACK</a>
         <a href="/page_2">NEXT</a>
     </div>
-
 </body>
 </html>

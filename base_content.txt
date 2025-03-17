@@ -115,8 +115,119 @@ tasks by automatically identifying patterns and representations within data. Bel
 - [**Capsule Networks**]
 
 5- NATURAL LANGUAGE PROCESSING
+
+[**Natural language processing**]enables machines to understand, interpret and generate human-like text, allowing for seamless communication. Key components include:
+
+### Text Processing and Representation
+
+Text processing is used to manipulate and prepare textual data for analysis and text representation involves converting textual information into a format that can be efficiently processed and understood by machines. Below are the methods to process and represent text:
+
+### Text Processing
+
+- [**Tokenization**]
+- [**Stemming**]
+- [**Lemmatization**]
+- [**Stop Words Removal**]
+- [**Text Normalization**]
+- [**Part-of-Speech (POS) Tagging**]
+
+### Text Representation
+
+- [**Named Entity Recognition**]
+- [**Bag-of-Words (BoW)**]
+- [**Word Embeddings**]
+    - [**Word2Vec**]
+    - [**GloVe (Global Vectors for Word Representation)**]
+    - [**FastText**]
+    - [**ELMo (Embeddings from Language Models)**]
+    - [**Skip-grams**]
+- [**TF- IDF
+- [**Doc2Vec**]
+
+### Lexical Semantics
+
+Lexical semantics focuses on the meaning of words and their relationships within a language and explore how words convey meaning.
+
+- [**Word Sense Disambiguation**]
+- [**Semantic Similarity**]
+
+> Explore our comprehensive Natural Language Processing tutorial to gain a deeper understanding of NLP techniques, tools, and applications.
+"---TOPIC_SEPARATOR---"
+
 6- COMPUTER VISION
+
+**Computer Vision** enables machines to interpret, analyze and understand visual information from the world, much like the human visual system.
+
+### Image Processing and Transformation
+
+Image processing and transformation refer to the techniques and methods used to manipulate and enhance digital images. These processes involve applying various operations to modify the appearance, quality, or information content of an image. Here are key concepts related to image processing and transformation:
+
+- **Image Transformation**
+- **Image Enhancement**
+- **Image Sharpening**
+- **Edge Detection**
+- **Smoothing and Blurring Image**
+- **Image Denoising**
+"---TOPIC_SEPARATOR---"
+
 7- IMAGE SEGMENTATION ARCHITECTURES
+
+### Image Recognition Architectures
+
+**Image recognition** architectures are specialized models or neural network structures created for the purpose of identifying and categorizing objects within images.
+
+- **AlexNet**
+- **VGGNet**
+- **GoogleLeNet**
+- **ResNet**
+- **MobileNet**
+- **Xception**
+- **EfficientNet**
+- **DenseNet**
+"---TOPIC_SEPARATOR---"
+
 8- GENERATIVE AI
+Generative AI are creative models that are capable to generate fresh content, typically encompassing images, text, audio, or various data form. This area of AI is dedicated to producing novel and diverse outputs based on learned patterns and structures.
+
+### Image Generation Architectures
+
+Image generation architectures refer to specialized models or neural network structures crafted for the purpose of generating realistic images. These architectures utilize generative models to create visual content that is both realistic and diverse.
+
+- **Variational Autoencoders**
+- **Generative Adversarial Networks (GANs)**
+- **Conditional GAN (cGAN)**
+- **Wasserstein GAN (WGAN)**
+- Progressive GAN
+- BigGAN
+- **CycleGAN**
+- VQ-VAE-2 (Vector Quantized Variational Autoencoder)
+- **Style GANs**
+
+### Text Generation Architectures
+
+Text generation architectures refer to specialized models or neural network structures created for the purpose of generating fresh textual content. These architectures utilize generative models to produce text that is both coherent and contextually appropriate.
+
+- **Transformers**
+- **GPT (Generative Pre-trained Transformer)**
+- **BERT (Bidirectional Encoder Representations from Transformers)**
+- **T5 (Text-to-Text Transfer Transformer)**
+- CTRL (Conditional Transformer Language Model)
+- UniLM (Unified Language Model)
+
+### Audio Generation Architectures
+
+Architectures dedicated to audio generation are specialized neural network models crafted for the purpose of generating novel audio content. These structures utilize generative models to create sound sequences that are realistic.
+
+- WaveNet
+- WaveGAN
+- Tacotron2
+- EnCodec
+- AudioLM
+- Deep Voice
+
+We have navigated through the AI journey and covered interesting topics of ML, DL, computer vision (CV), generative AI and NLP. Python plays an important role in crafting of intelligent solutions with elegance and efficiency. Python AI stand at the intersection of code and intelligence.
+"---TOPIC_SEPARATOR---"
+
 9- STUDENT PROJECTS
 
+(DEVELOP AI PROJECTS)
