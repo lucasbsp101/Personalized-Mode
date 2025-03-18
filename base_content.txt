@@ -6,9 +6,9 @@
 - **Collaborative Environment**: Ensures accessibility to help, tutorials, and insights for continuous learning.
 
 **Artificial Intelligence**requires strong foundation in python and to ensure you have strong solid starting point,
-we encourage you to refer to the[**Python tutorial**]
-(https://www.geeksforgeeks.org/python-programming-language/),
+we encourage you to refer to the[**Python tutorial**],
 which serves as an invaluable resource for both beginners and seasoned developers.
+"---TOPIC_SEPARATOR---"
 
 2- AI
 **Artificial Intelligence (AI)** enables computer systems to perform tasks requiring human intelligence, such as problem-solving,
@@ -25,6 +25,7 @@ it facilitates easy debugging and more intuitive model-building process compared
 - **Scikit-Learn** is a user-friendly machine learning library that focuses in supervised and unsupervised learning.
 
 These frameworks offer versatility and scalability to empower developers and researchers to create intelligent solutions across a wide spectrum of applications.
+"---TOPIC_SEPARATOR---"
 
 3- MACHINE LEARNING
 **Machine learning**allows developers to focus on the development of algorithm and models that enable computers to learn and make predictions or decisions without being explicitly programmed.
@@ -80,6 +81,7 @@ The application includes game playing, robotics, autonomous systems. The popular
 - [**SARSA (State-Action-Reward-State-Action)**]
 ML has limitations like reliance on handcrafted features, struggles with high-dimensional unstructured data,
 and limited capacity to model complex relationships, leading to the rise of deep learning
+"---TOPIC_SEPARATOR---"
 
 4- DEEP LEARNING
 [**Deep learning**]derives inspiration from structure of human brain. The human brain consists of billions of neurons that communicate through electrochemical signals and in DL, artificial neural networks are composed of nodes that are interconnected with weights.
@@ -113,6 +115,7 @@ tasks by automatically identifying patterns and representations within data. Bel
 - [**Gated Recurrent Units Networks (GRU)**]
 - [**Autoencoders**]
 - [**Capsule Networks**]
+"---TOPIC_SEPARATOR---"
 
 5- NATURAL LANGUAGE PROCESSING
 
@@ -231,3 +234,4 @@ We have navigated through the AI journey and covered interesting topics of ML, D
 9- STUDENT PROJECTS
 
 (DEVELOP AI PROJECTS)
+"---TOPIC_SEPARATOR---"

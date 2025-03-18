@@ -126,7 +126,7 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
         credential=AzureKeyCredential(token),
     )
 
-    if preference == 'Think Map':
+    if preference == 'Reading, images and diagrams':
         prompt = f"""
         Crie um código mermaid do seguinte texto: {base_content}.
         O diagrama deve conter os principais conceitos. 
@@ -144,7 +144,7 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
         """
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=0.8,
+            temperature=1.0,
             top_p=1.0,
             max_tokens=1000,
             model=model_name
@@ -157,12 +157,12 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
             return mermaid_content
         else:
             return "Error: The generated content is not valid Mermaid code."
-    elif preference == 'Text':
+    elif preference == 'Less Reading and more images':
         prompt = f"Considerando que a pessoa tem hobbies: {hobbies} e trabalha com: {work}, customize o seguinte texto sobre AI para torná-lo mais interessante e relevante para eles: {base_content}. Mantenha o conteúdo informativo e adequado para iniciantes."
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=0.8,
+            temperature=1.0,
             top_p=1.0,
             max_tokens=1000,
             model=model_name
@@ -175,7 +175,7 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=0.8,
+            temperature=1.0,
             top_p=1.0,
             max_tokens=1000,
             model=model_name
@@ -211,9 +211,26 @@ def ask_phi_4():
     answer = response.choices[0].message.content.strip()
     return jsonify({'answer': answer})
 
+# Função para dividir o conteúdo por tópicos
+def load_topics(filename="base_content.txt"):
+    with open(filename, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    topics = content.split("---TOPIC_SEPARATOR---")
+    topic_dict = {}
+
+    for topic in topics:
+        lines = topic.strip().split("\n", 1)  # Divide pelo título e conteúdo
+        if len(lines) > 1:
+            title, body = lines
+            topic_dict[title.strip()] = body.strip()
+
+    return topic_dict
+
+TOPICS = load_topics()
 
 # ROTAS DE PÁGINAS
-# Personal DATAS - page_1 - pg_1
+# Personal DATAS - page_1
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = PersonalDataForm()
@@ -269,17 +286,29 @@ def page_3():
 # TOPIC 1
 @app.route('/page_3_1')
 def page_3_1():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_1_content = extract_topic_content(base_content, 1)
+
+        if topic_1_content:
+            content = generate_custom_content(preference, topic_1_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
     return render_template('page_3_1.html', content=content)
@@ -288,137 +317,242 @@ def page_3_1():
 # TOPIC 2
 @app.route('/page_3_2')
 def page_3_2():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 2)  # Get topic 2 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_2.html', content="Conteúdo sobre Artificial Intelligence (AI)")
+    return render_template('page_3_2.html', content=content)
 
 
-# TOPIC 3
 @app.route('/page_3_3')
 def page_3_3():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 3)  # Get topic 3 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_3.html', content="Conteúdo sobre Machine Learning")
+    return render_template('page_3_3.html', content=content)
 
 
-# TOPIC 4
 @app.route('/page_3_4')
 def page_3_4():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 4)  # Get topic 4 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_4.html', page_num=4, num_pages=9, content="Conteúdo sobre Deep Learning")
+    return render_template('page_3_4.html', content=content)
 
 
-# TOPIC 5
 @app.route('/page_3_5')
 def page_3_5():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 5)  # Get topic 5 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_5.html', page_num=5, num_pages=9, content="Conteúdo sobre Natural Language Processing")
+    return render_template('page_3_5.html', content=content)
 
 
-# TOPIC 6
 @app.route('/page_3_6')
 def page_3_6():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 6)  # Get topic 6 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_6.html', page_num=6, num_pages=9, content="Conteúdo sobre Computer Vision")
+    return render_template('page_3_6.html', content=content)
 
-# TOPIC 7
+
 @app.route('/page_3_7')
 def page_3_7():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 7)  # Get topic 7 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_7.html', page_num=7, num_pages=9,
-                           content="Conteúdo sobre Image Segmentation Architectures")
+    return render_template('page_3_7.html', content=content)
 
-# TOPIC 8
+
 @app.route('/page_3_8')
 def page_3_8():
-    with open('base_content_1.txt', 'r') as f:
+    with open('base_content.txt', 'r') as f:
         base_content = f.read()
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
 
     if person:
         preference = person.learning_preference
         hobbies = person.hobbies
         work = person.work
 
-        content = generate_custom_content(preference, base_content, hobbies, work)
+        topic_content = extract_topic_content(base_content, 8)  # Get topic 8 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
     else:
         content = "Dados do usuário não encontrados."
-    return render_template('page_3_8.html', page_num=7, num_pages=9,
-                           content="Conteúdo sobre GENERATIVE AI")
+    return render_template('page_3_8.html', content=content)
 
 # TOPIC 9
-#...Fazer depois
+@app.route('/page_3_9')
+def page_3_9():
+    with open('base_content.txt', 'r') as f:
+        base_content = f.read()
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id)
+
+    def extract_topic_content(base_content, topic_number):
+        topics = base_content.split('---TOPIC_SEPARATOR---')
+        if 1 <= topic_number <= len(topics):
+            return topics[topic_number - 1].strip()
+        else:
+            return None
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        topic_content = extract_topic_content(base_content, 9)  # Get topic 9 content
+
+        if topic_content:
+            content = generate_custom_content(preference, topic_content, hobbies, work)
+        else:
+            content = "Tópico não encontrado."
+    else:
+        content = "Dados do usuário não encontrados."
+    return render_template('page_3_9.html', content=content)
 
 # isso aqui é test_1 e ele renderiza em page_2
 # PAGE_2

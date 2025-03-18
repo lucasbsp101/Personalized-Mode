@@ -1,4 +1,5 @@
 <!-- templates/page_1.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +13,27 @@
             gap: 8px; /* Espaço entre input e label */
             margin-bottom: 10px; /* Espaço entre opções */
         }
+        /* Estilo para o vídeo */
+        .video-container {
+            margin-top: 20px; /* Adiciona espaço acima do vídeo */
+            text-align: center; /* Centraliza o vídeo */
+        }
+        video {
+            max-width: 100%; /* Garante que o vídeo não ultrapasse a largura do container */
+            height: auto;
+        }
     </style>
 </head>
 <body>
     <h1 class="fade-in">Welcome to the AI Course for Beginners</h1>
     <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
+
+    <div class="video-container">
+        <video autoplay loop muted playsinline width="640" height="360">
+            <source src="{{ url_for('static', filename='videos/b.mp4') }}" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+    </div>
 
     <form method="POST" action="{{ url_for('index') }}">
         {{ form.hidden_tag() }}
@@ -41,11 +58,11 @@
         </div>
         <div class="radio-group">
             <input type="radio" id="LessReading" name="learning_preference" value="Less Reading and more images" required>
-            <label for="LessReading">Less Reading and more images</label>
+            <label for="LessReading">Less Reading and more images(TESTE)</label>
         </div>
         <div class="radio-group">
             <input type="radio" id="ReadingImages" name="learning_preference" value="Reading, images and diagrams" required>
-            <label for="ReadingImages">Reading, images and diagrams</label>
+            <label for="ReadingImages">Reading, images and diagrams(developing..)</label>
         </div>
 
         <button type="submit">Send!</button><br>

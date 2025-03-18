@@ -3,25 +3,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Course - Page {{ page_num }}</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Basic Concepts of AI - STUDENT'S PROJECTS</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
+     <style>
+        .course-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .course-content h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .course-content p {
+            line-height: 1.8;
+            color: #555;
+        }
+        .course-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .course-content li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>AI Course - Page {{ page_num }}</h1>
-    {% if mermaid_content %}
-        <div class="mermaid">
-            {{ mermaid_content }}
-        </div>
-    {% else %}
-        <div class="course-content">
-            {{ content }}
-        </div>
-
+    <div class="course-content">
+        <h1>Basic Concepts of Artificial Intelligence - STUDENT'S PROJECTS (developing... )</h1>
+        <!-- PROJETO ALUNO para download -->
+    </div>
 
     <!-- Botões de navegação -->
-    <div>
-        <a href="/test_1">BACK</a>
+     <div>
+        <a href="/page_3_8">BACK</a>
     </div>
+
     <a href="/">Back to the home page</a>
+
+<!-- Formulário com botão para redirecionar para a página 4 -->
+    <form action="{{ url_for('page_4') }}" method="get">
+        <button type="submit">Go to Final TEST</button>
+    </form>
+
 </body>
 </html>
