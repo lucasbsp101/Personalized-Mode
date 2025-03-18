@@ -6,31 +6,46 @@
     <title>Home Page</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
     <style>
-        /* Ajuste para inputs de rádio e labels ficarem na mesma linha */
-        .radio-group {
-            display: flex;
-            align-items: center;
-            gap: 8px; /* Espaço entre input e label */
-            margin-bottom: 10px; /* Espaço entre opções */
-        }
-        /* Estilo para o vídeo */
-        .video-container {
-            margin-top: 20px; /* Adiciona espaço acima do vídeo */
-            text-align: center; /* Centraliza o vídeo */
-        }
-        video {
-            max-width: 100%; /* Garante que o vídeo não ultrapasse a largura do container */
-            height: auto;
-        }
+        /* Estilos para o vídeo ocupar a tela inteira */
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1; /* Garante que o vídeo fique atrás do conteúdo */
+    }
+    video {
+        min-width: 90%;
+        min-height: 90%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    /* Ajuste para inputs de rádio e labels ficarem na mesma linha */
+    .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 8px; /* Espaço entre input e label */
+        margin-bottom: 10px; /* Espaço entre opções */
+    }
     </style>
 </head>
 <body>
-    <h1 class="fade-in">Welcome to the AI Course for Beginners</h1>
+    <h1 class="fade-in" style="background-color: #f0f0f0;" >Welcome to the AI Course for Beginners</h1>
     <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
 
     <div class="video-container">
         <video autoplay loop muted playsinline width="640" height="360">
-            <source src="{{ url_for('static', filename='videos/b.mp4') }}" type="video/mp4">
+            <source src="{{ url_for('static', filename='videos/a.mp4') }}" type="video/mp4">
         </video>
     </div>
 

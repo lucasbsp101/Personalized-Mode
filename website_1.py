@@ -164,7 +164,9 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
         else:
             return "Error: The generated content is not valid Mermaid code."
     elif preference == 'Less Reading and more images':
-        prompt = f"Considerando que a pessoa tem hobbies: {hobbies} e trabalha com: {work}, customize o seguinte texto sobre AI para torná-lo mais interessante e relevante para eles: {base_content}. Mantenha o conteúdo informativo e adequado para iniciantes."
+        prompt = (f"Considerando que a pessoa tem hobbies: {hobbies} e trabalha com: {work}, customize o seguinte texto sobre AI para torná-lo mais interessante e relevante para o aluno: "
+                  f"{base_content}. "
+                  f"Mantenha o conteúdo informativo e adequado para iniciantes. Desenvolva ao menos 500 palavras.")
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
@@ -272,15 +274,9 @@ def page_2():
         }
         session['test_1_score'] = calculate_score(answers)
 
-        # Determine the grade for test 2
-        if session['test_1_score'] == 4:
-            session['grade_test_1'] = 'A'
-        elif session['test_1_score'] == 3:
-            session['grade_test_1'] = 'B'
-        elif session['test_1_score'] == 2:
-            session['grade_test_1'] = 'C'
-        else:
-            session['grade_test_1'] = 'D'
+        # Determine the grade for test 1
+        total_questions = 2  # total de questões
+        session['grade_test_1'] = round(((10 / total_questions) * session['test_1_score']))
 
         person_id = session.get('person_id')
         person = db.session.get(Person, person_id)
@@ -585,14 +581,9 @@ def page_4():
         session['test_2_score'] = calculate_score(answers)
 
         # Determine the grade for test 2
-        if session['test_2_score'] == 4:
-            session['grade_test_2'] = 'A'
-        elif session['test_2_score'] == 3:
-            session['grade_test_2'] = 'B'
-        elif session['test_2_score'] == 2:
-            session['grade_test_2'] = 'C'
-        else:
-            session['grade_test_2'] = 'D'
+        # replace lines 589 to 596
+        total_questions = 2  # total de questões
+        session['grade_test_2'] = round(((10 / total_questions) * session['test_2_score']))
 
         person_id = session.get('person_id')
         person = db.session.get(Person, person_id)
