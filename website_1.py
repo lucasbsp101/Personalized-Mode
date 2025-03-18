@@ -28,7 +28,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-
 # Image processing
 def is_image_format_correct(image_path, allowed_formats=('JPEG', 'PNG')):
     try:
@@ -36,7 +35,6 @@ def is_image_format_correct(image_path, allowed_formats=('JPEG', 'PNG')):
             return img.format in allowed_formats
     except IOError:
         return False
-
 
 # Test result
 #repassar depois para um txt também
@@ -49,7 +47,6 @@ def calculate_score(answers):
     }
     score = sum(1 for key, value in answers.items() if value == correct_answers[key])
     return score
-
 
 # Model for the people table
 class Person(db.Model):
@@ -69,6 +66,15 @@ class Person(db.Model):
     hobbies = db.Column(db.String(500), nullable=True)
     work = db.Column(db.String(500), nullable=True)
 
+# TEST 1
+@app.route('/test_1', methods=['GET', 'POST'])
+def test_1():
+    return render_template('page_2.html', AQ1=session.get('AQ1'), AQ2=session.get('AQ2'))
+
+# TEST 2
+@app.route('/test_2', methods=['GET', 'POST'])
+def test_2():
+    return render_template('page_4.html', AQ3=session.get('AQ3'), AQ4=session.get('AQ4'))
 
 # Analysis of comparison
 def generate_comparison_analysis(person):
@@ -256,24 +262,38 @@ def index():
         return redirect(url_for('page_2'))
     return render_template('page_1.html', form=form)
 
-
-# TEST 1 - page_2 pg_2
+# TEST 1 - page_2
 @app.route('/page_2', methods=['GET', 'POST'])
 def page_2():
     if request.method == 'POST':
-        session['AQ1'] = request.form['AQ1']
-        session['AQ2'] = request.form['AQ2']
+        answers = {
+            'AQ1': request.form['AQ1'],
+            'AQ2': request.form['AQ2']
+        }
+        session['test_1_score'] = calculate_score(answers)
+
+        # Determine the grade for test 2
+        if session['test_1_score'] == 4:
+            session['grade_test_1'] = 'A'
+        elif session['test_1_score'] == 3:
+            session['grade_test_1'] = 'B'
+        elif session['test_1_score'] == 2:
+            session['grade_test_1'] = 'C'
+        else:
+            session['grade_test_1'] = 'D'
+
         person_id = session.get('person_id')
         person = db.session.get(Person, person_id)
 
         if person:
-            person.AQ1 = session['AQ1']
-            person.AQ2 = session['AQ2']
+            person.AQ1 = answers['AQ1']
+            person.AQ2 = answers['AQ2']
+            person.test_1_score = session['test_1_score']
+            person.grade_test_1 = session['grade_test_1']
             db.session.commit()
 
-        return redirect(url_for('page_3'))
-    return render_template('page_2.html')
-
+        return render_template('page_2.html', AQ1=session.get('AQ1'), AQ2=session.get('AQ2'))
+    return render_template('page_2.html', AQ1=session.get('AQ1'), AQ2=session.get('AQ2'))
 
 # INDEX
 @app.route('/page_3')
@@ -554,35 +574,15 @@ def page_3_9():
         content = "Dados do usuário não encontrados."
     return render_template('page_3_9.html', content=content)
 
-# isso aqui é test_1 e ele renderiza em page_2
-# PAGE_2
-@app.route('/test_1', methods=['GET', 'POST'])
-def test_1():
-    return render_template('page_2.html', AQ1=session.get('AQ1'), AQ2=session.get('AQ2'))
-
-
-# Aqui ele diz que pg 4 é test_2
+# TEST 2
 @app.route('/page_4', methods=['GET', 'POST'])
 def page_4():
     if request.method == 'POST':
         answers = {
-            'AQ1': request.form['AQ1'],
-            'AQ2': request.form['AQ2'],
             'AQ3': request.form['AQ3'],
             'AQ4': request.form['AQ4']
         }
-        session['test_1_score'] = calculate_score(answers)
         session['test_2_score'] = calculate_score(answers)
-
-        # Determine the grade for test 1
-        if session['test_1_score'] == 4:
-            session['grade_test_1'] = 'A'
-        elif session['test_1_score'] == 3:
-            session['grade_test_1'] = 'B'
-        elif session['test_1_score'] == 2:
-            session['grade_test_1'] = 'C'
-        else:
-            session['grade_test_1'] = 'D'
 
         # Determine the grade for test 2
         if session['test_2_score'] == 4:
@@ -598,19 +598,14 @@ def page_4():
         person = db.session.get(Person, person_id)
 
         if person:
-            person.AQ1 = answers['AQ1']
-            person.AQ2 = answers['AQ2']
-            person.AQ3 = answers['AQ3']  # Salvar AQ3
-            person.AQ4 = answers['AQ4']  # Salvar AQ4
-            person.test_1_score = session['test_1_score']
+            person.AQ3 = answers['AQ3']
+            person.AQ4 = answers['AQ4']
             person.test_2_score = session['test_2_score']
-            person.grade_test_1 = session['grade_test_1']
             person.grade_test_2 = session['grade_test_2']
             db.session.commit()
 
-        return redirect(url_for('last_page'))
-    return render_template('page_4.html', AQ1=session.get('AQ1'), AQ2=session.get('AQ2'))
-
+        return render_template('page_4.html', AQ3=session.get('AQ3'), AQ4=session.get('AQ4'))
+    return render_template('page_4.html', AQ3=session.get('AQ3'), AQ4=session.get('AQ4'))
 
 @app.route('/last_page')
 def last_page():
@@ -630,11 +625,9 @@ def last_page():
         comparison_analysis=comparison_analysis
     )
 
-
 @app.route('/personal_data')
 def personal_data():
     return render_template('personal_data.html')
-
 
 @app.route('/course_topic/<int:topic_num>')
 def course_topic(topic_num):
@@ -655,7 +648,6 @@ def course_topic(topic_num):
                                content=template_data['content'])
     else:
         return "Página não encontrada", 404
-
 
 if __name__ == '__main__':
     app.run(debug=True)
