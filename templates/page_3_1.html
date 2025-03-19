@@ -1,6 +1,5 @@
     <!-- This page will be about Python and AI -->
 
-<!-- templates/page_3_1.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,17 +33,17 @@
     </style>
 </head>
 <body>
+    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
     <div class="course-content">
         <h1>Basic Concepts of Artificial Intelligence - Python and AI</h1>
         {{ content|safe }}
     </div>
-
     <!-- Botões de navegação -->
     <div>
         <a href="/page_3">BACK</a>
     </div>
-
     <a href="/">Back to the home page</a>
+    <!-- Botões de navegação -->
 
     <!-- Formulário com botão para redirecionar para a página 3_1 -->
     <form action="{{ url_for('page_3_2') }}" method="get">

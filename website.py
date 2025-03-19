@@ -1,3 +1,5 @@
+#VERSÃO 1
+
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from forms import PersonalDataForm
 import sqlite3
@@ -202,6 +204,7 @@ def ask_phi_4():
     return jsonify({'answer': answer})
 
 #Rotas das paginas
+
 #Personal DATAS
 @app.route('/', methods=['GET', 'POST'])
 def index():

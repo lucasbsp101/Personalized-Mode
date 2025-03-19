@@ -1,224 +1,225 @@
-1-PYTHON AND AI
-**Python**provides a clear and readable syntax hence provides a smooth path to learn and build intelligent models without complex code structures.
-
-- **Rich Ecosystem**: Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
-- **Strong Community Support**: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.
-- **Collaborative Environment**: Ensures accessibility to help, tutorials, and insights for continuous learning.
-
-**Artificial Intelligence**requires strong foundation in python and to ensure you have strong solid starting point,
-we encourage you to refer to the[**Python tutorial**],
-which serves as an invaluable resource for both beginners and seasoned developers.
+1-PYTHON AND AI OK
+What is Python and why is it important for Artificial Intelligence?
+---
+First, let's discover what Python is and why it is so important for artificial intelligence.
+Python is a high-level, interpreted, object-oriented, and dynamically-typed programming language.
+It is one of the most popular languages for artificial intelligence (AI) development due to its simplicity and ease of use.
+Python provides a clear and readable syntax,
+thus offering a smooth path to learn and build intelligent models without complex code structures.
+---
+Why python for AI?
+Python offers a rich ecosystem with extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn)
+tailored for AI and machine learning. Additionally, it has strong community support,
+consisting of a large and active community of AI enthusiasts, researchers,
+and developers who share knowledge and resources. The collaborative environment ensures accessibility to help,
+tutorials, and insights for continuous learning.
+----
+Artificial Intelligence requires strong foundation in python, but this course will teach you the
+basics of AI concepts, assuming you have a basic understanding, or zero of python programming.
 "---TOPIC_SEPARATOR---"
 
-2- AI
-**Artificial Intelligence (AI)** enables computer systems to perform tasks requiring human intelligence, such as problem-solving,
+2- AI OK
+Artificial Intelligence (AI) enables computer systems to perform tasks requiring human intelligence, such as problem-solving,
 decision-making, and image generation. Its goal is to replicate human-like cognitive functions,
 allowing machines to handle complex tasks and adapt to changing conditions.
 AI subsets include machine learning (ML), deep learning (DL),
 natural language processing, computer vision, robotics, and generative AI.
 
 To develop these complex models, we leverage python frameworks like:
-
-- **TensorFlow** is developed by Google Brain teams, it provides a comprehensive set of tools to build and train the neural networks.
-- **PyTorch** is a framework that is developed by Facebook's AI Research lab (FAIR),
+- TensorFlow is developed by Google Brain teams, it provides a comprehensive set of tools to build and train the neural networks.
+- PyTorch is a framework that is developed by Facebook's AI Research lab (FAIR),
 it facilitates easy debugging and more intuitive model-building process compared to static graphs.
-- **Scikit-Learn** is a user-friendly machine learning library that focuses in supervised and unsupervised learning.
+- Scikit-Learn is a user-friendly machine learning library that focuses in supervised and unsupervised learning.
 
 These frameworks offer versatility and scalability to empower developers and researchers to create intelligent solutions across a wide spectrum of applications.
+
 "---TOPIC_SEPARATOR---"
 
-3- MACHINE LEARNING
-**Machine learning**allows developers to focus on the development of algorithm and models that enable computers to learn and make predictions or decisions without being explicitly programmed.
+3- MACHINE LEARNING OK
+Machine learning allows developers to focus on the development of algorithm and models that enable
+computers to learn and make predictions or decisions without being explicitly programmed.
 
 There are three types of machine learning techniques:
-### 1. Supervised Learning
+1. Supervised Learning
 
-In**supervised learning**, the algorithm is trained on a labeled dataset, where each input is paired with its corresponding output.
+In supervised learning**, the algorithm is trained on a labeled dataset, where each input is paired with its corresponding output.
 
-###Regression Algorithms
+Regression Algorithms
 
-- [**Linear Regression**](https://www.geeksforgeeks.org/ml-linear-regression/)
-- [**Polynomial Regression**](https://www.geeksforgeeks.org/python-implementation-of-polynomial-regression/)
-- [**Support Vector Regression (SVR)**](https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/)
+- Linear Regression
+- Polynomial Regression
+- Support Vector Regression (SVR)*
 
-###Classification Algorithm
+Classification Algorithm
 
-- [**Logistic Regression**](https://www.geeksforgeeks.org/understanding-logistic-regression/)
-- [**Decision trees**](https://www.geeksforgeeks.org/decision-tree/)
-- [**Ensemble Classifiers**](https://www.geeksforgeeks.org/ensemble-classifier-data-mining/)
-- [**Support Vector Machines (SVM)**](https://www.geeksforgeeks.org/support-vector-machine-algorithm/)
-- [**k-Nearest Neighbors (kNN)**](https://www.geeksforgeeks.org/k-nearest-neighbours/)
-- [**Naive Bayes**](https://www.geeksforgeeks.org/naive-bayes-classifiers/)
+- Logistic Regression
+- Decision trees
+- Ensemble Classifiers
+- Support Vector Machines (SVM)
+- Naive Bayes
 
-### Unsupervised Learning
+Unsupervised Learning
 
-In[**unsupervised learning**](https://www.geeksforgeeks.org/unsupervised-learning/), the algorithm is provided unlabeled data and is tasked with finding patterns or relationships within it. The goal of the algorithm is to inherent structures or groups in the data.
+In unsupervised learning, the algorithm is provided unlabeled data and is tasked with finding patterns or relationships within it.
+The goal of the algorithm is to inherent structures or groups in the data.
 
-### Clustering Algorithms
+Clustering Algorithms
 
-- [**K-means**](https://www.geeksforgeeks.org/k-means-clustering-introduction/)
-- [**Hierarchical Clustering**](https://www.geeksforgeeks.org/ml-hierarchical-clustering-agglomerative-and-divisive-clustering/)
-- [**DBSCAN**](https://www.geeksforgeeks.org/dbscan-clustering-in-ml-density-based-clustering/)
+- K-means
+- Hierarchical Clustering**]
+- DBSCAN
 
-### Dimensionality Reduction
+Dimensionality Reduction
 
-- [**Principal Component Analysis (PCA)**](https://www.geeksforgeeks.org/principal-component-analysis-pca/)
-- [**t-Distributed Stochastic Neighbor Embedding (t-SNE)**](https://www.geeksforgeeks.org/ml-t-distributed-stochastic-neighbor-embedding-t-sne-algorithm/)
-- [**Linear Discriminant Analysis (LDA)**](https://www.geeksforgeeks.org/ml-linear-discriminant-analysis/)
+- Principal Component Analysis (PCA)
+- t-Distributed Stochastic Neighbor Embedding (t-SNE)
+- Linear Discriminant Analysis (LDA)
 
-### Reinforcement Learning
+Reinforcement Learning
 
-In[**reinforcement learning**](https://www.geeksforgeeks.org/what-is-reinforcement-learning/), the algorithm learns by interacting with an environment and receiving feedback in the form of rewards or penalties. The goal of the algorithm is to discover optimal strategies or actions to maximize cumulative rewards over time.
+In reinforcement learning, the algorithm learns by interacting with an environment and receiving feedback in the form of rewards or penalties.
+The goal of the algorithm is to discover optimal strategies or actions to maximize cumulative rewards over time.
 
 The application includes game playing, robotics, autonomous systems. The popular reinforcement learning algorithms are:
 
-- [**Q-learning**]
-- [**Model Based Reinforcement Learning**]
-- [**Deep Q Network (DQN)**]
-- [**REINFORCE**]
-- [**Actor Critic**]
-- [**Monte Carlo Policy Evaluation**]
-- [**SARSA (State-Action-Reward-State-Action)**]
+- Q-learning
+- Model Based Reinforcement Learning
+- Deep Q Network (DQN)
+- REINFORCE
+- Actor Critic
+- Monte Carlo Policy Evaluation
+- SARSA (State-Action-Reward-State-Action)
 ML has limitations like reliance on handcrafted features, struggles with high-dimensional unstructured data,
 and limited capacity to model complex relationships, leading to the rise of deep learning
 "---TOPIC_SEPARATOR---"
 
 4- DEEP LEARNING
-[**Deep learning**]derives inspiration from structure of human brain. The human brain consists of billions of neurons that communicate through electrochemical signals and in DL, artificial neural networks are composed of nodes that are interconnected with weights.
+Deep learning derives inspiration from structure of human brain.
+The human brain consists of billions of neurons that communicate through electrochemical signals and in DL,
+artificial neural networks are composed of nodes that are interconnected with weights.
 
-###Fundamentals of Deep Learning
-
-To understand basic neural network, we need to build a solid groundwork for mastering deep learning using the following fundamentals:
-
-- [**Gradient Descent Algorithm**]
-- [**Backpropagation**]
+Fundamentals of Deep Learning
+To understand basic neural network, we need to build a solid groundwork for mastering deep learning using
+the following fundamentals:
+- Gradient Descent Algorithm
+- Backpropagation
 - Hyperparameters
-    - [**Activation Functions**]
-    - [**Epochs**]
-    - [**Optimizers**]
-    - [**Batch Size**]
-    - [**Learning rate**]
-- [**Loss Functions**]
+    - Activation Functions
+    - Epochs
+    - Optimizers
+    - Batch Size
+    - Learning rate
+- Loss Functions
 
-###Deep Learning Architecture
-
+Deep Learning Architecture
 Deep learning architectures are structured neural network models designed to facilitate complex learning
-tasks by automatically identifying patterns and representations within data. Below are foundational structures in deep learning:
-
-- [**Perceptron**]
-- [**Feedforward Neural Networks (FNN)**]
-- [**Multi-Layer Perceptron**]
-- [**Artificial Neural Networks (ANNs)**]
-- [**Convolutional Neural Networks (CNN)**]
-- [**Recurrent Neural Networks (RNNs)**]
-- [**Long Short-Term Memory (LSTM) networks**]
-- [**Gated Recurrent Units Networks (GRU)**]
-- [**Autoencoders**]
-- [**Capsule Networks**]
+tasks by automatically identifying patterns and representations within data.
+Below are foundational structures in deep learning:
+- Perceptron
+- Feedforward Neural Networks (FNN)
+- Multi-Layer Perceptron
+- Artificial Neural Networks (ANNs)
+- Convolutional Neural Networks (CNN)
+- Recurrent Neural Networks (RNNs)
+- Long Short-Term Memory (LSTM) networks
+- Gated Recurrent Units Networks (GRU)
+- Autoencoders
+- Capsule Networks
 "---TOPIC_SEPARATOR---"
 
 5- NATURAL LANGUAGE PROCESSING
+Natural language processing (NLP) enables machines to understand, interpret, and generate human-like text, allowing for seamless communication. Key components include:
+Next Processing and Representation
+Text processing is used to manipulate and prepare textual data for analysis and text representation involves
+converting textual information into a format that can be efficiently processed and understood by machines.
+Below are the methods to process and represent text:
+- Tokenization
+- Stemming
+- Lemmatization
+- Stop Words Removal
+- Text Normalization
+- Part-of-Speech (POS) Tagging
 
-[**Natural language processing**]enables machines to understand, interpret and generate human-like text, allowing for seamless communication. Key components include:
+Text Representation
 
-### Text Processing and Representation
+- Named Entity Recognition
+- Bag-of-Words (BoW)
+- Word Embeddings
+    - Word2Vec
+    - GloVe (Global Vectors for Word Representation)
+    - FastText
+    - ELMo (Embeddings from Language Models)
+    - Skip-grams
+- TF- IDF
+- Doc2Vec
 
-Text processing is used to manipulate and prepare textual data for analysis and text representation involves converting textual information into a format that can be efficiently processed and understood by machines. Below are the methods to process and represent text:
-
-### Text Processing
-
-- [**Tokenization**]
-- [**Stemming**]
-- [**Lemmatization**]
-- [**Stop Words Removal**]
-- [**Text Normalization**]
-- [**Part-of-Speech (POS) Tagging**]
-
-### Text Representation
-
-- [**Named Entity Recognition**]
-- [**Bag-of-Words (BoW)**]
-- [**Word Embeddings**]
-    - [**Word2Vec**]
-    - [**GloVe (Global Vectors for Word Representation)**]
-    - [**FastText**]
-    - [**ELMo (Embeddings from Language Models)**]
-    - [**Skip-grams**]
-- [**TF- IDF
-- [**Doc2Vec**]
-
-### Lexical Semantics
+Lexical Semantics
 
 Lexical semantics focuses on the meaning of words and their relationships within a language and explore how words convey meaning.
 
-- [**Word Sense Disambiguation**]
-- [**Semantic Similarity**]
+- Word Sense Disambiguation
+- Semantic Similarity
 
 > Explore our comprehensive Natural Language Processing tutorial to gain a deeper understanding of NLP techniques, tools, and applications.
 "---TOPIC_SEPARATOR---"
 
 6- COMPUTER VISION
 
-**Computer Vision** enables machines to interpret, analyze and understand visual information from the world, much like the human visual system.
+Computer Vision enables machines to interpret, analyze and understand visual information from the world, much like the human visual system.
 
-### Image Processing and Transformation
-
+Image Processing and Transformation
 Image processing and transformation refer to the techniques and methods used to manipulate and enhance digital images. These processes involve applying various operations to modify the appearance, quality, or information content of an image. Here are key concepts related to image processing and transformation:
 
-- **Image Transformation**
-- **Image Enhancement**
-- **Image Sharpening**
-- **Edge Detection**
-- **Smoothing and Blurring Image**
-- **Image Denoising**
+- Image Transformation
+- Image Enhancement
+- Image Sharpening
+- Edge Detection
+- Smoothing and Blurring Image
+- Image Denoising
 "---TOPIC_SEPARATOR---"
 
-7- IMAGE SEGMENTATION ARCHITECTURES
+Image segmentation Architectures
+Image Recognition Architectures
 
-### Image Recognition Architectures
+Image recognition architectures are specialized models or neural network structures created for the purpose of identifying and categorizing objects within images.
 
-**Image recognition** architectures are specialized models or neural network structures created for the purpose of identifying and categorizing objects within images.
-
-- **AlexNet**
-- **VGGNet**
-- **GoogleLeNet**
-- **ResNet**
-- **MobileNet**
-- **Xception**
-- **EfficientNet**
-- **DenseNet**
+- AlexNet
+- VGGNet
+- GoogleLeNet
+- ResNet
+- MobileNet
+- Xception
+- EfficientNet
+- DenseNet
 "---TOPIC_SEPARATOR---"
 
-8- GENERATIVE AI
+7- GENERATIVE AI
 Generative AI are creative models that are capable to generate fresh content, typically encompassing images, text, audio, or various data form. This area of AI is dedicated to producing novel and diverse outputs based on learned patterns and structures.
 
-### Image Generation Architectures
-
+Image Generation Architectures
 Image generation architectures refer to specialized models or neural network structures crafted for the purpose of generating realistic images. These architectures utilize generative models to create visual content that is both realistic and diverse.
 
-- **Variational Autoencoders**
-- **Generative Adversarial Networks (GANs)**
-- **Conditional GAN (cGAN)**
-- **Wasserstein GAN (WGAN)**
+- Variational Autoencoders
+- Generative Adversarial Networks (GANs)
+- Conditional GAN (cGAN)
+- Wasserstein GAN (WGAN)
 - Progressive GAN
 - BigGAN
-- **CycleGAN**
+- CycleGAN
 - VQ-VAE-2 (Vector Quantized Variational Autoencoder)
-- **Style GANs**
+- Style GANs
 
-### Text Generation Architectures
-
+Text Generation Architectures
 Text generation architectures refer to specialized models or neural network structures created for the purpose of generating fresh textual content. These architectures utilize generative models to produce text that is both coherent and contextually appropriate.
 
-- **Transformers**
-- **GPT (Generative Pre-trained Transformer)**
-- **BERT (Bidirectional Encoder Representations from Transformers)**
-- **T5 (Text-to-Text Transfer Transformer)**
+- Transformers
+- GPT (Generative Pre-trained Transformer)
+- BERT (Bidirectional Encoder Representations from Transformers)
+- T5 (Text-to-Text Transfer Transformer)
 - CTRL (Conditional Transformer Language Model)
 - UniLM (Unified Language Model)
 
-### Audio Generation Architectures
-
+Audio Generation Architectures
 Architectures dedicated to audio generation are specialized neural network models crafted for the purpose of generating novel audio content. These structures utilize generative models to create sound sequences that are realistic.
 
 - WaveNet
@@ -231,7 +232,7 @@ Architectures dedicated to audio generation are specialized neural network model
 We have navigated through the AI journey and covered interesting topics of ML, DL, computer vision (CV), generative AI and NLP. Python plays an important role in crafting of intelligent solutions with elegance and efficiency. Python AI stand at the intersection of code and intelligence.
 "---TOPIC_SEPARATOR---"
 
-9- STUDENT PROJECTS
+8- STUDENT PROJECTS
 
 (DEVELOP AI PROJECTS)
 "---TOPIC_SEPARATOR---"

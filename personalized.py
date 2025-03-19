@@ -1,19 +1,15 @@
+#VERSÃO 2
+
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from forms import PersonalDataForm
-import sqlite3
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from PIL import Image
-import graphviz
-from enum import Enum
-import random
-import re
 import os
 from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import UserMessage
 from azure.core.credentials import AzureKeyCredential
 from flask_caching import Cache
-
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
@@ -102,51 +98,21 @@ def generate_comparison_analysis(person):
     comparison_analysis = response.choices[0].message.content
     return comparison_analysis
 
-
-# Validação da syntax mermaid
-def is_valid_mermaid_syntax(content):
-    try:
-        graphviz.Source(content)
-        return True
-    except Exception as e:
-        print(f"Syntax error in text {e}")
-        return False
-
-
-# Removendo parenteses
-def remove_parentheses_from_braces(s):
-    def replace(match):
-        return match.group(0).replace('(', '').replace(')', '')
-
-    return re.sub(r'{[^}]*}', replace, s)
-
-
 # Personalize content
-def generate_custom_content(preference, base_content, hobbies=None, work=None):
-    endpoint = "https://models.inference.ai.azure.com"
-    model_name = "Phi-4"
-    token = os.environ["GITHUB_TOKEN"]
+def generate_custom_content(learning_preference, base_content, hobbies=None, work=None):
+    if learning_preference == 'Personalized Teaching':
+        endpoint = "https://models.inference.ai.azure.com"
+        model_name = "Phi-4"
+        token = os.environ["GITHUB_TOKEN"]
 
-    client = ChatCompletionsClient(
-        endpoint=endpoint,
-        credential=AzureKeyCredential(token),
-    )
+        client = ChatCompletionsClient(
+            endpoint=endpoint,
+            credential=AzureKeyCredential(token),
+        )
 
-    if preference == 'Reading, images and diagrams':
         prompt = f"""
-        Crie um código mermaid do seguinte texto: {base_content}.
-        O diagrama deve conter os principais conceitos. 
-        Garanta que a sintaxe esteja correta.
-        Retorne APENAS o código mermaid.
-        Não usar parênteses dentro de chave, ao gerar código mermaid.
-
-        Exemplo de código mermaid:
-        graph TD
-            A[Início] --> B(Processo)
-            B --> C{{Decisão}}
-            C -- Sim --> D[Fim]
-            C -- Não --> E[Outro Processo]
-            E --> B
+        Personalize o exemplo de cada tópico com base nos hobbies{hobbies} e trabalho{work} 
+        da pessoa e também o arquivo {base_content}.
         """
         response = client.complete(
             messages=[UserMessage(content=prompt)],
@@ -155,42 +121,10 @@ def generate_custom_content(preference, base_content, hobbies=None, work=None):
             max_tokens=1000,
             model=model_name
         )
-        mermaid_content = response.choices[0].message.content.strip()
-
-        mermaid_content = remove_parentheses_from_braces(mermaid_content)
-
-        if is_valid_mermaid_syntax(mermaid_content):
-            return mermaid_content
-        else:
-            return "Error: The generated content is not valid Mermaid code."
-    elif preference == 'Less Reading and more images':
-        prompt = (f"Considerando que a pessoa tem hobbies: {hobbies} e trabalha com: {work}, customize o seguinte texto sobre AI para torná-lo mais interessante e relevante para o aluno: "
-                  f"{base_content}. "
-                  f"Mantenha o conteúdo informativo e adequado para iniciantes. Desenvolva ao menos 500 palavras.")
-
-        response = client.complete(
-            messages=[UserMessage(content=prompt)],
-            temperature=1.0,
-            top_p=1.0,
-            max_tokens=1000,
-            model=model_name
-        )
-
         generated_content = response.choices[0].message.content.strip()
         return generated_content
     else:
-        prompt = f"Altere o seguinte texto para a preferência de aprendizado '{preference}': {base_content}"
-
-        response = client.complete(
-            messages=[UserMessage(content=prompt)],
-            temperature=1.0,
-            top_p=1.0,
-            max_tokens=1000,
-            model=model_name
-        )
-
-        generated_content = response.choices[0].message.content.strip()
-        return generated_content
+        return base_content
 
 
 # Rota para processar a pergunta via POST
@@ -238,6 +172,14 @@ def load_topics(filename="base_content.txt"):
 TOPICS = load_topics()
 
 # ROTAS DE PÁGINAS
+
+#TEST DE ADOCs
+@app.route('/TEST_page_3_1')
+def TEST_page_3_1():
+    with open('index_content.txt', 'r') as f:
+        content = [line.strip() for line in f]
+    return render_template('TEST_page_3_1.html', content=content)
+
 # Personal DATAS - page_1
 @app.route('/', methods=['GET', 'POST'])
 def index():
