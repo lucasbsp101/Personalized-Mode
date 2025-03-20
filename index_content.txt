@@ -1,9 +1,7 @@
-1-PYTHON AND AI OK
-2-AI OK
-3-MACHINE LEARNING OK
-4-Neural Network OK
-4-DEEP LEARNING OK
-5-NATURAL LANGUAGE PROCESSING OK - serve para exemplificar chatbots
-6-COMPUTER VISION - é sobre interpretação de imagens
-7-GENERATIVE AI - são IA que geram conteudos de varias formas(gerar imagens, textos, musicas, etc)
-8-STUDENT PROJECTS
+1- What is AI?
+2- What is python?
+3- Why python for AI?
+4- What is Machine Learning?
+5- What is Deep Learning?
+6- Student's Project
+

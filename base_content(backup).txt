@@ -1,70 +1,72 @@
-
+1-PYTHON AND AI OK
+What is Python and why is it important for Artificial Intelligence?
+1.1-First, let's discover what Python is and why it is so important for artificial intelligence.
 Python is a high-level, interpreted, object-oriented, and dynamically-typed programming language.
 It is one of the most popular languages for artificial intelligence (AI) development due to its simplicity and ease of use.
-Python provides a clear and readable syntax, thus offering a smooth path to learn and build intelligent models without complex code structures.
----TOPIC_SEPARATOR---
+Python provides a clear and readable syntax,
+thus offering a smooth path to learn and build intelligent models without complex code structures.
+"---TOPIC_SEPARATOR---"
+1.2-Why python for AI?
 Python offers a rich ecosystem with extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn)
 tailored for AI and machine learning. Additionally, it has strong community support,
 consisting of a large and active community of AI enthusiasts, researchers,
 and developers who share knowledge and resources. The collaborative environment ensures accessibility to help,
 tutorials, and insights for continuous learning.
----TOPIC_SEPARATOR---
-Artificial Intelligence requires strong foundation in python, but this course will teach you the
+"---TOPIC_SEPARATOR---"
+1.3-Artificial Intelligence requires strong foundation in python, but this course will teach you the
 basics of AI concepts, assuming you have a basic understanding, or zero of python programming.
----TOPIC_SEPARATOR---
-(IMAGE)
-1_4
-(Example)
+"---TOPIC_SEPARATOR---"
+1-4-(Example)
 ...
-"---TOPIC_SEPARATOR---
-2_1
-AI
-Artificial Intelligence (AI) enables computer systems to perform tasks requiring human intelligence, such as problem-solving,
-decision-making, and image generation. Its goal is to replicate human-like cognitive functions, allowing machines to handle complex tasks and adapt to changing conditions.
+"---TOPIC_SEPARATOR---"
 
-(IMAGE)
-"---TOPIC_SEPARATOR---
-2_2
-...
-"---TOPIC_SEPARATOR---
-2_3
-(IMAGE)
-"---TOPIC_SEPARATOR---
-2_4
-(Example)
-"---TOPIC_SEPARATOR---
-3_1
-MACHINE LEARNING OK
+2- AI OK
+Artificial Intelligence (AI) enables computer systems to perform tasks requiring human intelligence, such as problem-solving,
+decision-making, and image generation. Its goal is to replicate human-like cognitive functions,
+allowing machines to handle complex tasks and adapt to changing conditions.
+AI subsets include machine learning (ML), deep learning (DL),
+natural language processing, computer vision, robotics, and generative AI.
+
+To develop these complex models, we leverage python frameworks like:
+- TensorFlow is developed by Google Brain teams, it provides a comprehensive set of tools to build and train the neural networks.
+- PyTorch is a framework that is developed by Facebook's AI Research lab (FAIR),
+it facilitates easy debugging and more intuitive model-building process compared to static graphs.
+- Scikit-Learn is a user-friendly machine learning library that focuses in supervised and unsupervised learning.
+
+These frameworks offer versatility and scalability to empower developers and researchers to create intelligent solutions across a wide spectrum of applications.
+
+"---TOPIC_SEPARATOR---"
+
+3- MACHINE LEARNING OK
 Machine learning allows developers to focus on the development of algorithm and models that enable
 computers to learn and make predictions or decisions without being explicitly programmed.
-"---TOPIC_SEPARATOR---
-3_2
+
 There are three types of machine learning techniques:
-"---TOPIC_SEPARATOR---
-3_3
-"---TOPIC_SEPARATOR---
-Supervised Learning
+1. Supervised Learning
+
 In supervised learning**, the algorithm is trained on a labeled dataset, where each input is paired with its corresponding output.
+
 Regression Algorithms
+
 - Linear Regression
 - Polynomial Regression
 - Support Vector Regression (SVR)*
-"---TOPIC_SEPARATOR---
+
 Classification Algorithm
-"---TOPIC_SEPARATOR---
+
 - Logistic Regression
 - Decision trees
 - Ensemble Classifiers
 - Support Vector Machines (SVM)
 - Naive Bayes
-"---TOPIC_SEPARATOR---
+
 Unsupervised Learning
-"---TOPIC_SEPARATOR---
+
 In unsupervised learning, the algorithm is provided unlabeled data and is tasked with finding patterns or relationships within it.
 The goal of the algorithm is to inherent structures or groups in the data.
-"---TOPIC_SEPARATOR---
+
 Clustering Algorithms
-"---TOPIC_SEPARATOR---
+
 - K-means
 - Hierarchical Clustering**]
 - DBSCAN
@@ -91,7 +93,7 @@ The application includes game playing, robotics, autonomous systems. The popular
 - SARSA (State-Action-Reward-State-Action)
 ML has limitations like reliance on handcrafted features, struggles with high-dimensional unstructured data,
 and limited capacity to model complex relationships, leading to the rise of deep learning
-"---TOPIC_SEPARATOR---
+"---TOPIC_SEPARATOR---"
 
 4- DEEP LEARNING
 Deep learning derives inspiration from structure of human brain.
@@ -125,7 +127,7 @@ Below are foundational structures in deep learning:
 - Gated Recurrent Units Networks (GRU)
 - Autoencoders
 - Capsule Networks
-"---TOPIC_SEPARATOR---
+"---TOPIC_SEPARATOR---"
 
 5- NATURAL LANGUAGE PROCESSING
 Natural language processing (NLP) enables machines to understand, interpret, and generate human-like text, allowing for seamless communication. Key components include:
@@ -161,7 +163,7 @@ Lexical semantics focuses on the meaning of words and their relationships within
 - Semantic Similarity
 
 > Explore our comprehensive Natural Language Processing tutorial to gain a deeper understanding of NLP techniques, tools, and applications.
-"---TOPIC_SEPARATOR---
+"---TOPIC_SEPARATOR---"
 
 6- COMPUTER VISION
 
@@ -176,6 +178,7 @@ Image processing and transformation refer to the techniques and methods used to 
 - Edge Detection
 - Smoothing and Blurring Image
 - Image Denoising
+"---TOPIC_SEPARATOR---"
 
 Image segmentation Architectures
 Image Recognition Architectures
@@ -190,7 +193,7 @@ Image recognition architectures are specialized models or neural network structu
 - Xception
 - EfficientNet
 - DenseNet
-"---TOPIC_SEPARATOR---
+"---TOPIC_SEPARATOR---"
 
 7- GENERATIVE AI
 Generative AI are creative models that are capable to generate fresh content, typically encompassing images, text, audio, or various data form. This area of AI is dedicated to producing novel and diverse outputs based on learned patterns and structures.
@@ -229,8 +232,9 @@ Architectures dedicated to audio generation are specialized neural network model
 - Deep Voice
 
 We have navigated through the AI journey and covered interesting topics of ML, DL, computer vision (CV), generative AI and NLP. Python plays an important role in crafting of intelligent solutions with elegance and efficiency. Python AI stand at the intersection of code and intelligence.
-"---TOPIC_SEPARATOR---
+"---TOPIC_SEPARATOR---"
 
 8- STUDENT PROJECTS
 
 (DEVELOP AI PROJECTS)
+"---TOPIC_SEPARATOR---"
