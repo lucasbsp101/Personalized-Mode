@@ -1,5 +1,4 @@
 #VERSÃO 2
-from tarfile import ExtractError
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from forms import PersonalDataForm
@@ -110,16 +109,17 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
             endpoint=endpoint,
             credential=AzureKeyCredential(token),
         )
-
+# output with hmtl
         prompt = f"""
-        Personalize cada tópico do conteudo{base_content} com base nos hobbies{hobbies} e trabalho{work} 
-        da pessoa. Mostre o titulo do tópico e depois o conteúdo personalizado.
+        Personalize each topic of the content{base_content} based on the person's hobbies{hobbies} and work{work}. 
+        Show the topic title and then the personalized content.
+        Just rewrite!
         """
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=0.8,
-            top_p=0.5,
-            max_tokens=2000,
+            temperature=1,
+            top_p=1,
+            max_tokens=1000,
             model=model_name
         )
         generated_content = response.choices[0].message.content.strip()
@@ -223,10 +223,10 @@ def TEST_page_3_1():
     person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-    topic_1_1 = extract_topic_content(base_content, 1)
-    topic_1_2 = extract_topic_content(base_content, 2)
-    topic_1_3 = extract_topic_content(base_content, 3)
-    topic_1_4 = extract_topic_content(base_content, 4)
+    topic_1 = extract_topic_content(base_content, 1) #Each TOPIC SEPARATOR is ONE
+    topic_1_2 = extract_topic_content(base_content, 2) # not using yet
+    topic_1_3 = extract_topic_content(base_content, 3) # not using yet
+    topic_1_4 = extract_topic_content(base_content, 4) # not using yet
 
     if person:
         preference = person.learning_preference
@@ -234,8 +234,8 @@ def TEST_page_3_1():
         work = person.work
 
         if preference == "Personalized Teaching":
-            if topic_1_1:
-                topic_1_1 = generate_custom_content(preference, topic_1_1, hobbies, work)
+            if topic_1:
+                topic_1 = generate_custom_content(preference, topic_1, hobbies, work)
             if topic_1_2:
                 topic_1_2 = generate_custom_content(preference, topic_1_2, hobbies, work)
             if topic_1_3:
@@ -247,13 +247,13 @@ def TEST_page_3_1():
             pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
     else:
-        topic_1_1 = "Dados do usuário não encontrados."
+        topic_1 = "Dados do usuário não encontrados."
         topic_1_2 = "Dados do usuário não encontrados."
         topic_1_3 = "Dados do usuário não encontrados."
         topic_1_4 = "Dados do usuário não encontrados."
 
     return render_template('TEST_page_3_1.html',
-                           topic_1_1=topic_1_1,
+                           topic_1=topic_1,
                            topic_1_2=topic_1_2,
                            topic_1_3=topic_1_3,
                            topic_1_4=topic_1_4)
@@ -266,9 +266,9 @@ def TEST_page_3_2():
     person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-    topic_2_1 = extract_topic_content(base_content, 1)
-    topic_2_2 = extract_topic_content(base_content, 2)
-    topic_2_3 = extract_topic_content(base_content, 3)
+    topic_3 = extract_topic_content(base_content, 3)
+    topic_2_2 = extract_topic_content(base_content, 2) # not using yet
+    topic_2_3 = extract_topic_content(base_content, 1) # not using yet
 
     if person:
         preference = person.learning_preference
@@ -276,8 +276,8 @@ def TEST_page_3_2():
         work = person.work
 
         if preference == "Personalized Teaching":
-            if topic_2_1:
-                topic_2_1 = generate_custom_content(preference, topic_2_1, hobbies, work)
+            if topic_3:
+                topic_3 = generate_custom_content(preference, topic_3, hobbies, work)
             if topic_2_2:
                 topic_2_2 = generate_custom_content(preference, topic_2_2, hobbies, work)
             if topic_2_3:
@@ -287,12 +287,12 @@ def TEST_page_3_2():
             pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
     else:
-        topic_2_1 = "Dados do usuário não encontrados."
+        topic_3 = "Dados do usuário não encontrados."
         topic_2_2 = "Dados do usuário não encontrados."
         topic_2_3 = "Dados do usuário não encontrados."
 
     return render_template('TEST_page_3_2.html',
-                           topic_2_1=topic_2_1,
+                           topic_3=topic_3,
                            topic_2_2=topic_2_2,
                            topic_2_3=topic_2_3)
 

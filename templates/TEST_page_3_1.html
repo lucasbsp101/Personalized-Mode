@@ -6,7 +6,7 @@
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
 </head>
-<body style="width: 1075px;">
+<body >
 
     <div class="vditor-reset" id="preview">
 
@@ -34,25 +34,31 @@
             </a>
         </h3>
         <div class="topic">
-        </h3>
-            {{ topic_1_1|safe }}
-            <img class="fade-in" src="{{ url_for('static', filename='images/d.png') }}" alt="Imagem d">
+            <blockquote>
+                {{ topic_1|safe }}
+            </blockquote>
         </div>
         <div class="topic">
             <hr />
-            {{ topic_1_2|safe }}
+            <img class="fade-in" src="{{ url_for('static', filename='images/A.png') }}" alt="Imagem A">
         </div>
         <div class="topic">
             <hr />
-            {{ topic_1_3|safe }}
+            <h2>The practical applications of artificial intelligence (AI) today are vast and span various fields. Here are some of the main ones:</h2>
+            <ul>
+                <li>Virtual Assistants: Assistants like Siri, Alexa, and Google Assistant use AI to understand and respond to voice commands, perform tasks, and provide information.</li>
+                <li>Image and Video Recognition: Facial recognition tools, medical image analysis, and surveillance systems use AI to identify and classify objects and people.</li>
+                <li>Autonomous Vehicles: Self-driving cars, such as those developed by Tesla and Waymo, use AI to navigate and make real-time decisions.</li>
+            </ul>
         </div>
         <div class="topic">
             <hr />
-            {{ topic_1_4|safe }}
+            <br />
+            <img class="fade-in" src="{{ url_for('static', filename='images/B.png') }}" alt="Imagem B">
         </div>
-
-    <div class="course-content">
-    </div>
+        <br />
+        <br />
+        <br />
     <!-- Botões de navegação -->
     <div>
         <a href="/page_3">BACK</a>
@@ -62,11 +68,13 @@
     <!-- Botões de navegação -->
 
     <!-- Formulário com botão para redirecionar para a página 3_1 -->
-    <form action="{{ url_for('page_3_2') }}" method="get">
-        <button type="submit">Go to Next topic</button>
+    <form action="{{ url_for('TEST_page_3_2') }}">
+        <button type="submit" style="width: 400px;">Go to Next topic</button>
     </form>
-
     </div>
+
+    <div class="background-animation"></div>
+
     <script>
         const previewElement = document.getElementById('preview');
         Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
@@ -83,5 +91,21 @@
         Vditor.speechRender(previewElement);
     </script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.background-animation');
+        const characters = '0123456789';
+        const numChars = 100;
+
+        for (let i = 0; i < numChars; i++) {
+            const span = document.createElement('span');
+            span.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+            span.style.left = `${Math.random() * 100}vw`;
+            span.style.top = `${Math.random() * 100}vh`;
+            span.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            container.appendChild(span);
+        }
+    });
+    </script>
 </body>
 </html>

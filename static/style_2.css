@@ -1,12 +1,13 @@
-/* style_pg_1.css */
+/* ... */
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff; /* Azul Alice */
+    background-color: #e0ffff; /* Gelo */
     color: #333;
     margin: 0;
     padding: 20px;
+    font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
 }
-
 img {
     display: block;
     margin-left: auto;
@@ -46,9 +47,9 @@ ul {
 }
 
 button {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    border: none;
+    background-color: #90EE90; /* Verde Claro */
+    color: black;
+    border: 2px solid #4CAF50; /* Borda verde */;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -60,7 +61,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #5cb85c;
 }
 
 #loading {
@@ -134,7 +135,7 @@ a:hover {
 
 /* Estilo para formulários */
 form {
-    max-width: 600px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -147,11 +148,11 @@ form label {
     margin-bottom: 8px;
     font-weight: bold;
 }
-
+/* Ajustes de campos brancos */
 form input[type="text"],
 form input[type="number"],
 form textarea {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -170,14 +171,14 @@ form input[type="radio"] {
     padding: 10px 0;
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 90%;
 }
 
 /* Estilo para cabeçalhos */
 h1, h2, h3 {
     font-family: 'Arial', sans-serif;
     color: #333;
-    text-align: center; /* Adiciona esta linha para centralizar o texto */
+    text-align: center;
 }
 
 h1 {
@@ -193,4 +194,49 @@ h2 {
 h3 {
     font-size: 1.5em;
     margin-bottom: 10px;
+}
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background-color: rgba(240, 248, 255, 1); /* Gelo */
+}
+
+.background-animation span {
+    position: absolute;
+    color: rgba(0, 0, 0, 0.1);
+    font-size: 10px;
+    animation: move 10s linear infinite;
+}
+
+@keyframes move {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    100% {
+        transform: translateY(50vh) translateX(50vw);
+    }
+}
+/* Efeito de digitação */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.typewriter {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: orange; }
 }

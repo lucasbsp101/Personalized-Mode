@@ -41,7 +41,7 @@
 </head>
 <body>
     <h1 class="fade-in" style="background-color: #f0f0f0;" >Welcome to the AI Course for Beginners</h1>
-    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
+
 
     <div class="video-container">
         <video autoplay loop muted playsinline width="640" height="360">
@@ -59,10 +59,10 @@
         <input type="number" id="age" name="age" required><br><br>
 
         <label for="hobbies">Tell about your Hobbies and Interests</label><br>
-        <textarea id="hobbies" name="hobbies" rows="4" cols="50"></textarea><br><br>
+        <textarea id="hobbies" name="hobbies" rows="2" cols="50"></textarea><br><br>
 
         <label for="work">Tell me about your job or your studies:</label><br>
-        <textarea id="work" name="work" rows="4" cols="50"></textarea><br><br>
+        <textarea id="work" name="work" rows="2" cols="50"></textarea><br><br>
 
         <label for="learning_preference">How do you prefer to learn in this course?</label><br>
 
@@ -78,6 +78,9 @@
         <button type="submit">Send!</button><br>
         <label>Please, verify your data before sending</label>
         <br>
+            <form action="{{ url_for('page_2') }}" method="get">
+                <button type="submit">Go to Next page</button>
+            </form>
     </form>
 
     <div>
