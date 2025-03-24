@@ -9,39 +9,70 @@
 <body style="width: 1075px;">
 
     <div class="vditor-reset" id="preview">
+    <h1 id="Basic Concepts of Artificial Intelligence - Python and AI">Basic Concepts of Artificial Intelligence - Python and AI
+        <a id="vditorAnchor-PYTHON-AND-AI" class="vditor-anchor" href="#PYTHON-AND-AI">
+            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+            </svg>
+        </a>
+    </h1>
 
-        <h1 id="Basic Concepts of Artificial Intelligence - Python and AI">Basic Concepts of Artificial Intelligence - Python and AI
-            <a id="vditorAnchor-PYTHON-AND-AI" class="vditor-anchor" href="#PYTHON-AND-AI">
-                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-                </svg>
-            </a>
-        </h1>
         <h3 >Why python for AI?
+        <hr />
+<div class="topic">
+    <blockquote>
+        {{ topic_5|safe }}
+    </blockquote>
+</div>
+<hr />
+
+<div class="topic">
+    <blockquote>
+        {{ topic_6|safe }}
+    </blockquote>
+</div>
+<hr />
+
+<div class="topic">
+    <blockquote>
+        {{ topic_7|safe }}
+    </blockquote>
+</div>
+<hr />
+
+<div style="text-align: left;">
+    <blockquote>
+    Rich Ecosystem: Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
+    Strong Community Support: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.
+    Collaborative Environment: Ensures accessibility to help, tutorials, and insights for continuous learning.
+    </blockquote>
+</div>
+            <hr /> <!-- ajustar posição -->
+            An advantage for using Python is that it comes with some very suitable libraries:
+
+            <ul style="text-align: left;">
+                <li>NumPy (Library for working with Arrays)</li>
+                <li>SciPy (Library for Statistical Science)</li>
+                <li>Matplotlib (Graph Plotting Library)</li>
+                <li>NLTK (Natural Language Toolkit)</li>
+                <li>TensorFlow (Machine Learning)</li>
+            </ul>
             <hr />
-            <div class="video-container">
-        <video autoplay loop muted playsinline width="640" height="360">
-            <source src="{{ url_for('static', filename='videos/d.mp4') }}" type="video/mp4">
-        </video>
-    </div>
+        </h3>
+
+        </div>
             <a id="vditorAnchor-What-is-Python-and-why-is-it-important-for-Artificial-Intelligence-" class="vditor-anchor" href="#What-is-Python-and-why-is-it-important-for-Artificial-Intelligence-">
                 <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                     <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
                 </svg>
             </a>
-        </h3>
         <div class="topic">
-            <hr />
-            {{ topic_3_1|safe }}
             <img class="fade-in" src="{{ url_for('static', filename='images/d.png') }}" alt="Imagem d">
         </div>
-        <div class="topic">
-            <hr />
-            {{ topic_3_2|safe }}
-        </div>
 
-    <div class="course-content">
-    </div>
+
+
+
     <!-- Botões de navegação -->
     <div>
         <a href="/page_3">BACK</a>
@@ -55,22 +86,22 @@
         <button type="submit">Go to Next topic</button>
     </form>
 
-    </div>
-    <script>
-        const previewElement = document.getElementById('preview');
-        Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
-        Vditor.codeRender(previewElement);
-        Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
-        Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.mediaRender(previewElement);
-        Vditor.speechRender(previewElement);
-    </script>
-    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+
+<script>
+    const previewElement = document.getElementById('preview');
+    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
+    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
 </body>
 </html>

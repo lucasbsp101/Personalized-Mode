@@ -75,7 +75,7 @@
             <label for="Personalized Teaching">Personalized Teaching(TESTE..)</label>
         </div>
 
-        <button type="submit">Send!</button><br>
+        <button type="button" onclick="submitForm()">Send!</button><br>
         <label>Please, verify your data before sending</label>
         <br>
             <form action="{{ url_for('page_2') }}" method="get">
@@ -110,5 +110,25 @@
         <a href="/page_4">PAGE 4</a>
         <a href="/last_page">PAGE LAST</a>
     </div>
+<script>
+    function submitForm() {
+        const form = document.querySelector('form');
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                alert('Dados enviados com sucesso!');
+            } else {
+                alert('Erro ao enviar dados.');
+            }
+        }).catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao enviar dados.');
+        });
+    }
+</script>
 </body>
 </html>

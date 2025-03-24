@@ -8,19 +8,19 @@ It is one of the most popular languages for artificial intelligence (AI) develop
 Python provides a clear and readable syntax, thus offering a smooth path to learn and build intelligent models without complex code structures.
 ---TOPIC_SEPARATOR---
 (Example)
-"---TOPIC_SEPARATOR---
-2_1
-AI
-...
+---TOPIC_SEPARATOR---
+Python provides a clear and readable syntax hence provides a smooth path to learn and build intelligent models without complex code structures.
+---TOPIC_SEPARATOR---
+Artificial Intelligence requires strong foundation in python and to ensure you have strong solid starting point, we encourage you to refer to the Python tutorial, which serves as an invaluable resource for both beginners and seasoned developers.
+---TOPIC_SEPARATOR---
+Python is a general-purpose coding language. It can be used for all types of programming and software development.
+Python is typically used for server development, like building web apps for web servers.
+Python is also typically used in Data Science.
+---TOPIC_SEPARATOR---
+
 (IMAGE)
-"---TOPIC_SEPARATOR---
-2_2
-...
-"---TOPIC_SEPARATOR---
-2_3
-(IMAGE)
-"---TOPIC_SEPARATOR---
-2_4
+---TOPIC_SEPARATOR---
+
 (Example)
 "---TOPIC_SEPARATOR---
 3_1
@@ -81,7 +81,7 @@ The application includes game playing, robotics, autonomous systems. The popular
 - SARSA (State-Action-Reward-State-Action)
 ML has limitations like reliance on handcrafted features, struggles with high-dimensional unstructured data,
 and limited capacity to model complex relationships, leading to the rise of deep learning
-"---TOPIC_SEPARATOR---
+---TOPIC_SEPARATOR---
 
 4- DEEP LEARNING
 Deep learning derives inspiration from structure of human brain.

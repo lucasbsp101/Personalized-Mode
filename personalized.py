@@ -109,11 +109,17 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
             endpoint=endpoint,
             credential=AzureKeyCredential(token),
         )
-# output with hmtl
+# output with hmtl - deu muito certo as linhas 117 a 121, ele foi muito mais produtivo em linhas e icones
+        #apenas a linha 122 ainda nao funciona, testar mais vezes e pesquisar
         prompt = f"""
         Personalize each topic of the content{base_content} based on the person's hobbies{hobbies} and work{work}. 
         Show the topic title and then the personalized content.
         Just rewrite!
+        Make it more personal!
+        Make it more engaging!
+        Make the text output in HTML format.
+        Don't send: ``` This HTML document encapsulates your interests and aligns Python's applications with your personal hobbies and academic pursuits, making the content not only informative but also entertaining and relatable.
+        Don't send: ```html 
         """
         response = client.complete(
             messages=[UserMessage(content=prompt)],
@@ -304,10 +310,10 @@ def TEST_page_3_3():
     person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-    topic_3_10 = extract_topic_content(base_content, 10)
-    topic_3_11 = extract_topic_content(base_content, 11)
-    topic_3_12 = extract_topic_content(base_content, 12)
-    topic_3_13 = extract_topic_content(base_content, 13)
+    topic_5 = extract_topic_content(base_content, 5)
+    topic_6 = extract_topic_content(base_content, 6)
+    topic_7 = extract_topic_content(base_content, 7)
+    topic_3_13 = extract_topic_content(base_content, 13) #not using yet
 
     if person:
         preference = person.learning_preference
@@ -315,12 +321,12 @@ def TEST_page_3_3():
         work = person.work
 
         if preference == "Personalized Teaching":
-            if topic_3_10:
-                topic_3_10 = generate_custom_content(preference, topic_3_10, hobbies, work)
-            if topic_3_11:
-                topic_3_11 = generate_custom_content(preference, topic_3_11, hobbies, work)
-            if topic_3_12:
-                topic_3_12 = generate_custom_content(preference, topic_3_12, hobbies, work)
+            if topic_5:
+                topic_5 = generate_custom_content(preference, topic_5, hobbies, work)
+            if topic_6:
+                topic_6 = generate_custom_content(preference, topic_6, hobbies, work)
+            if topic_7:
+                topic_7 = generate_custom_content(preference, topic_7, hobbies, work)
             if topic_3_13:
                 topic_3_13 = generate_custom_content(preference, topic_3_13, hobbies, work)
         else:
@@ -328,15 +334,15 @@ def TEST_page_3_3():
             pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
     else:
-        topic_3_10 = "Dados do usuário não encontrados."
-        topic_3_11 = "Dados do usuário não encontrados."
-        topic_3_12 = "Dados do usuário não encontrados."
+        topic_5 = "Dados do usuário não encontrados."
+        topic_6 = "Dados do usuário não encontrados."
+        topic_7 = "Dados do usuário não encontrados."
         topic_3_13 = "Dados do usuário não encontrados."
 
     return render_template('TEST_page_3_3.html',
-                           topic_3_10=topic_3_10,
-                           topic_3_11=topic_3_11,
-                           topic_3_12=topic_3_12,
+                           topic_5=topic_5,
+                           topic_6=topic_6,
+                           topic_7=topic_7,
                            topic_3_13=topic_3_13)
 
 @app.route('/TEST_page_3_4') #ok

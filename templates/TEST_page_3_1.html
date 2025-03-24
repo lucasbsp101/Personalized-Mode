@@ -62,7 +62,7 @@
     <!-- Botões de navegação -->
     <div>
         <a href="/page_3">BACK</a>
-        <a href="/page_3_2">NEXT</a>
+        <a href="/TEST_page_3_2">NEXT</a>
     </div>
     <a href="/">Back to the home page</a>
     <!-- Botões de navegação -->
@@ -75,37 +75,37 @@
 
     <div class="background-animation"></div>
 
-    <script>
-        const previewElement = document.getElementById('preview');
-        Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
-        Vditor.codeRender(previewElement);
-        Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
-        Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.mediaRender(previewElement);
-        Vditor.speechRender(previewElement);
-    </script>
-    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const container = document.querySelector('.background-animation');
-        const characters = '0123456789';
-        const numChars = 100;
+<script>
+    const previewElement = document.getElementById('preview');
+    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
+    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+</script>
+<script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.background-animation');
+    const characters = '0123456789';
+    const numChars = 100;
 
-        for (let i = 0; i < numChars; i++) {
-            const span = document.createElement('span');
-            span.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
-            span.style.left = `${Math.random() * 100}vw`;
-            span.style.top = `${Math.random() * 100}vh`;
-            span.style.animationDuration = `${Math.random() * 10 + 5}s`;
-            container.appendChild(span);
-        }
-    });
-    </script>
+    for (let i = 0; i < numChars; i++) {
+        const span = document.createElement('span');
+        span.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+        span.style.left = `${Math.random() * 100}vw`;
+        span.style.top = `${Math.random() * 100}vh`;
+        span.style.animationDuration = `${Math.random() * 10 + 5}s`;
+        container.appendChild(span);
+    }
+});
+</script>
 </body>
 </html>
