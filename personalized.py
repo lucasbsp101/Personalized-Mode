@@ -353,7 +353,7 @@ def TEST_page_3_4():
     person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-    topic_3_15 = extract_topic_content(base_content, 15)
+    topic_8 = extract_topic_content(base_content, 8)
     topic_3_16 = extract_topic_content(base_content, 16)
     topic_3_17 = extract_topic_content(base_content, 17)
     topic_3_18 = extract_topic_content(base_content, 18)
@@ -366,8 +366,8 @@ def TEST_page_3_4():
         work = person.work
 
         if preference == "Personalized Teaching":
-            if topic_3_15:
-                topic_3_15 = generate_custom_content(preference, topic_3_15, hobbies, work)
+            if topic_8:
+                topic_8 = generate_custom_content(preference, topic_8, hobbies, work)
             if topic_3_16:
                 topic_3_16 = generate_custom_content(preference, topic_3_16, hobbies, work)
             if topic_3_17:
@@ -383,7 +383,7 @@ def TEST_page_3_4():
             pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
     else:
-        topic_3_15 = "Dados do usuário não encontrados."
+        topic_8 = "Dados do usuário não encontrados."
         topic_3_16 = "Dados do usuário não encontrados."
         topic_3_17 = "Dados do usuário não encontrados."
         topic_3_18 = "Dados do usuário não encontrados."
@@ -391,7 +391,7 @@ def TEST_page_3_4():
         topic_3_20 = "Dados do usuário não encontrados."
 
     return render_template('TEST_page_3_4.html',
-                           topic_3_15=topic_3_15,
+                           topic_8=topic_8,
                            topic_3_16=topic_3_16,
                            topic_3_17=topic_3_17,
                            topic_3_18=topic_3_18,

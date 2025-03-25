@@ -17,12 +17,38 @@ Python is a general-purpose coding language. It can be used for all types of pro
 Python is typically used for server development, like building web apps for web servers.
 Python is also typically used in Data Science.
 ---TOPIC_SEPARATOR---
-
+Machine learning is a subset of Artificial Intelligence (AI) that enables computers to learn
+from data and make predictions without being explicitly programmed.
+If you're new to this field, this tutorial will provide a comprehensive understanding
+of machine learning, its types, algorithms, tools, and practical applications.
 (IMAGE)
 ---TOPIC_SEPARATOR---
+Machine learning teaches computers to recognize patterns and make decisions automatically using data and algorithms.
+It can be broadly categorized into three types:
+---TOPIC_SEPARATOR---
+Machine learning is fundamentally built upon data,
+which serves as the foundation for training and testing models.
+Data consists of inputs (features) and outputs (labels).
+A model learns patterns during training and is tested on unseen data to
+evaluate its performance and generalization. In order to make predictions,
+there are essential steps through which data passes in order to produce a machine learning
+model that can make predictions.
+---TOPIC_SEPARATOR---
+As we explained before, supervised learning is a type of machine learning where a model is trained on labeled data—meaning each input is paired with the correct output. the model learns by comparing its predictions with the actual answers provided in the training data. Over time, it adjusts itself to minimize errors and improve accuracy. The goal of supervised learning is to make accurate predictions when given new, unseen data. For example, if a model is trained to recognize handwritten digits, it will use what it learned to correctly identify new numbers it hasn’t seen before.
+Supervised learning can be applied in various forms, including supervised learning classification and supervised learning regression, making it a crucial technique in the field of artificial intelligence and supervised data mining.
+A fundamental concept in supervised machine learning is learning a class from examples. This involves providing the model with examples where the correct label is known, such as learning to classify images of cats and dogs by being shown labeled examples of both. The model then learns the distinguishing features of each class and applies this knowledge to classify new images.
+---TOPIC_SEPARATOR---
+Unsupervised learning is a branch of machine learning that deals with unlabeled data. Unlike supervised learning, where the data is labeled with a specific category or outcome, unsupervised learning algorithms are tasked with finding patterns and relationships within the data without any prior knowledge of the data’s meaning. Unsupervised machine learning algorithms find hidden patterns and data without any human intervention, i.e., we don’t give output to our model. The training model has only input parameter values and discovers the groups or patterns on its own.
+---TOPIC_SEPARATOR---
+Reinforcement Learning (RL) is a branch of machine learning that focuses on how agents can learn to make decisions through trial and error to maximize cumulative rewards. RL allows machines to learn by interacting with an environment and receiving feedback based on their actions. This feedback comes in the form of rewards or penalties.
+---TOPIC_SEPARATOR---
+Reinforcement Learning revolves around the idea that an agent (the learner or decision-maker) interacts with an environment to achieve a goal. The agent performs actions and receives feedback to optimize its decision-making over time.
 
+
+
+---TOPIC_SEPARATOR---
 (Example)
-"---TOPIC_SEPARATOR---
+---TOPIC_SEPARATOR---
 3_1
 MACHINE LEARNING OK
 Machine learning allows developers to focus on the development of algorithm and models that enable
