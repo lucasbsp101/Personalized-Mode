@@ -21,7 +21,6 @@ Machine learning is a subset of Artificial Intelligence (AI) that enables comput
 from data and make predictions without being explicitly programmed.
 If you're new to this field, this tutorial will provide a comprehensive understanding
 of machine learning, its types, algorithms, tools, and practical applications.
-(IMAGE)
 ---TOPIC_SEPARATOR---
 Machine learning teaches computers to recognize patterns and make decisions automatically using data and algorithms.
 It can be broadly categorized into three types:
@@ -32,7 +31,7 @@ Data consists of inputs (features) and outputs (labels).
 A model learns patterns during training and is tested on unseen data to
 evaluate its performance and generalization. In order to make predictions,
 there are essential steps through which data passes in order to produce a machine learning
-model that can make predictions.
+model that can make predictions:
 ---TOPIC_SEPARATOR---
 As we explained before, supervised learning is a type of machine learning where a model is trained on labeled data—meaning each input is paired with the correct output. the model learns by comparing its predictions with the actual answers provided in the training data. Over time, it adjusts itself to minimize errors and improve accuracy. The goal of supervised learning is to make accurate predictions when given new, unseen data. For example, if a model is trained to recognize handwritten digits, it will use what it learned to correctly identify new numbers it hasn’t seen before.
 Supervised learning can be applied in various forms, including supervised learning classification and supervised learning regression, making it a crucial technique in the field of artificial intelligence and supervised data mining.

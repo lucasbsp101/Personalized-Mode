@@ -1,4 +1,4 @@
-<html>
+<html> <!-- organizar melhor-->
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
@@ -18,7 +18,6 @@
             </a>
         </h1>
         <h3 >What is Machine Learning?
-            <hr />
             <a id="vditorAnchor-What-is-Python-and-why-is-it-important-for-Artificial-Intelligence-" class="vditor-anchor" href="#What-is-Python-and-why-is-it-important-for-Artificial-Intelligence-">
                 <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                     <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
@@ -27,12 +26,14 @@
         </h3>
             <div class="topic">
             <hr />
-            {{ topic_8|safe }}
+                <strong> Introduction to Machine Learning</strong><br><br>
+                {{ topic_8|safe }}
             <hr />
             </div><br>
 
+            (IMAGE)<br><br>
+
                 <div class="topic">
-                <hr />
                     <blockquote>
                     {{ topic_9|safe }}
                     </blockquote>
@@ -40,188 +41,129 @@
 
                 <div class="topic">
                 <hr />
-                Módule 1
+                <div style="text-align: center; font-weight: bold;">Module ONE</div>
                 </div><br>
 
                     <blockquote>
-                        <p>Supervised Learning: Trains models on labeled data to predict or classify new, unseen data.</p>
-                        <p>Unsupervised Learning: Finds patterns or groups in unlabeled data, like clustering or dimensionality reduction.</p>
-                        <p>Reinforcement Learning: Learns through trial and error to maximize rewards, ideal for decision-making tasks.</p>
-                        <p>In addition, these categories, there are also Semi-Supervised Learning and Self-Supervised Learning.</p>
-                        <p>Semi-Supervised Learning uses a mix of labeled and unlabeled data, making it helpful when labeling data is costly or time-consuming.</p>
-                        <p>Self-Supervised Learning creates its own labels from raw data, allowing it to learn patterns without needing labeled examples.</p>
-                    </blockquote><br>
-
-                <div class="topic">
-                <hr />
-                Machine Learning Pipeline
-                </div><br>
-
-                    <div class="topic">
-                    <blockquote>
-                    {{ topic_10|safe }}
+                        <ul>
+                            <li>Supervised Learning: Trains models on labeled data to predict or classify new, unseen data.</li>
+                            <li>Unsupervised Learning: Finds patterns or groups in unlabeled data, like clustering or dimensionality reduction.</li>
+                            <li>Reinforcement Learning: Learns through trial and error to maximize rewards, ideal for decision-making tasks.</li>
+                            <li>In addition, these categories, there are also Semi-Supervised Learning and Self-Supervised Learning.</li>
+                            <li>Semi-Supervised Learning uses a mix of labeled and unlabeled data, making it helpful when labeling data is costly or time-consuming.</li>
+                            <li>Self-Supervised Learning creates its own labels from raw data, allowing it to learn patterns without needing labeled examples.</li>
+                        </ul>
                     </blockquote>
-
-                        <BLOCKQUOTE>
-                            ML workflow
-                            Data Cleaning
-                            Feature Scaling
-                            Data Preprocessing in Python
-                        </BLOCKQUOTE><br>
-
-                <div class="topic">
-                <hr />
-                Módule 2
-                </div><br>
-
                     <div class="topic">
-                    <hr />
-                    What is Supervised Machine Learning?
+                    Machine Learning Pipeline
                     </div><br>
 
                         <div class="topic">
-                        <hr />
-                        {{ topic_11|safe }}
-                        </div><br>
-
-
-
-                <div class="topic">
-                <hr />
-                Módule 3
-                </div><br>
-
                         <blockquote>
-                        What is Unsupervised Learning?
+                        {{ topic_10|safe }}
                         </blockquote>
 
-                            <UL>
-
-                            </UL>
-
+                            <BLOCKQUOTE>
+                                <ul>
+                                    <li>ML workflow</li>
+                                    <li>Data Cleaning</li>
+                                    <li>Feature Scaling</li>
+                                    <li>Data Preprocessing in Python</li>
+                                </ul>
+                            </BLOCKQUOTE><br>
+                            </div>
+                </div>
+                <div  style="text-align: center; font-weight: bold;" class="topic">
+                <hr />
+                Module TWO
+                </div><br>
+                    <div class="topic">
+                    What is Supervised Machine Learning?
+                    </div><br>
                         <div class="topic">
-                        <hr />
-                            <blockquote>
-                            {{ topic_12|safe }}
-                            </blockquote>
-                        </div><br>
-
+                        <blockquote>{{ topic_11|safe }}</blockquote>
+                        </div>
+                <div style="text-align: center; font-weight: bold;" class="topic">
+                    <hr /><br>
+                    Module THREE
+                    </div>
                         <div class="topic">
-                        <hr />
                             <blockquote>
-                            The image shows set of animals: elephants, camels, and cows that represents raw data that the unsupervised learning algorithm will process.
+                            What is Unsupervised Learning?
                             </blockquote>
-                        </div><br>
+                            <div class="topic">
+                                <blockquote>
+                                {{ topic_12|safe }}
+                                </blockquote>
+                            </div><br>
+                            <div class="topic">
+                            <blockquote>
+                            The image below, shows set of animals: elephants, camels, and cows that represents raw data that the unsupervised learning algorithm will process.
 
-                        <ul>
+                            (image)
+                            </blockquote>
+                            </div><br>
+                            <ul>
                             The “Interpretation” stage signifies that the algorithm doesn’t have predefined labels or categories for the data. It needs to figure out how to group or organize the data based on inherent patterns.
                             Algorithm represents the core of unsupervised learning process using techniques like clustering, dimensionality reduction, or anomaly detection to identify patterns and structures in the data.
                             Processing stage shows the algorithm working on the data.
-                        </ul>
-
-                        <div class="topic">
-                        <hr />
+                            </ul>
+                            <div class="topic">
                             The output shows the results of the unsupervised learning process. In this case, the algorithm might have grouped the animals into clusters based on their species (elephants, camels, cows).
-                        </div><br>
-
-
-            <div class="topic">
-            <hr />
-            {{ topic_13|safe }}
+                            </div><br>
+                        </div>
+            <div style="text-align: center; font-weight: bold;" class="topic">
+            <hr /><br>
+            Module FOUR
             </div><br>
 
-            <div class="topic">
-            <hr />
-            {{ topic_14|safe }}
-            </div><br>
+                What is Reinforcement Learning
 
-             <!-- RASCUNHO e fazendo para cima-->
-            <!-- titulo OK -->
-            MOD 1(INTRO) - (TOPIC 8)
+                    <div class="topic">
 
-                <!-- titulo (GENERAL) OK -->
-                (TOPIC 9) "three types"
+                        topic 13
+                    {{ topic_13|safe }}
+                    </div><br>
 
-                    <!-- topicos (MODULES)  OK -->
-                    Supervised Learning: Trains models on labeled data to predict or classify new, unseen data.
-                    Unsupervised Learning: Finds patterns or groups in unlabeled data, like clustering or dimensionality reduction.
-                    Reinforcement Learning: Learns through trial and error to maximize rewards, ideal for decision-making tasks.
-                    In addition, these categories, there are also Semi-Supervised Learning and Self-Supervised Learning.
-                    Semi-Supervised Learning uses a mix of labeled and unlabeled data, making it helpful when labeling data is costly or time-consuming.
-                    Self-Supervised Learning creates its own labels from raw data, allowing it to learn patterns without needing labeled examples.
+                    imagem
 
-                <!-- titulo OK-->
-                (Machine Learning Pipeline)
+                    <div class="topic">
 
-                    <!-- SUBtitulo OK -->
-                    (TOPIC 10)
+                        topic 14
+                    {{ topic_14|safe }}
+                    </div><br>
 
-                        <!-- topicos OK -->
-                        ML workflow
-                        Data Cleaning
-                        Feature Scaling
-                        Data Preprocessing in Python
-            <!-- TITULO OK -->
-            MOD 2
+                    <div class="topic">
 
-                <!-- Subtitulo ok-->
-                (What is Supervised Machine Learning?)
-                    <!-- conteudo OK-->
-                    (TOPIC 11)
+                        <blockquote>
+                    <p><li>Agent: The decision-maker that performs actions.</li></p>
+                    <p><li>Environment: The world or system in which the agent operates.</li></p>
+                    <p><li>State: The situation or condition the agent is currently in.</li></p>
+                    <p><li>Action: The possible moves or decisions the agent can make.</li></p>
+                    <p><li>Reward: The feedback or result from the environment based on the agent’s action.</li></p>
+                        </blockquote>
+                        </div>
 
-            <!-- Subtitulo OK-->
-            MOD 3
+                <div style="text-align: center; font-weight: bold;" class="topic">
+                <hr /><br>
+                Module FIVE
+                </div><br>
+                    <div class="topic">
 
-                (What is Unsupervised Learning?)
-                    <!-- conteudo ok-->
-                    (TOPIC 12)
-                    <!-- conteudo/SUBSUBTITULO ok-->
-                    The image shows set of animals: elephants, camels, and cows that represents raw data that the unsupervised learning algorithm will process.
-                        <!-- TOPICOS  ok  -->
-                        The “Interpretation” stage signifies that the algorithm doesn’t have predefined labels or categories for the data. It needs to figure out how to group or organize the data based on inherent patterns.
-                        Algorithm represents the core of unsupervised learning process using techniques like clustering, dimensionality reduction, or anomaly detection to identify patterns and structures in the data.
-                        Processing stage shows the algorithm working on the data.
-                        <!-- CONCLUSÃO ok -->
-                        The output shows the results of the unsupervised learning process. In this case, the algorithm might have grouped the animals into clusters based on their species (elephants, camels, cows).
-
-            MOD 4
-            <!-- SUBTITULO-->
-            (What is Reinforcement Learning)
-                (TOPIC 13)
-                (image d)
-                (TOPIC 14)
-                <!-- topicos-->
-                Agent: The decision-maker that performs actions.
-                Environment: The world or system in which the agent operates.
-                State: The situation or condition the agent is currently in.
-                Action: The possible moves or decisions the agent can make.
-                Reward: The feedback or result from the environment based on the agent’s action.
-
-            MOD 5(CONCLUSION)
-                Features of Machine Learning
-                    Machine Learning is the field of study that gives computers the capability to learn without being explicitly programmed.
-                    It is similar to data mining, as both deal with substantial amounts of data.
-                    For large organizations, branding is crucial, and targeting a relatable customer base becomes easier.
-                    Given a dataset, ML can detect various patterns in the data.
-                    Machines can learn from past data and automatically improve their performance.
-                    Machine learning is a data-driven technology. A large amount of data is generated by organizations daily, enabling them to identify notable relationships and make better decisions.
-
-
-        <div class="topic">
-            <hr />
-            {{ topic_1_2|safe }}
+                     Features of Machine Learning
+                    <div><br>
+                        Machine Learning is the field of study that gives computers the capability to learn without being explicitly programmed.
+                        It is similar to data mining, as both deal with substantial amounts of data.
+                        For large organizations, branding is crucial, and targeting a relatable customer base becomes easier.
+                        Given a dataset, ML can detect various patterns in the data.
+                        Machines can learn from past data and automatically improve their performance.
+                        Machine learning is a data-driven technology. A large amount of data is generated by organizations daily, enabling them to identify notable relationships and make better decisions.
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="topic">
-            <hr />
-            {{ topic_1_3|safe }}
-        </div>
-        <div class="topic">
-            <hr />
-            {{ topic_1_4|safe }}
-        </div>
-
-    <div class="course-content">
     </div>
+    <hr/>
     <!-- Botões de navegação -->
     <div>
         <a href="/page_3">BACK</a>
@@ -252,5 +194,5 @@
         Vditor.speechRender(previewElement);
     </script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
-</body>
+    </body>
 </html>

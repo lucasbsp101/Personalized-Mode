@@ -354,11 +354,12 @@ def TEST_page_3_4():
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
     topic_8 = extract_topic_content(base_content, 8)
-    topic_3_16 = extract_topic_content(base_content, 16)
-    topic_3_17 = extract_topic_content(base_content, 17)
-    topic_3_18 = extract_topic_content(base_content, 18)
-    topic_3_19 = extract_topic_content(base_content, 19)
-    topic_3_20 = extract_topic_content(base_content, 20)
+    topic_9 = extract_topic_content(base_content, 9)
+    topic_10 = extract_topic_content(base_content, 10)
+    topic_11 = extract_topic_content(base_content, 11)
+    topic_12 = extract_topic_content(base_content, 12)
+    topic_13 = extract_topic_content(base_content, 13)
+    topic_14 = extract_topic_content(base_content, 14)
 
     if person:
         preference = person.learning_preference
@@ -368,35 +369,39 @@ def TEST_page_3_4():
         if preference == "Personalized Teaching":
             if topic_8:
                 topic_8 = generate_custom_content(preference, topic_8, hobbies, work)
-            if topic_3_16:
-                topic_3_16 = generate_custom_content(preference, topic_3_16, hobbies, work)
-            if topic_3_17:
-                topic_3_17 = generate_custom_content(preference, topic_3_17, hobbies, work)
-            if topic_3_18:
-                topic_3_18 = generate_custom_content(preference, topic_3_18, hobbies, work)
-            if topic_3_19:
-                topic_3_19 = generate_custom_content(preference, topic_3_19, hobbies, work)
-            if topic_3_20:
-                topic_3_20 = generate_custom_content(preference, topic_3_20, hobbies, work)
-        else:
-            # Se for Generic Teaching, usa o conteúdo extraído diretamente
-            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
+            if topic_9:
+                topic_9 = generate_custom_content(preference, topic_9, hobbies, work)
+            if topic_10:
+                topic_10 = generate_custom_content(preference, topic_10, hobbies, work)
+            if topic_11:
+                topic_11 = generate_custom_content(preference, topic_11, hobbies, work)
+            if topic_12:
+                topic_12 = generate_custom_content(preference, topic_12, hobbies, work)
+            if topic_13:
+                topic_13 = generate_custom_content(preference, topic_13, hobbies, work)
+            if topic_14:
+                topic_14 = generate_custom_content(preference, topic_14, hobbies, work)
+            else:
+                # Se for Generic Teaching, usa o conteúdo extraído diretamente
+                pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
     else:
         topic_8 = "Dados do usuário não encontrados."
-        topic_3_16 = "Dados do usuário não encontrados."
-        topic_3_17 = "Dados do usuário não encontrados."
-        topic_3_18 = "Dados do usuário não encontrados."
-        topic_3_19 = "Dados do usuário não encontrados."
-        topic_3_20 = "Dados do usuário não encontrados."
+        topic_9 = "Dados do usuário não encontrados."
+        topic_10 = "Dados do usuário não encontrados."
+        topic_11 = "Dados do usuário não encontrados."
+        topic_12 = "Dados do usuário não encontrados."
+        topic_13 = "Dados do usuário não encontrados."
+        topic_14 = "Dados do usuário não encontrados."
 
     return render_template('TEST_page_3_4.html',
                            topic_8=topic_8,
-                           topic_3_16=topic_3_16,
-                           topic_3_17=topic_3_17,
-                           topic_3_18=topic_3_18,
-                           topic_3_19=topic_3_19,
-                           topic_3_20=topic_3_20)
+                           topic_9=topic_9,
+                           topic_10=topic_10,
+                           topic_11=topic_11,
+                           topic_12=topic_12,
+                           topic_13=topic_13,
+                           topic_14=topic_14)
 
 @app.route('/TEST_page_3_5') #ok
 def TEST_page_3_5():
