@@ -1,89 +1,56 @@
-<!-- developing, but running -->
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Knowledge TEST 1</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
-    <style>
-        /* Ajuste para inputs de rádio e labels ficarem na mesma linha */
-        .radio-group {
-            display: flex;
-            align-items: center;
-            gap: 8px; /* Espaço entre input e label */
-            margin-bottom: 10px; /* Espaço entre opções */
-        }
-    </style>
-</head>
-<body>
-    <h1>Knowledge TEST 1</h1>
+<html><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script></head><body style="width: 1075px;"><div class="vditor-reset" id="preview"><h1 id="TEST-ONE"><center>TEST ONE</center><a id="vditorAnchor-TEST-ONE" class="vditor-anchor" href="#TEST-ONE"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h1>
+<h6 id="Obs--The-main-objective-here--is-evaluate-you-knowlodge-before-the-course--Don-t-worry-if-you-don-t-know-any-question-here--this-is-normal-">Obs: The main objective here, is evaluate you knowlodge before the course. Don't worry if you don't know any question here, this is normal.<a id="vditorAnchor-Obs--The-main-objective-here--is-evaluate-you-knowlodge-before-the-course--Don-t-worry-if-you-don-t-know-any-question-here--this-is-normal-" class="vditor-anchor" href="#Obs--The-main-objective-here--is-evaluate-you-knowlodge-before-the-course--Don-t-worry-if-you-don-t-know-any-question-here--this-is-normal-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h6>
+<hr />
+<h3 id="Question-1"><strong>Question 1</strong><a id="vditorAnchor-Question-1" class="vditor-anchor" href="#Question-1"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<blockquote>
     <form method="POST" action="{{ url_for('page_2') }}">
-        <style>
-    /* Ajuste para inputs de rádio e labels ficarem na mesma linha */
-    .radio-group {
-        display: flex;
-        align-items: center;
-        gap: 8px; /* Espaço entre input e label */
-        margin-bottom: 10px; /* Espaço entre opções */
-    }
-        </style>
-
-<label for="AQ1">What is AI?</label><br>
-
+<p><label for="AQ1">What is AI?</label><br></p>
 <div class="radio-group">
-    <input type="radio" id="ai_ai1" name="AQ1" value="Artificial Intelligence" required>
-    <label for="ai_ai1">Artificial Intelligence</label>
+<input type="radio" id="ai_ai1" name="AQ1" value="Artificial Intelligence" required>
+<label for="ai_ai1">Artificial Intelligence</label>
 </div>
 <div class="radio-group">
-    <input type="radio" id="ai_ai2" name="AQ1" value="Automated Interface" required>
-    <label for="ai_ai2">Automated Interface</label>
+<input type="radio" id="ai_ai2" name="AQ1" value="Automated Interface" required>
+<label for="ai_ai2">Automated Interface</label>
 </div>
 <div class="radio-group">
-    <input type="radio" id="ai_ai3" name="AQ1" value="Advanced Integration" required>
-    <label for="ai_ai3">Advanced Integration</label>
+<input type="radio" id="ai_ai3" name="AQ1" value="Advanced Integration" required>
+<label for="ai_ai3">Advanced Integration</label>
 </div>
-
-<br>
-
-<label for="AQ2">Describe the subtopics of AI?</label><br>
-
+</blockquote>
+<h3 id="Question-2"><strong>Question 2</strong><a id="vditorAnchor-Question-2" class="vditor-anchor" href="#Question-2"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<blockquote>
+<p><label for="AQ2">Describe the subtopics of AI?</label><br></p>
 <div class="radio-group">
-    <input type="radio" id="ml_ml" name="AQ2" value="Machine Learning" required>
-    <label for="ml_ml">Machine Learning</label>
-</div>
-<div class="radio-group">
-    <input type="radio" id="ann_ann" name="AQ2" value="Artificial Neural Networks" required>
-    <label for="ann_ann">Artificial Neural Networks</label>
+<input type="radio" id="ml_ml" name="AQ2" value="Machine Learning" required>
+<label for="ml_ml">Machine Learning</label>
 </div>
 <div class="radio-group">
-    <input type="radio" id="nlp_nlp" name="AQ2" value="Natural Language Processing" required>
-    <label for="nlp_nlp">Natural Language Processing</label>
+<input type="radio" id="ann_ann" name="AQ2" value="Artificial Neural Networks" required>
+<label for="ann_ann">Artificial Neural Networks</label>
 </div>
 <div class="radio-group">
-    <input type="radio" id="cv_cv" name="AQ2" value="Computer Vision" required>
-    <label for="cv_cv">Computer Vision</label>
+<input type="radio" id="nlp_nlp" name="AQ2" value="Natural Language Processing" required>
+<label for="nlp_nlp">Natural Language Processing</label>
 </div>
-
-<br>
-        <button type="submit">Send answers</button>
+<div class="radio-group">
+<input type="radio" id="cv_cv" name="AQ2" value="Computer Vision" required>
+<label for="cv_cv">Computer Vision</label>
+</div>
+</blockquote>
+<h3 id="Question-3"><strong>Question 3</strong><a id="vditorAnchor-Question-3" class="vditor-anchor" href="#Question-3"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-4"><strong>Question 4</strong><a id="vditorAnchor-Question-4" class="vditor-anchor" href="#Question-4"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-5"><strong>Question 5</strong><a id="vditorAnchor-Question-5" class="vditor-anchor" href="#Question-5"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-6"><strong>Question 6</strong><a id="vditorAnchor-Question-6" class="vditor-anchor" href="#Question-6"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-7"><strong>Question 7</strong><a id="vditorAnchor-Question-7" class="vditor-anchor" href="#Question-7"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-8">Question 8<a id="vditorAnchor-Question-8" class="vditor-anchor" href="#Question-8"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-9">Question 9<a id="vditorAnchor-Question-9" class="vditor-anchor" href="#Question-9"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<h3 id="Question-10">Question 10<a id="vditorAnchor-Question-10" class="vditor-anchor" href="#Question-10"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<hr />
+<p><button type="submit">Send answers</button></p>
     </form>
-
-    <form action="{{ url_for('TEST_page_3_1') }}" method="get">
-        <button type="submit">TEST new page 3_1</button>
-    </form>
-
-    <form action="{{ url_for('page_3') }}" method="get">
-        <button type="submit">Go to Next page</button>
-    </form>
-
-
-    <!-- Botões de navegação -->
-    <div>
-
-        <a href="/">BACK</a><br><br>
-        <a href="/page_3">NEXT</a><br><br>
-        <a href="/">Back to the home page</a><br><br>
-    </div>
-
-</body>
-</html>
+<form action="{{ url_for('page_3') }}" method="get">
+    <button type="submit">Go to Next page</button>
+</form>
+    <form method="POST" action="{{ url_for('page_2') }}">
+</div><script>    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); </script>  <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script></body></html>

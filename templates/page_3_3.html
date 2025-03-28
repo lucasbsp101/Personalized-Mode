@@ -1,55 +1,46 @@
-<!-- This page will be about MACHINE LEARNING -->
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Basic Concepts of AI - ML</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
-     <style>
-        .course-content {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .course-content h1 {
-            color: #007bff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .course-content p {
-            line-height: 1.8;
-            color: #555;
-        }
-        .course-content ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .course-content li {
-            margin-bottom: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="course-content">
-        <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
-        <h1>Basic Concepts of Artificial Intelligence - Machine Learning</h1>
-        {{ content|safe }}
-    </div>
-
-    <!-- Botões de navegação -->
-     <div>
-        <a href="/page_3_2">BACK</a>
-    </div>
-
-    <a href="/">Back to the home page</a>
-
-<!-- Formulário com botão para redirecionar para a página 3_1 -->
-    <form action="{{ url_for('page_3_4') }}" method="get">
-        <button type="submit">Go to Next topic</button>
+<html><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script></head><body style="width: 1075px;"><div class="vditor-reset" id="preview"><h1 id="Basic-Concepts-of-Artificial-Intelligence"><center>Basic Concepts of Artificial Intelligence<a id="vditorAnchor-Basic-Concepts-of-Artificial-Intelligence" class="vditor-anchor" href="#Basic-Concepts-of-Artificial-Intelligence"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h1>
+<h3 id="Why-python-for-AI--"><center>Why python for AI??<a id="vditorAnchor-Why-python-for-AI--" class="vditor-anchor" href="#Why-python-for-AI--"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<ol>
+<li>
+<center><blockquote>
+ {{ topic_5|safe }}
+ </blockquote>
+</li>
+<li>
+<center><blockquote>
+     {{ topic_6|safe }}
+ </blockquote>
+</li>
+<li>
+<center><blockquote>
+     {{ topic_7|safe }}
+ </blockquote>
+</li>
+</ol>
+<hr />
+<blockquote>
+    Rich Ecosystem: Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
+    Strong Community Support: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.
+    Collaborative Environment: Ensures accessibility to help, tutorials, and insights for continuous learning.
+</blockquote>
+<p>An advantage for using Python is that it comes with some very suitable libraries:</p>
+<ul style="text-align: left;">
+    <li>NumPy (Library for working with Arrays)</li>
+    <li>SciPy (Library for Statistical Science)</li>
+    <li>Matplotlib (Graph Plotting Library)</li>
+    <li>NLTK (Natural Language Toolkit)</li>
+    <li>TensorFlow (Machine Learning)</li>
+</ul>
+<hr />
+<center><img class="fade-in" src="{{ url_for('static', filename='images/d.png') }}" alt="Imagem d">
+<hr />
+<p>(example)</p>
+<hr />
+<div>
+    <center><form action="{{ url_for('page_3_3') }}" method="get">
+        <button type="submit">Go to Third topic</button>
     </form>
-
-</body>
-</html>
+</div>
+<hr />
+<p><a href="/page_3_1">BACK</a></p>
+</div><script>    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); </script>  <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script></body></html>

@@ -2,7 +2,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0ffff; /* Gelo */
+    background-color: #A9A9A9; /* Cinza Escuro */
     color: #333;
     margin: 0;
     padding: 20px;
@@ -29,7 +29,7 @@ img {
 }
 
 h1 {
-    color: #00008b; /* Azul claro */
+    color:#000000; /* Branco */
 }
 
 h2 {
@@ -58,6 +58,8 @@ button {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 8px;
+    width: auto; /* Ajusta a largura ao conteúdo */
+    height: auto; /* Ajusta a altura ao conteúdo */
 }
 
 button:hover {
@@ -78,13 +80,6 @@ a {
 a:hover {
     text-decoration: underline;
     color: #0056b3;
-}
-
-.mermaid {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos adicionais para a página de curso */
@@ -179,20 +174,21 @@ h1, h2, h3 {
     font-family: 'Arial', sans-serif;
     color: #333;
     text-align: center;
+    font-size: 2em;
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 1.5em;
     margin-bottom: 20px;
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 0.5em;
     margin-bottom: 15px;
 }
 
 h3 {
-    font-size: 1.5em;
+    font-size: 1.0em;
     margin-bottom: 10px;
 }
 .background-animation {

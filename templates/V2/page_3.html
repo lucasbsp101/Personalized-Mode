@@ -1,0 +1,62 @@
+<!--This page will be INDEX (generic)-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Concepts of AI - INDEX</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
+    <style>
+        li {
+                opacity: 0; /* Inicialmente invisível */
+                animation: fadeIn 1s ease-in-out forwards;
+                font-size: 1.0em; /* Aumenta a fonte */
+                padding: 10px; /* Espaçamento interno */
+                width: 200px; /* Largura ajustada ao conteúdo */
+                height: auto; /* Altura ajustada ao conteúdo */
+                text-align: center; /* Centraliza o texto */
+                display: flex; /* Permite centralizar o conteúdo */
+                justify-content: center; /* Centraliza horizontalmente */
+                            align-items: center; /* Centraliza verticalmente */
+                background-color: white; /* Fundo branco */
+                border-radius: 8px; /* Bordas arredondadas */
+                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                margin: 30px; /* Espaçamento entre os itens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Basic Concepts of Artificial Intelligence - INDEX</h1>
+    <!--<img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">-->
+    <div style="text-align: center;">
+        <ul id="fade-list" style="display: inline-block;">
+            {% for item in content %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div><br><br>
+
+    <!-- Navigating botoms -->
+
+    <form action="{{ url_for('TEST_page_3_1') }}">
+        <button type="submit" style="width: 400px;">Go to First topic</button>
+    </form>
+
+    <div>
+        <a href="/page_2">BACK</a><br><br>
+        <a href="/TEST_page_3_1">NEXT</a><br><br>
+    </div>
+
+    <a href="/">Back to the home page</a>
+
+    <script>
+        // Adiciona um delay crescente para cada item da lista
+        document.addEventListener("DOMContentLoaded", function() {
+            const listItems = document.querySelectorAll("#fade-list li");
+            listItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.3}s`; // Cada item aparece com 0.3s de diferença
+            });
+        });
+    </script>
+</body>
+</html>
