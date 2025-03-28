@@ -1,0 +1,58 @@
+    <!-- This page will be about Python and AI -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Concepts of AI - Python and AI</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_2.css') }}">
+     <style>
+        .course-content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .course-content h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .course-content p {
+            line-height: 1.8;
+            color: #555;
+        }
+        .course-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .course-content li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <img class="fade-in" src="{{ url_for('static', filename='images/a.png') }}" alt="Imagem a">
+    <div class="course-content">
+        <h1>Basic Concepts of Artificial Intelligence - Python and AI</h1>
+        {{ content|safe }}
+    </div>
+    <!-- Botões de navegação -->
+    <div>
+        <a href="/TEST_page_3">BACK</a>
+    </div>
+    <a href="/">Back to the home page</a>
+    <!-- Botões de navegação -->
+
+    <!-- Formulário com botão para redirecionar para a página 3_1 -->
+    <form action="{{ url_for('TEST_page_3_2') }}" method="get">
+        <button type="submit">Go to Next topic</button>
+    </form>
+
+    <form action="{{ url_for('TEST_page_3_1') }}" method="get">
+        <button type="submit">TEST</button>
+    </form>
+
+</body>
+</html>
