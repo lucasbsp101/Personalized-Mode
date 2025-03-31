@@ -4,6 +4,8 @@
 
 ---
 
+<form method="POST" action="{{ url_for('page_4') }}">
+
 ### **Question 1**
 
 > <label for="AQ1">What is AI?</label><br>
@@ -58,11 +60,12 @@
 
 ---
 
+<form>
 <button type="submit">Send answers</button>
 </form>
 
 ---
 
-<form action="{{ url_for('page_5') }}" method="get">
+<CENTER><form action="{{ url_for('page_5') }}" method="get">
     <button type="submit">Go to Last page</button>
 </form>

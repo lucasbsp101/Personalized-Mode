@@ -1,24 +1,16 @@
 # <center>Basic Concepts of Artificial Intelligence
 
-### <center>What is python?
+### <center>Student's Project
 
 ---
-
 
 ...
 
-
 ---
 
-(example)
-
----
-
-<div>
-    <center><form action="{{ url_for('page_3_3') }}" method="get">
-        <button type="submit">Go to Third topic</button>
-    </form>
-</div>
+<center><form action="{{ url_for('page_3_3') }}" method="get">
+    <button type="submit">Go to Third topic </button>
+</form></center>
 
 ---
 

@@ -1,31 +1,36 @@
-# <center>Basic Concepts of Artificial Intelligence
+# <center> Basic Concepts of Artificial Intelligence
 
-### <center>What is python?
+### <center> What is python?
 
-<blockquote>
-  {{ topic_3|safe }} 
-</blockquote>
+>
+>  *{{ topic_3|safe }}* 
+
 
 ---
 
-Python offers a rich ecosystem with extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
+>Python offers a rich ecosystem with extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
 Additionally, it has strong community support, consisting of a large and active community of AI enthusiasts, researchers, and developers who share knowledge and resources.
 The collaborative environment ensures accessibility to help, tutorials, and insights for continuous learning.
 
 ---
 
-<img class="fade-in" src="{{ url_for('static', filename='images/C.png') }}" alt="Imagem C">
+<center> <img class="fade-in" src="{{ url_for('static', filename='images/C.png') }}" alt="Imagem C"> </center>
 
 ---
 
-example
+### <center> Example
+
+>
+> + *{{ topic_4|safe }}* 
 
 ---
 
 <div>
-    <center><form action="{{ url_for('page_3_3') }}" method="get">
-        <button type="submit">Go to Third topic</button>
-    </form>
+    <center>
+        <form action="{{ url_for('page_3_3') }}" method="get">
+            <button type="submit">Go to Third topic</button>
+        </form>
+    </center>
 </div>
 
 ---

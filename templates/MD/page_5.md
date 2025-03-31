@@ -1,6 +1,6 @@
 # <center>Basic Concepts of Artificial Intelligence
 
-### <center>Comparison Analysis
+### <center> *Student's Project*
 
 ---
 

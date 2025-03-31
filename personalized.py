@@ -110,16 +110,17 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
             endpoint=endpoint,
             credential=AzureKeyCredential(token),
         )
-# output with hmtl - deu muito certo as linhas 117 a 121, ele foi muito mais produtivo em linhas e icones
+        # output with hmtl - deu muito certo as linhas 117 a 121, ele foi muito mais produtivo em linhas e icones
         #apenas a linha 122 ainda nao funciona, testar mais vezes e pesquisar
         prompt = f"""
         Personalize each topic of the content{base_content} based on the person's hobbies{hobbies} and work{work}. 
-        Show the topic title and then the personalized content.
-        Just rewrite!
+        Rewrite to teenagers between 18 and 25 years!
         Make it more personal!
         Make it more engaging!
         Make the text output in HTML format.
-        Don't send: ``` This HTML document encapsulates your interests and aligns Python's applications with your personal hobbies and academic pursuits, making the content not only informative but also entertaining and relatable.
+        In the {base_content}, when you read Example:, create an example that is related to the person's hobbies{hobbies} and work{work}.
+        Don't send: ``` This HTML document encapsulates your interests and aligns Python's applications with your personal hobbies and academic pursuits, 
+        making the content not only informative but also entertaining and relatable.
         Don't send: ```html 
         """
         response = client.complete(
@@ -232,7 +233,7 @@ def page_3_1():
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
     topic_1 = extract_topic_content(base_content, 1) #Each TOPIC SEPARATOR is ONE
-    topic_1_2 = extract_topic_content(base_content, 2) # not using yet
+    topic_2 = extract_topic_content(base_content, 2) # not using yet
     topic_1_3 = extract_topic_content(base_content, 3) # not using yet
     topic_1_4 = extract_topic_content(base_content, 4) # not using yet
 
@@ -244,8 +245,8 @@ def page_3_1():
         if preference == "Personalized Teaching":
             if topic_1:
                 topic_1 = generate_custom_content(preference, topic_1, hobbies, work)
-            if topic_1_2:
-                topic_1_2 = generate_custom_content(preference, topic_1_2, hobbies, work)
+            if topic_2:
+                topic_2 = generate_custom_content(preference, topic_2, hobbies, work)
             if topic_1_3:
                 topic_1_3 = generate_custom_content(preference, topic_1_3, hobbies, work)
             if topic_1_4:
@@ -256,13 +257,13 @@ def page_3_1():
 
     else:
         topic_1 = "Dados do usuário não encontrados."
-        topic_1_2 = "Dados do usuário não encontrados."
+        topic_2 = "Dados do usuário não encontrados."
         topic_1_3 = "Dados do usuário não encontrados."
         topic_1_4 = "Dados do usuário não encontrados."
 
     return render_template('page_3_1.html',
                            topic_1=topic_1,
-                           topic_1_2=topic_1_2,
+                           topic_2=topic_2,
                            topic_1_3=topic_1_3,
                            topic_1_4=topic_1_4)
 
@@ -275,6 +276,7 @@ def page_3_2():
     person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
     topic_3 = extract_topic_content(base_content, 3)
+    topic_4 = extract_topic_content(base_content, 4)
 
 
     if person:
@@ -285,14 +287,17 @@ def page_3_2():
         if preference == "Personalized Teaching":
             if topic_3:
                 topic_3 = generate_custom_content(preference, topic_3, hobbies, work)
+            if topic_4:
+                topic_4 = generate_custom_content(preference, topic_4, hobbies, work)
         else:
             # Se for Generic Teaching, usa o conteúdo extraído diretamente
             pass  # Não precisa fazer nada, pois já extraímos o conteúdo
     else:
         topic_3 = "Dados do usuário não encontrados."
+        topic_4 = "Dados do usuário não encontrados."
     return render_template('page_3_2.html',
                            topic_3=topic_3,
-                           )
+                           topic_4=topic_4)
 
 @app.route('/page_3_3') #OK
 def page_3_3():
@@ -394,7 +399,7 @@ def page_3_4():
                            topic_13=topic_13,
                            topic_14=topic_14)
 
-@app.route('/page_3_5') #O
+@app.route('/page_3_5') #Ok
 def page_3_5():
     with open('base_content.txt', 'r', encoding='utf-8') as f:
         base_content = f.read()
@@ -824,22 +829,40 @@ def TEST_page_3_7():
 def index():
     form = PersonalDataForm()
     if request.method == 'POST':
-        session['name'] = request.form['name']
-        session['hobbies'] = request.form['hobbies']
-        session['work'] = request.form['work']
-        session['learning_preference'] = request.form['learning_preference']
-        session['age'] = request.form['age']
+        name = request.form['name']
+        hobbies = request.form['hobbies']
+        work = request.form['work']
+        learning_preference = request.form['learning_preference']
+        age = request.form['age']
 
-        new_person = Person(
-            name=session['name'],
-            hobbies=session['hobbies'],
-            work=session['work'],
-            learning_preference=session['learning_preference'],
-            age=session['age']
-        )
-        db.session.add(new_person)
-        db.session.commit()
-        session['person_id'] = new_person.id
+        # Verifica se o nome já existe no banco de dados
+        existing_person = Person.query.filter_by(name=name).first()
+        if existing_person:
+            # Atualiza o registro existente
+            existing_person.hobbies = hobbies
+            existing_person.work = work
+            existing_person.learning_preference = learning_preference
+            existing_person.age = age
+            db.session.commit()
+            session['person_id'] = existing_person.id
+        else:
+            # Cria um novo registro
+            new_person = Person(
+                name=name,
+                hobbies=hobbies,
+                work=work,
+                learning_preference=learning_preference,
+                age=age
+            )
+            db.session.add(new_person)
+            db.session.commit()
+            session['person_id'] = new_person.id
+
+        session['name'] = name
+        session['hobbies'] = hobbies
+        session['work'] = work
+        session['learning_preference'] = learning_preference
+        session['age'] = age
 
         return redirect(url_for('page_2'))
     return render_template('page_1.html', form=form)
@@ -908,8 +931,8 @@ def page_4():
     return render_template('page_4.html', AQ3=session.get('AQ3'), AQ4=session.get('AQ4'))
 
 # Comparison analysis
-@app.route('/last_page', methods=['GET', 'POST'])
-def last_page():
+@app.route('/page_6', methods=['GET', 'POST'])
+def page_6():
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
     if person:
@@ -922,7 +945,7 @@ def last_page():
         comparison_analysis = "Análise não disponível."
 
     return render_template(
-        'last_page.html',
+        'page_6.html',
         test_1_score=session.get('test_1_score', 0),
         grade_test_1=session.get('grade_test_1', 'N/A'),
         test_2_score=session.get('test_2_score', 0),
