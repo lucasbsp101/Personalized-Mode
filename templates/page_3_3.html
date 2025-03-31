@@ -2,45 +2,72 @@
 <h3 id="Why-python-for-AI--"><center>Why python for AI??<a id="vditorAnchor-Why-python-for-AI--" class="vditor-anchor" href="#Why-python-for-AI--"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
 <ol>
 <li>
-<center><blockquote>
- {{ topic_5|safe }}
- </blockquote>
+<blockquote>
+<p><em>{{ topic_5|safe }}</em></p>
+</blockquote>
 </li>
 <li>
-<center><blockquote>
-     {{ topic_6|safe }}
- </blockquote>
+<blockquote>
+<p><em>{{ topic_6|safe }}</em></p>
+</blockquote>
 </li>
 <li>
-<center><blockquote>
-     {{ topic_7|safe }}
- </blockquote>
+<blockquote>
+<p><em>{{ topic_7|safe }}</em></p>
+</blockquote>
 </li>
 </ol>
 <hr />
 <blockquote>
-    Rich Ecosystem: Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
-    Strong Community Support: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.
-    Collaborative Environment: Ensures accessibility to help, tutorials, and insights for continuous learning.
+<blockquote>
+<h2 id="-Rich-Ecosystem-"><center> <em>Rich Ecosystem</em> </center><a id="vditorAnchor--Rich-Ecosystem-" class="vditor-anchor" href="#-Rich-Ecosystem-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
 </blockquote>
-<p>An advantage for using Python is that it comes with some very suitable libraries:</p>
-<ul style="text-align: left;">
-    <li>NumPy (Library for working with Arrays)</li>
-    <li>SciPy (Library for Statistical Science)</li>
-    <li>Matplotlib (Graph Plotting Library)</li>
-    <li>NLTK (Natural Language Toolkit)</li>
-    <li>TensorFlow (Machine Learning)</li>
+<ul>
+<li>Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.</li>
+<li><strong>Strong Community Support</strong>: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.</li>
+<li><strong>Collaborative Environment</strong>: Ensures accessibility to help, tutorials, and insights for continuous learning.</li>
 </ul>
+</blockquote>
 <hr />
-<center><img class="fade-in" src="{{ url_for('static', filename='images/d.png') }}" alt="Imagem d">
+<h2 id="-Code-example-Python-Plus-IA-"><center> Code example Python Plus IA </center><a id="vditorAnchor--Code-example-Python-Plus-IA-" class="vditor-anchor" href="#-Code-example-Python-Plus-IA-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<pre><code class="language-python">from transformers import pipeline
+
+# Cria um classificador de sentimento
+classificador = pipeline(&quot;sentiment-analysis&quot;)
+
+# Texto de exemplo
+texto = &quot;Eu adorei o filme! Foi incrível.&quot;
+
+# Analisa o sentimento do texto
+resultado = classificador(texto)[0]
+
+# Exibe o resultado
+print(f&quot;Sentimento: {resultado['label']}&quot;)
+print(f&quot;Confiança: {resultado['score']:.4f}&quot;)
+</code></pre>
 <hr />
-<p>(example)</p>
+<blockquote>
+<p><strong>An advantage for using Python is that it comes with some very suitable libraries:</strong></p>
+<blockquote>
+<ul>
+<li>NumPy (Library for working with Arrays)</li>
+<li>SciPy (Library for Statistical Science)</li>
+<li>Matplotlib (Graph Plotting Library)</li>
+<li>NLTK (Natural Language Toolkit)</li>
+<li>TensorFlow (Machine Learning)</li>
+</ul>
+</blockquote>
+</blockquote>
+<hr />
+<center> <img class="fade-in" src="{{ url_for('static', filename='images/D.png') }}" alt="Imagem D"> </center>
 <hr />
 <div>
-    <center><form action="{{ url_for('page_3_4') }}" method="get">
-        <button type="submit">Go to Fourth topic</button>
-    </form>
-</div>
+     <center><form action="{{ url_for('page_3_4') }}" method="get">
+         <button type="submit">Go to Fourth topic</button>
+     </form>
+ </div>
 <hr />
-<p><a href="/page_3_2">BACK</a></p>
+<div>
+   <a href="/page_3_1">BACK</a>
+</div>
 </div><script>    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); </script>  <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script></body></html>

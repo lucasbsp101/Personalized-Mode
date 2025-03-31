@@ -3,54 +3,69 @@
 ### <center>Why python for AI??
 
 1. 
-    <center><blockquote>
-    {{ topic_5|safe }}
-    </blockquote>
+    >*{{ topic_5|safe }}*
 
 2. 
-    <center><blockquote>
-        {{ topic_6|safe }}
-    </blockquote>
+    >*{{ topic_6|safe }}*
+   
 
 3.
-    <center><blockquote>
-        {{ topic_7|safe }}
-    </blockquote>
+    >*{{ topic_7|safe }}*
+    
+
+---
+>> ## <center> *Rich Ecosystem* </center>
+>
+> + Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
+>
+> + **Strong Community Support**: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources. 
+>
+> + **Collaborative Environment**: Ensures accessibility to help, tutorials, and insights for continuous learning.
+
+---
+## <center> Code example Python Plus IA </center>
+```python
+from transformers import pipeline
+
+# Cria um classificador de sentimento
+classificador = pipeline("sentiment-analysis")
+
+# Texto de exemplo
+texto = "Eu adorei o filme! Foi incrível."
+
+# Analisa o sentimento do texto
+resultado = classificador(texto)[0]
+
+# Exibe o resultado
+print(f"Sentimento: {resultado['label']}")
+print(f"Confiança: {resultado['score']:.4f}")
+```
 
 ---
 
-<blockquote>
-    Rich Ecosystem: Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.
-    Strong Community Support: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.
-    Collaborative Environment: Ensures accessibility to help, tutorials, and insights for continuous learning.
-</blockquote>
+>**An advantage for using Python is that it comes with some very suitable libraries:**
+>> + NumPy (Library for working with Arrays)
+>> + SciPy (Library for Statistical Science)
+>> + Matplotlib (Graph Plotting Library)
+>> + NLTK (Natural Language Toolkit)
+>> + TensorFlow (Machine Learning)
 
-An advantage for using Python is that it comes with some very suitable libraries:
-
-<ul style="text-align: left;">
-    <li>NumPy (Library for working with Arrays)</li>
-    <li>SciPy (Library for Statistical Science)</li>
-    <li>Matplotlib (Graph Plotting Library)</li>
-    <li>NLTK (Natural Language Toolkit)</li>
-    <li>TensorFlow (Machine Learning)</li>
-</ul>
 
 ---
 
-<center><img class="fade-in" src="{{ url_for('static', filename='images/d.png') }}" alt="Imagem d">
+<center> <img class="fade-in" src="{{ url_for('static', filename='images/D.png') }}" alt="Imagem D"> </center>
 
 ---
 
-(example)
+
+ <div>
+     <center><form action="{{ url_for('page_3_4') }}" method="get">
+         <button type="submit">Go to Fourth topic</button>
+     </form>
+ </div>
+
 
 ---
-
 <div>
-    <center><form action="{{ url_for('page_3_3') }}" method="get">
-        <button type="submit">Go to Third topic</button>
-    </form>
+   <a href="/page_3_1">BACK</a>
 </div>
-
----
-
-<a href="/page_3_1">BACK</a>

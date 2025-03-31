@@ -18,6 +18,20 @@ The collaborative environment ensures accessibility to help, tutorials, and insi
 
 ---
 
+### <center> Example of Python Code </center>
+
+```python
+# Solicita o nome do usuário
+nome = input("Digite seu nome: ")
+
+# Exibe a saudação
+print("Olá, " + nome + "! Bem-vindo(a)!")
+```
+
+
+
+---
+
 ### <center> Example
 
 >
