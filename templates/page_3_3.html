@@ -23,27 +23,27 @@
 <h2 id="-Rich-Ecosystem-"><center> <em>Rich Ecosystem</em> </center><a id="vditorAnchor--Rich-Ecosystem-" class="vditor-anchor" href="#-Rich-Ecosystem-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
 </blockquote>
 <ul>
-<li>Offers extensive libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) tailored for AI and machine learning.</li>
-<li><strong>Strong Community Support</strong>: A large, active community of AI enthusiasts, researchers, and developers sharing knowledge and resources.</li>
-<li><strong>Collaborative Environment</strong>: Ensures accessibility to help, tutorials, and insights for continuous learning.</li>
+<li>Provides a wide range of libraries and frameworks (e.g., TensorFlow, PyTorch, Scikit-learn) specifically designed for AI and machine learning.</li>
+<li><strong>Robust Community Support</strong>: A large, active community of AI enthusiasts, researchers, and developers who share knowledge and resources.</li>
+<li><strong>Collaborative Environment</strong>: Ensures access to help, tutorials, and insights for continuous learning.</li>
 </ul>
 </blockquote>
 <hr />
 <h2 id="-Code-example-Python-Plus-IA-"><center> Code example Python Plus IA </center><a id="vditorAnchor--Code-example-Python-Plus-IA-" class="vditor-anchor" href="#-Code-example-Python-Plus-IA-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
 <pre><code class="language-python">from transformers import pipeline
 
-# Cria um classificador de sentimento
-classificador = pipeline(&quot;sentiment-analysis&quot;)
+# Create a sentiment classifier
+classifier = pipeline("sentiment-analysis")
 
-# Texto de exemplo
-texto = &quot;Eu adorei o filme! Foi incrível.&quot;
+# Example text
+text = "I loved the movie! It was amazing."
 
-# Analisa o sentimento do texto
-resultado = classificador(texto)[0]
+# Analyze the sentiment of the text
+result = classifier(text)[0]
 
-# Exibe o resultado
-print(f&quot;Sentimento: {resultado['label']}&quot;)
-print(f&quot;Confiança: {resultado['score']:.4f}&quot;)
+# Display the result
+print(f"Sentiment: {result['label']}")
+print(f"Confidence: {result['score']:.4f}")
 </code></pre>
 <hr />
 <blockquote>
