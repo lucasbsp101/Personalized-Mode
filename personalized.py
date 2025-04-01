@@ -356,6 +356,7 @@ def page_3_4():
     topic_12 = extract_topic_content(base_content, 12)
     topic_13 = extract_topic_content(base_content, 13)
     topic_14 = extract_topic_content(base_content, 14)
+    topic_21 = extract_topic_content(base_content, 21)
 
     if person:
         preference = person.learning_preference
@@ -377,6 +378,8 @@ def page_3_4():
                 topic_13 = generate_custom_content(preference, topic_13, hobbies, work)
             if topic_14:
                 topic_14 = generate_custom_content(preference, topic_14, hobbies, work)
+            if topic_21:
+                topic_21 = generate_custom_content(preference, topic_21, hobbies, work)
             else:
                 # Se for Generic Teaching, usa o conteúdo extraído diretamente
                 pass  # Não precisa fazer nada, pois já extraímos o conteúdo
@@ -389,6 +392,7 @@ def page_3_4():
         topic_12 = "Dados do usuário não encontrados."
         topic_13 = "Dados do usuário não encontrados."
         topic_14 = "Dados do usuário não encontrados."
+        topic_21 = "Dados do usuário não encontrados."
 
     return render_template('page_3_4.html',
                            topic_8=topic_8,
@@ -397,7 +401,8 @@ def page_3_4():
                            topic_11=topic_11,
                            topic_12=topic_12,
                            topic_13=topic_13,
-                           topic_14=topic_14)
+                           topic_14=topic_14,
+                           topic_21=topic_21)
 
 @app.route('/page_3_5') #Ok
 def page_3_5():

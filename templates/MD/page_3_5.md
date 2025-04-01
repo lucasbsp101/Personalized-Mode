@@ -1,27 +1,25 @@
 # <center>**Basic Concepts of Artificial Intelligence**
 
-### <center>What is Deep Learning?
+### <center> What is Deep Learning?
 
 ---
 
-### What is Deep Learning?
+### What is Deep Learning(DL)?
 
->> *{{ topic_16|safe }}*
+>> __*Concept*__: *{{ topic_16|safe }}*
 >>
->
-> Deep Learning is a branch of Artificial Intelligence (AI) that enables machines to learn from large amounts of data.
-> It uses neural networks with many layers to automatically find patterns and make predictions.
-> It is very useful for tasks like image recognition, language translation, and speech processing.
-> Deep learning models learn directly from data, without the need for manual feature extraction.
-> Popular applications of Deep Learning include self-driving cars, chatbots, medical image analysis, and recommendation systems.
+> Deep Learning is a subset of Artificial Intelligence (AI) that allows machines to learn from vast amounts of data.
+> It leverages neural networks with multiple layers to identify patterns and make predictions automatically.
+> It is particularly effective for tasks such as image recognition, language translation, and speech processing.
+> Deep learning models derive insights directly from data, eliminating the need for manual feature extraction.
+> Common applications of Deep Learning include autonomous vehicles, chatbots, medical image analysis, and recommendation systems.
+---
+
+<p><img src="/static/images/G.png" alt="G.png" /></p>
 
 ---
 
-(image)
-
----
-
-### Introduction to Neural Networks
+### Introduction to Neural Networks(NN)
 
 >> *{{ topic_17|safe }}*
 >>
@@ -31,17 +29,15 @@
 > + Multi-Layer Perceptron
 > + Artificial Neural Networks (ANNs)
 
----
-
-(image)
+<p><img src="/static/images/H.png" alt="H.png" /></p>
 
 ---
 
-### Basic Components of Neural Networks
+### Basic Components of Neural Networks(NN)
 
 >> *{{ topic_18|safe }}*
 >>
->
+>Below some components of NN
 > + Neurons
 > + Layers in Neural Networks
 > + Weights and Biases
@@ -53,11 +49,12 @@
 
 ---
 
-(image)
+<p><img src="/static/images/I.png" alt="I.png" /></p>
 
 ---
 
 ### **Example**
+
 *{{ topic_19|safe }}*
 
 ---

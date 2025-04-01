@@ -1,10 +1,6 @@
 # <center>Basic Concepts of Artificial Intelligence
 
-### <center>What is Machine Learning?
-
----
-
-(image)
+### <center> What is Machine Learning? </center>
 
 ---
 
@@ -12,59 +8,70 @@
 
 > *{{ topic_9|safe }}*
 
----
+![E.png](/static/images/E.png)
 
-> __Module ONE__
->
-> >+ Supervised Learning: Trains models on labeled data to predict or classify new, unseen data.
-> >+ Unsupervised Learning: Finds patterns or groups in unlabeled data, like clustering or dimensionality reduction.
-> >+ Reinforcement Learning: Learns through trial and error to maximize rewards, ideal for decision-making tasks.
-> >+ In addition, these categories, there are also Semi-Supervised Learning and Self-Supervised Learning.
-> >+ Semi-Supervised Learning uses a mix of labeled and unlabeled data, making it helpful when labeling data is costly or time-consuming.
-> >+ Self-Supervised Learning creates its own labels from raw data, allowing it to learn patterns without needing labeled examples.
-
-*Machine Learning Pipeline*
-
-*{{ topic_10|safe }}*
-
-+ ML workflow
-+ Data Cleaning
-+ Feature Scaling
-+ Data Preprocessing in Python
+<center> (image) </center> <!-- testar linha 11, se nao, fazer modo antigo> -->
 
 ---
 
-> __Module TWO__
+> ## <center>__Module ONE__</center>
 >
-> *What is Supervised Machine Learning?*
-> 
+>> + Supervised Learning: Trains models on labeled data to predict or classify new, unseen data.
+>> + Unsupervised Learning: Finds patterns or groups in unlabeled data, like clustering or dimensionality reduction.
+>> + Reinforcement Learning: Learns through trial and error to maximize rewards, ideal for decision-making tasks.
+>> + In addition, these categories, there are also Semi-Supervised Learning and Self-Supervised Learning.
+>> + Semi-Supervised Learning uses a mix of labeled and unlabeled data, making it helpful when labeling data is costly or time-consuming.
+>> + Self-Supervised Learning creates its own labels from raw data, allowing it to learn patterns without needing labeled examples.
+>>
+>
+>> + **Machine Learning Pipeline**
+>>
+>> *{{ topic_10|safe }}*
+>>
+>> + ML(Machine Learning) workflow
+>> + Data Cleaning
+>> + Feature Scaling
+>> + Data Preprocessing in Python
+
+---
+
+> ## <center>__Module TWO__</center>
+>
+> Below, you will see the three main types of machine learning: __supervised__, __unsupervised__, and __reinforcement learning__. The image below, remember the idea.
+>
+>> ![AA.png](/static/images/AA.png)
+>>
+>
+> ### *What is Supervised Machine Learning?*
+>
 > *{{ topic_11|safe }}*
 >
-> *What is Unsupervised Learning?*
-> 
+> ### *What is Unsupervised Learning?*
+>
 > *{{ topic_12|safe }}*
-> 
-> The image below, shows set of animals: elephants, camels, and cows that represents raw data that the unsupervised learning algorithm will process.
 >
->(image)
+> The image below, shows set of animals: elephants, camels, and cows, that represents **raw** data that the **unsupervised learning** algorithm will process.
 >
-> The “Interpretation” stage signifies that the algorithm doesn’t have predefined labels or categories for the data. It needs to figure out how to group or organize the data based on inherent patterns.
-Algorithm represents the core of unsupervised learning process using techniques like clustering, dimensionality reduction, or anomaly detection to identify patterns and structures in the data.
-Processing stage shows the algorithm working on the data.
+> ![F.png](/static/images/F.png)
+>
+>+ During the 'Interpretation' phase, the algorithm operates without any pre-existing labels or categories assigned to the data. Its task is to discern the data's organization or grouping by identifying intrinsic patterns.
 > 
-> The output shows the results of the unsupervised learning process. In this case, the algorithm might have grouped the animals into clusters based on their species (elephants, camels, cows).
+>+ The algorithm functions as the central component of the unsupervised learning procedure, employing methods such as clustering, dimensionality reduction, or anomaly detection to discover patterns and structures within the data.
+> 
+>+ The processing phase illustrates the algorithm's application to the data.
+>
+>+ The resulting output demonstrates the conclusions drawn from the unsupervised learning process. In this specific scenario, the algorithm may have categorized the animals into distinct groups based on their species (elephants, camels, cows).
+
 ---
 
-> __Module THREE__
+> ## <center>__Module THREE__</center>
 >
-> > *What is Reinforcement Learning?*
-> 
+> ### *What is Reinforcement Learning?*
+>
 > *{{ topic_13|safe }}*
-> 
-> (imagem)
-> 
+>
 > *{{ topic_14|safe }}*
-> 
+>
 > + __Agent__: The decision-maker that performs actions.
 > + __Environment__: The world or system in which the agent operates.
 > + __State__: The situation or condition the agent is currently in.
@@ -73,26 +80,31 @@ Processing stage shows the algorithm working on the data.
 
 ---
 
-> __Module FOUR__
+> ## <center>__Module FOUR__</center>
 >
->Features of Machine Learning
-> 
-> Machine Learning is the field of study that gives computers the capability to learn without being explicitly programmed.
-It is similar to data mining, as both deal with substantial amounts of data.
-For large organizations, branding is crucial, and targeting a relatable customer base becomes easier.
-Given a dataset, ML can detect various patterns in the data.
-Machines can learn from past data and automatically improve their performance.
-Machine learning is a data-driven technology. A large amount of data is generated by organizations daily, enabling them to identify notable relationships and make better decisions.
+> ### Features and resume of *Machine Learning*
+>
+> Machine Learning is a discipline that enables computers to learn from data without being explicitly programmed.
+> It shares similarities with data mining, as both involve analyzing large datasets.
+> For large companies, branding is essential, and reaching a relevant customer base becomes more straightforward.
+> With a dataset, ML can identify various patterns within the data.
+> Systems can learn from historical data and enhance their performance automatically.
+> Machine learning is driven by data. Organizations generate vast amounts of data daily, allowing them to uncover significant relationships and make better decisions.
 
 ---
 
-(example)
+### <center> Example of Machine Learning: </center>
+
+> #### Predicting House Prices with Machine Learning
+>
+> *{{ topic_21|safe }}*
+
 
 ---
 
 <div>
-    <center><form action="{{ url_for('page_3_5') }}" method="get">
-        <button type="submit">Go to Third topic</button>
+    <form action="{{ url_for('page_3_5') }}" method="get">
+        <center><button type="submit">Go to Fifth topic</button></center>
     </form>
 </div>
 
