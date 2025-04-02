@@ -94,6 +94,16 @@ class Person(db.Model):
     AQ19 = db.Column(db.String(500), nullable=True)
     AQ20 = db.Column(db.String(500), nullable=True)
 
+    def calculate_grades(self):
+        if self.test_1_score is not None:
+            self.grade_test_1 = self.test_1_score * 0.1  # Exemplo de cálculo
+        if self.test_2_score is not None:
+            self.grade_test_2 = self.test_2_score * 0.1  # Exemplo de cálculo
+
+    def save(self):
+        self.calculate_grades()
+        db.session.add(self)
+        db.session.commit()
 
 # TEST 1
 @app.route('/test_1', methods=['GET', 'POST'])

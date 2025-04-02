@@ -68,18 +68,18 @@
 
         <div class="radio-group">
             <input type="radio" id="Generic Teaching" name="learning_preference" value="Generic Teaching" required>
-            <label for="Generic Teaching">Generic Teaching(developing)</label>
+            <label for="Generic Teaching">Generic Teaching</label>
         </div>
         <div class="radio-group">
             <input type="radio" id="Personalized Teaching" name="learning_preference" value="Personalized Teaching" required>
-            <label for="Personalized Teaching">Personalized Teaching(TESTE..)</label>
+            <label for="Personalized Teaching">Personalized Teaching</label>
         </div>
 
-        <button type="button" onclick="submitForm()">Send!</button><br>
-        <label>Please, verify your data before sending</label>
+        <center><button type="button" onclick="submitForm()">Send!</button><br><br></center>
+        <center><label>Please, verify your data before sending</label></center>
         <br>
             <form action="{{ url_for('page_2') }}" method="get">
-                <button type="submit">Go to Next page</button>
+                <center><button type="submit">Go to Next page</button></center>
             </form>
     </form>
 
