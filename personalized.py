@@ -36,26 +36,26 @@ def is_image_format_correct(image_path, allowed_formats=('JPEG', 'PNG')):
 #repassar depois para um txt também
 def calculate_score(answers):
     correct_answers = {
-        'AQ1': 'Artificial Intelligence',
-        'AQ2': 'Computer Vision',
-        'AQ3': 'Artificial Intelligence',
-        'AQ4': 'Computer Vision',
-        'AQ5': 'Machine Learning',
-        'AQ6': 'Deep Learning',
-        'AQ7': 'Natural Language Processing',
-        'AQ8': 'Robotics',
-        'AQ9': 'Data Science',
-        'AQ10': 'Big Data',
-        'AQ11': 'Neural Networks',
-        'AQ12': 'Reinforcement Learning',
-        'AQ13': 'Supervised Learning',
-        'AQ14': 'Unsupervised Learning',
-        'AQ15': 'Semi-Supervised Learning',
-        'AQ16': 'Transfer Learning',
-        'AQ17': 'Generative Adversarial Networks',
-        'AQ18': 'Self-Supervised Learning',
-        'AQ19': 'Meta-Learning',
-        'AQ20': 'Federated Learning'
+        'AQ1': 'The simulation of human intelligence processes by machines',
+        'AQ2': 'Facial recognition, virtual assistants, and autonomous vehicles',
+        'AQ3': 'Web development, data science, AI, and automation',
+        'AQ4': 'Machine learning, deep learning, and natural language processing',
+        'AQ5': 'A subset of AI that enables systems to learn from data',
+        'AQ6': 'By using predefined algorithms to analyze data and make predictions',
+        'AQ7': 'Supervised, unsupervised, and reinforcement learning',
+        'AQ8': 'Different approaches to training machine learning models',
+        'AQ9': 'A subset of machine learning using neural networks with many layers',
+        'AQ10': 'Computational models inspired by the human brain, used in deep learning',
+        'AQ11': 'The simulation of human intelligence processes by machines',
+        'AQ12': 'Facial recognition, virtual assistants, and autonomous vehicles',
+        'AQ13': 'Web development, data science, AI, and automation',
+        'AQ14': 'Machine learning, deep learning, and natural language processing',
+        'AQ15': 'A subset of AI that enables systems to learn from data',
+        'AQ16': 'By using predefined algorithms to analyze data and make predictions',
+        'AQ17': 'Supervised, unsupervised, and reinforcement learning',
+        'AQ18': 'Different approaches to training machine learning models',
+        'AQ19': 'A subset of machine learning using neural networks with many layers',
+        'AQ20': 'Computational models inspired by the human brain, used in deep learning'
     }
     score = sum(1 for key, value in answers.items() if value == correct_answers[key])
     return score
@@ -66,6 +66,13 @@ class Person(db.Model):
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer)
     learning_preference = db.Column(db.String(50), nullable=False)
+    test_1_score = db.Column(db.Integer, nullable=True)
+    test_2_score = db.Column(db.Integer, nullable=True)
+    grade_test_1 = db.Column(db.Integer, nullable=True)
+    grade_test_2 = db.Column(db.Integer, nullable=True)
+    hobbies = db.Column(db.String(500), nullable=True)
+    work = db.Column(db.String(500), nullable=True)
+    feedback = db.Column(db.String(500), nullable=True)
     AQ1 = db.Column(db.String(500), nullable=True)
     AQ2 = db.Column(db.String(500), nullable=True)
     AQ3 = db.Column(db.String(500), nullable=True)
@@ -86,13 +93,7 @@ class Person(db.Model):
     AQ18 = db.Column(db.String(500), nullable=True)
     AQ19 = db.Column(db.String(500), nullable=True)
     AQ20 = db.Column(db.String(500), nullable=True)
-    test_1_score = db.Column(db.Integer, nullable=True)
-    test_2_score = db.Column(db.Integer, nullable=True)
-    grade_test_1 = db.Column(db.Integer, nullable=True)
-    grade_test_2 = db.Column(db.Integer, nullable=True)
-    hobbies = db.Column(db.String(500), nullable=True)
-    work = db.Column(db.String(500), nullable=True)
-    feedback = db.Column(db.String(500), nullable=True)
+
 
 # TEST 1
 @app.route('/test_1', methods=['GET', 'POST'])
