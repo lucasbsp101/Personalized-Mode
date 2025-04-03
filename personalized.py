@@ -6,10 +6,12 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from PIL import Image
 import os
+import re
 from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import UserMessage
 from azure.core.credentials import AzureKeyCredential
 from flask_caching import Cache
+
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
@@ -23,6 +25,59 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the database
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+#Student's Project
+@app.route('/analyze_sentiment', methods=['POST'])
+def analyze_sentiment():
+    try:
+        data = request.get_json()
+        text = data['text']
+
+        endpoint = "https://models.inference.ai.azure.com"
+        model_name = "Phi-4"
+        token = os.environ["GITHUB_TOKEN"]
+
+        client = ChatCompletionsClient(
+            endpoint=endpoint,
+            credential=AzureKeyCredential(token),
+        )
+
+        prompt = f"Analyze the sentiment of the following text and return 'positive', 'negative', or 'neutral', and the confidence: {text}"
+
+        response = client.complete(
+            messages=[UserMessage(content=prompt)],
+            temperature=0.7,
+            top_p=0.9,
+            max_tokens=500,
+            model=model_name
+        )
+
+        result = response.choices[0].message.content.strip()
+
+        # Debugging: Exibir a resposta bruta da API
+        print(f"API Response (Raw): {result}")
+
+        # Extração de sentimento e confiança usando expressões regulares ajustadas
+        try:
+            sentiment_match = re.search(r"sentiment of the text is '(\w+)'", result, re.IGNORECASE)
+            confidence_match = re.search(r"Confidence:\s*(\w+)", result, re.IGNORECASE)
+
+            if sentiment_match and confidence_match:
+                sentiment = sentiment_match.group(1).lower()
+                confidence = confidence_match.group(1)
+                return jsonify({'sentiment': sentiment, 'confidence': confidence})
+            else:
+                if not sentiment_match:
+                    return jsonify({'error': 'Sentiment not found in API response'}), 500
+                if not confidence_match:
+                    return jsonify({'error': 'Confidence not found in API response'}), 500
+                return jsonify({'error': 'Could not extract sentiment and confidence from API response (regex mismatch)'}), 500
+
+        except Exception as regex_error:
+            return jsonify({'error': f'Error during regex extraction: {regex_error}'}), 500
+
+    except Exception as api_error:
+        return jsonify({'error': f'Error during API call: {api_error}'}), 500
 
 # Image processing
 def is_image_format_correct(image_path, allowed_formats=('JPEG', 'PNG')):
@@ -127,8 +182,12 @@ def generate_comparison_analysis(person):
     )
 
     prompt = (
-        f"Compare os resultados dos testes 1 e 2 e forneça uma análise detalhada para a pessoa com as seguintes notas: "
-        f"Teste 1: {person.grade_test_1}, Teste 2: {person.grade_test_2}.")
+        f"Compare the results of tests 1 and 2 and "
+        f"provide a detailed analysis for the person with the following scores: "
+        f"Test 1: {person.grade_test_1}, Test 2: {person.grade_test_2}."
+        "Be more mainly"
+        "Speak like a teenager, using {person.hobbies} and {person.work} as examples."
+        "Return the analysis in HTML format.")
 
     response = client.complete(
         messages=[UserMessage(content=prompt)],
@@ -163,7 +222,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
         In the {base_content}, when you read Example:, create an example that is related to the person's hobbies{hobbies} and work{work}.
         Don't send: ``` This HTML document encapsulates your interests and aligns Python's applications with your personal hobbies and academic pursuits, 
         making the content not only informative but also entertaining and relatable.
-        Don't send: ```html 
+        Don't send: ```html to {generate_custom_content}
         """
         response = client.complete(
             messages=[UserMessage(content=prompt)],
@@ -251,9 +310,7 @@ def extract_topic_content(base_content, topic_number):
     else:
         return None
 
-#CRIANDO NOVAS PAGINAS
-# V3
-# V3 - CRIANDO COM MD
+# Last REVIEW - PAGES
 @app.route('/page_3_1') #OK
 def page_3_1():
     with open('base_content.txt', 'r', encoding='utf-8') as f:
@@ -525,328 +582,328 @@ def page_3_6():
 # V3 - CRIANDO COM MD
 
 # V2
-    @app.route('/TEST_page_3_1') #OK
-    def TEST_page_3_1():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
+@app.route('/TEST_page_3_1') #OK
+def TEST_page_3_1():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
 
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-        topic_1 = extract_topic_content(base_content, 1) #Each TOPIC SEPARATOR is ONE
-        topic_1_2 = extract_topic_content(base_content, 2) # not using yet
-        topic_1_3 = extract_topic_content(base_content, 3) # not using yet
-        topic_1_4 = extract_topic_content(base_content, 4) # not using yet
+    topic_1 = extract_topic_content(base_content, 1) #Each TOPIC SEPARATOR is ONE
+    topic_1_2 = extract_topic_content(base_content, 2) # not using yet
+    topic_1_3 = extract_topic_content(base_content, 3) # not using yet
+    topic_1_4 = extract_topic_content(base_content, 4) # not using yet
 
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
 
-            if preference == "Personalized Teaching":
-                if topic_1:
-                    topic_1 = generate_custom_content(preference, topic_1, hobbies, work)
-                if topic_1_2:
-                    topic_1_2 = generate_custom_content(preference, topic_1_2, hobbies, work)
-                if topic_1_3:
-                    topic_1_3 = generate_custom_content(preference, topic_1_3, hobbies, work)
-                if topic_1_4:
-                    topic_1_4 = generate_custom_content(preference, topic_1_4, hobbies, work)
+        if preference == "Personalized Teaching":
+            if topic_1:
+                topic_1 = generate_custom_content(preference, topic_1, hobbies, work)
+            if topic_1_2:
+                topic_1_2 = generate_custom_content(preference, topic_1_2, hobbies, work)
+            if topic_1_3:
+                topic_1_3 = generate_custom_content(preference, topic_1_3, hobbies, work)
+            if topic_1_4:
+                topic_1_4 = generate_custom_content(preference, topic_1_4, hobbies, work)
+        else:
+            # Se for Generic Teaching, usa o conteúdo extraído diretamente
+            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
+
+    else:
+        topic_1 = "Dados do usuário não encontrados."
+        topic_1_2 = "Dados do usuário não encontrados."
+        topic_1_3 = "Dados do usuário não encontrados."
+        topic_1_4 = "Dados do usuário não encontrados."
+
+    return render_template('TEST_page_3_1.html',
+                           topic_1=topic_1,
+                           topic_1_2=topic_1_2,
+                           topic_1_3=topic_1_3,
+                           topic_1_4=topic_1_4)
+
+@app.route('/TEST_page_3_2') #OK
+def TEST_page_3_2():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
+
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+
+    topic_3 = extract_topic_content(base_content, 3)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        if preference == "Personalized Teaching":
+            if topic_3:
+                topic_3 = generate_custom_content(preference, topic_3, hobbies, work)
+        else:
+            # Se for Generic Teaching, usa o conteúdo extraído diretamente
+            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
+
+    else:
+        topic_3 = "Dados do usuário não encontrados."
+
+    return render_template('TEST_page_3_2.html',
+                           topic_3=topic_3,
+                        )
+
+@app.route('/TEST_page_3_3')
+def TEST_page_3_3():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
+
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+
+    topic_5 = extract_topic_content(base_content, 5)
+    topic_6 = extract_topic_content(base_content, 6)
+    topic_7 = extract_topic_content(base_content, 7)
+    topic_3_13 = extract_topic_content(base_content, 13) #not using yet
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        if preference == "Personalized Teaching":
+            if topic_5:
+                topic_5 = generate_custom_content(preference, topic_5, hobbies, work)
+            if topic_6:
+                topic_6 = generate_custom_content(preference, topic_6, hobbies, work)
+            if topic_7:
+                topic_7 = generate_custom_content(preference, topic_7, hobbies, work)
+            if topic_3_13:
+                topic_3_13 = generate_custom_content(preference, topic_3_13, hobbies, work)
+        else:
+            # Se for Generic Teaching, usa o conteúdo extraído diretamente
+            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
+
+    else:
+        topic_5 = "Dados do usuário não encontrados."
+        topic_6 = "Dados do usuário não encontrados."
+        topic_7 = "Dados do usuário não encontrados."
+        topic_3_13 = "Dados do usuário não encontrados."
+
+    return render_template('TEST_page_3_3.html',
+                           topic_5=topic_5,
+                           topic_6=topic_6,
+                           topic_7=topic_7,
+                           topic_3_13=topic_3_13)
+
+@app.route('/TEST_page_3_4')
+def TEST_page_3_4():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
+
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+
+    topic_8 = extract_topic_content(base_content, 8)
+    topic_9 = extract_topic_content(base_content, 9)
+    topic_10 = extract_topic_content(base_content, 10)
+    topic_11 = extract_topic_content(base_content, 11)
+    topic_12 = extract_topic_content(base_content, 12)
+    topic_13 = extract_topic_content(base_content, 13)
+    topic_14 = extract_topic_content(base_content, 14)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        if preference == "Personalized Teaching":
+            if topic_8:
+                topic_8 = generate_custom_content(preference, topic_8, hobbies, work)
+            if topic_9:
+                topic_9 = generate_custom_content(preference, topic_9, hobbies, work)
+            if topic_10:
+                topic_10 = generate_custom_content(preference, topic_10, hobbies, work)
+            if topic_11:
+                topic_11 = generate_custom_content(preference, topic_11, hobbies, work)
+            if topic_12:
+                topic_12 = generate_custom_content(preference, topic_12, hobbies, work)
+            if topic_13:
+                topic_13 = generate_custom_content(preference, topic_13, hobbies, work)
+            if topic_14:
+                topic_14 = generate_custom_content(preference, topic_14, hobbies, work)
             else:
                 # Se for Generic Teaching, usa o conteúdo extraído diretamente
                 pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
+    else:
+        topic_8 = "Dados do usuário não encontrados."
+        topic_9 = "Dados do usuário não encontrados."
+        topic_10 = "Dados do usuário não encontrados."
+        topic_11 = "Dados do usuário não encontrados."
+        topic_12 = "Dados do usuário não encontrados."
+        topic_13 = "Dados do usuário não encontrados."
+        topic_14 = "Dados do usuário não encontrados."
+
+    return render_template('TEST_page_3_4.html',
+                           topic_8=topic_8,
+                           topic_9=topic_9,
+                           topic_10=topic_10,
+                           topic_11=topic_11,
+                           topic_12=topic_12,
+                           topic_13=topic_13,
+                           topic_14=topic_14)
+
+@app.route('/TEST_page_3_5')
+def TEST_page_3_5():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
+
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+
+    topic_16 = extract_topic_content(base_content, 16)
+    topic_17 = extract_topic_content(base_content, 17)
+    topic_18 = extract_topic_content(base_content, 18)
+    topic_19 = extract_topic_content(base_content, 19)
+
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
+
+        if preference == "Personalized Teaching":
+
+            if topic_16:
+                   topic_16 = generate_custom_content(preference, topic_16, hobbies, work)
+            if topic_17:
+                   topic_17 = generate_custom_content(preference, topic_17, hobbies, work)
+            if topic_18:
+                   topic_18 = generate_custom_content(preference, topic_18, hobbies, work)
+            if topic_19:
+                   topic_19 = generate_custom_content(preference, topic_19, hobbies, work)
         else:
-            topic_1 = "Dados do usuário não encontrados."
-            topic_1_2 = "Dados do usuário não encontrados."
-            topic_1_3 = "Dados do usuário não encontrados."
-            topic_1_4 = "Dados do usuário não encontrados."
+             # Se for Generic Teaching, usa o conteúdo extraído diretamente
+            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
-        return render_template('TEST_page_3_1.html',
-                               topic_1=topic_1,
-                               topic_1_2=topic_1_2,
-                               topic_1_3=topic_1_3,
-                               topic_1_4=topic_1_4)
+    else:
+        topic_16 = "Dados do usuário não encontrados."
+        topic_17 = "Dados do usuário não encontrados."
+        topic_18 = "Dados do usuário não encontrados."
+        topic_19 = "Dados do usuário não encontrados."
 
-    @app.route('/TEST_page_3_2') #OK
-    def TEST_page_3_2():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
+    return render_template('TEST_page_3_5.html',
+                            topic_16=topic_16,
+                            topic_17=topic_17,
+                            topic_18=topic_18,
+                            topic_19=topic_19)
 
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+@app.route('/TEST_page_3_6')
+def TEST_page_3_6():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
 
-        topic_3 = extract_topic_content(base_content, 3)
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
+    topic_1_25 = extract_topic_content(base_content, 25)
+    topic_1_26 = extract_topic_content(base_content, 26)
+    topic_1_27 = extract_topic_content(base_content, 27)
+    topic_1_28 = extract_topic_content(base_content, 28)
+    topic_1_29 = extract_topic_content(base_content, 29)
+    topic_1_30 = extract_topic_content(base_content, 30)
 
-            if preference == "Personalized Teaching":
-                if topic_3:
-                    topic_3 = generate_custom_content(preference, topic_3, hobbies, work)
-            else:
-                # Se for Generic Teaching, usa o conteúdo extraído diretamente
-                pass  # Não precisa fazer nada, pois já extraímos o conteúdo
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
 
+        if preference == "Personalized Teaching":
+            if topic_1_25:
+                topic_1_25 = generate_custom_content(preference, topic_1_25, hobbies, work)
+            if topic_1_26:
+                topic_1_26 = generate_custom_content(preference, topic_1_26, hobbies, work)
+            if topic_1_27:
+                topic_1_27 = generate_custom_content(preference, topic_1_27, hobbies, work)
+            if topic_1_28:
+                topic_1_28 = generate_custom_content(preference, topic_1_28, hobbies, work)
+            if topic_1_29:
+                topic_1_29 = generate_custom_content(preference, topic_1_29, hobbies, work)
+            if topic_1_30:
+                topic_1_30 = generate_custom_content(preference, topic_1_30, hobbies, work)
         else:
-            topic_3 = "Dados do usuário não encontrados."
+            # Se for Generic Teaching, usa o conteúdo extraído diretamente
+            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
-        return render_template('TEST_page_3_2.html',
-                               topic_3=topic_3,
-                            )
+    else:
+        topic_1_25 = "Dados do usuário não encontrados."
+        topic_1_26 = "Dados do usuário não encontrados."
+        topic_1_27 = "Dados do usuário não encontrados."
+        topic_1_28 = "Dados do usuário não encontrados."
+        topic_1_29 = "Dados do usuário não encontrados."
+        topic_1_30 = "Dados do usuário não encontrados."
 
-    @app.route('/TEST_page_3_3')
-    def TEST_page_3_3():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
+    return render_template('TEST_page_3_6.html',
+                           topic_1_25=topic_1_25,
+                           topic_1_26=topic_1_26,
+                           topic_1_27=topic_1_27,
+                           topic_1_28=topic_1_28,
+                           topic_1_29=topic_1_29,
+                           topic_1_30=topic_1_30)
 
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
+@app.route('/TEST_page_3_7')
+def TEST_page_3_7():
+    with open('base_content.txt', 'r', encoding='utf-8') as f:
+        base_content = f.read()
 
-        topic_5 = extract_topic_content(base_content, 5)
-        topic_6 = extract_topic_content(base_content, 6)
-        topic_7 = extract_topic_content(base_content, 7)
-        topic_3_13 = extract_topic_content(base_content, 13) #not using yet
+    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
+    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
 
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
+    topic_1_35 = extract_topic_content(base_content, 35)
+    topic_1_36 = extract_topic_content(base_content, 36)
+    topic_1_37 = extract_topic_content(base_content, 37)
+    topic_1_38 = extract_topic_content(base_content, 38)
+    topic_1_39 = extract_topic_content(base_content, 39)
+    topic_1_40 = extract_topic_content(base_content, 40)
 
-            if preference == "Personalized Teaching":
-                if topic_5:
-                    topic_5 = generate_custom_content(preference, topic_5, hobbies, work)
-                if topic_6:
-                    topic_6 = generate_custom_content(preference, topic_6, hobbies, work)
-                if topic_7:
-                    topic_7 = generate_custom_content(preference, topic_7, hobbies, work)
-                if topic_3_13:
-                    topic_3_13 = generate_custom_content(preference, topic_3_13, hobbies, work)
-            else:
-                # Se for Generic Teaching, usa o conteúdo extraído diretamente
-                pass  # Não precisa fazer nada, pois já extraímos o conteúdo
+    if person:
+        preference = person.learning_preference
+        hobbies = person.hobbies
+        work = person.work
 
+        if preference == "Personalized Teaching":
+            if topic_1_35:
+                topic_1_35 = generate_custom_content(preference, topic_1_35, hobbies, work)
+            if topic_1_36:
+                topic_1_36 = generate_custom_content(preference, topic_1_36, hobbies, work)
+            if topic_1_37:
+                topic_1_37 = generate_custom_content(preference, topic_1_37, hobbies, work)
+            if topic_1_38:
+                topic_1_38 = generate_custom_content(preference, topic_1_38, hobbies, work)
+            if topic_1_39:
+                topic_1_39 = generate_custom_content(preference, topic_1_39, hobbies, work)
+            if topic_1_40:
+                topic_1_40 = generate_custom_content(preference, topic_1_40, hobbies, work)
         else:
-            topic_5 = "Dados do usuário não encontrados."
-            topic_6 = "Dados do usuário não encontrados."
-            topic_7 = "Dados do usuário não encontrados."
-            topic_3_13 = "Dados do usuário não encontrados."
+            # Se for Generic Teaching, usa o conteúdo extraído diretamente
+            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
 
-        return render_template('TEST_page_3_3.html',
-                               topic_5=topic_5,
-                               topic_6=topic_6,
-                               topic_7=topic_7,
-                               topic_3_13=topic_3_13)
+    else:
+        topic_1_35 = "Dados do usuário não encontrados."
+        topic_1_36 = "Dados do usuário não encontrados."
+        topic_1_37 = "Dados do usuário não encontrados."
+        topic_1_38 = "Dados do usuário não encontrados."
+        topic_1_39 = "Dados do usuário não encontrados."
+        topic_1_40 = "Dados do usuário não encontrados."
 
-    @app.route('/TEST_page_3_4')
-    def TEST_page_3_4():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
-
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
-
-        topic_8 = extract_topic_content(base_content, 8)
-        topic_9 = extract_topic_content(base_content, 9)
-        topic_10 = extract_topic_content(base_content, 10)
-        topic_11 = extract_topic_content(base_content, 11)
-        topic_12 = extract_topic_content(base_content, 12)
-        topic_13 = extract_topic_content(base_content, 13)
-        topic_14 = extract_topic_content(base_content, 14)
-
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
-
-            if preference == "Personalized Teaching":
-                if topic_8:
-                    topic_8 = generate_custom_content(preference, topic_8, hobbies, work)
-                if topic_9:
-                    topic_9 = generate_custom_content(preference, topic_9, hobbies, work)
-                if topic_10:
-                    topic_10 = generate_custom_content(preference, topic_10, hobbies, work)
-                if topic_11:
-                    topic_11 = generate_custom_content(preference, topic_11, hobbies, work)
-                if topic_12:
-                    topic_12 = generate_custom_content(preference, topic_12, hobbies, work)
-                if topic_13:
-                    topic_13 = generate_custom_content(preference, topic_13, hobbies, work)
-                if topic_14:
-                    topic_14 = generate_custom_content(preference, topic_14, hobbies, work)
-                else:
-                    # Se for Generic Teaching, usa o conteúdo extraído diretamente
-                    pass  # Não precisa fazer nada, pois já extraímos o conteúdo
-
-        else:
-            topic_8 = "Dados do usuário não encontrados."
-            topic_9 = "Dados do usuário não encontrados."
-            topic_10 = "Dados do usuário não encontrados."
-            topic_11 = "Dados do usuário não encontrados."
-            topic_12 = "Dados do usuário não encontrados."
-            topic_13 = "Dados do usuário não encontrados."
-            topic_14 = "Dados do usuário não encontrados."
-
-        return render_template('TEST_page_3_4.html',
-                               topic_8=topic_8,
-                               topic_9=topic_9,
-                               topic_10=topic_10,
-                               topic_11=topic_11,
-                               topic_12=topic_12,
-                               topic_13=topic_13,
-                               topic_14=topic_14)
-
-    @app.route('/TEST_page_3_5')
-    def TEST_page_3_5():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
-
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
-
-        topic_16 = extract_topic_content(base_content, 16)
-        topic_17 = extract_topic_content(base_content, 17)
-        topic_18 = extract_topic_content(base_content, 18)
-        topic_19 = extract_topic_content(base_content, 19)
-
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
-
-            if preference == "Personalized Teaching":
-
-                if topic_16:
-                       topic_16 = generate_custom_content(preference, topic_16, hobbies, work)
-                if topic_17:
-                       topic_17 = generate_custom_content(preference, topic_17, hobbies, work)
-                if topic_18:
-                       topic_18 = generate_custom_content(preference, topic_18, hobbies, work)
-                if topic_19:
-                       topic_19 = generate_custom_content(preference, topic_19, hobbies, work)
-            else:
-                 # Se for Generic Teaching, usa o conteúdo extraído diretamente
-                pass  # Não precisa fazer nada, pois já extraímos o conteúdo
-
-        else:
-            topic_16 = "Dados do usuário não encontrados."
-            topic_17 = "Dados do usuário não encontrados."
-            topic_18 = "Dados do usuário não encontrados."
-            topic_19 = "Dados do usuário não encontrados."
-
-        return render_template('TEST_page_3_5.html',
-                                topic_16=topic_16,
-                                topic_17=topic_17,
-                                topic_18=topic_18,
-                                topic_19=topic_19)
-
-    @app.route('/TEST_page_3_6')
-    def TEST_page_3_6():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
-
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
-
-        topic_1_25 = extract_topic_content(base_content, 25)
-        topic_1_26 = extract_topic_content(base_content, 26)
-        topic_1_27 = extract_topic_content(base_content, 27)
-        topic_1_28 = extract_topic_content(base_content, 28)
-        topic_1_29 = extract_topic_content(base_content, 29)
-        topic_1_30 = extract_topic_content(base_content, 30)
-
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
-
-            if preference == "Personalized Teaching":
-                if topic_1_25:
-                    topic_1_25 = generate_custom_content(preference, topic_1_25, hobbies, work)
-                if topic_1_26:
-                    topic_1_26 = generate_custom_content(preference, topic_1_26, hobbies, work)
-                if topic_1_27:
-                    topic_1_27 = generate_custom_content(preference, topic_1_27, hobbies, work)
-                if topic_1_28:
-                    topic_1_28 = generate_custom_content(preference, topic_1_28, hobbies, work)
-                if topic_1_29:
-                    topic_1_29 = generate_custom_content(preference, topic_1_29, hobbies, work)
-                if topic_1_30:
-                    topic_1_30 = generate_custom_content(preference, topic_1_30, hobbies, work)
-            else:
-                # Se for Generic Teaching, usa o conteúdo extraído diretamente
-                pass  # Não precisa fazer nada, pois já extraímos o conteúdo
-
-        else:
-            topic_1_25 = "Dados do usuário não encontrados."
-            topic_1_26 = "Dados do usuário não encontrados."
-            topic_1_27 = "Dados do usuário não encontrados."
-            topic_1_28 = "Dados do usuário não encontrados."
-            topic_1_29 = "Dados do usuário não encontrados."
-            topic_1_30 = "Dados do usuário não encontrados."
-
-        return render_template('TEST_page_3_6.html',
-                               topic_1_25=topic_1_25,
-                               topic_1_26=topic_1_26,
-                               topic_1_27=topic_1_27,
-                               topic_1_28=topic_1_28,
-                               topic_1_29=topic_1_29,
-                               topic_1_30=topic_1_30)
-
-    @app.route('/TEST_page_3_7')
-    def TEST_page_3_7():
-        with open('base_content.txt', 'r', encoding='utf-8') as f:
-            base_content = f.read()
-
-        person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-        person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
-
-        topic_1_35 = extract_topic_content(base_content, 35)
-        topic_1_36 = extract_topic_content(base_content, 36)
-        topic_1_37 = extract_topic_content(base_content, 37)
-        topic_1_38 = extract_topic_content(base_content, 38)
-        topic_1_39 = extract_topic_content(base_content, 39)
-        topic_1_40 = extract_topic_content(base_content, 40)
-
-        if person:
-            preference = person.learning_preference
-            hobbies = person.hobbies
-            work = person.work
-
-            if preference == "Personalized Teaching":
-                if topic_1_35:
-                    topic_1_35 = generate_custom_content(preference, topic_1_35, hobbies, work)
-                if topic_1_36:
-                    topic_1_36 = generate_custom_content(preference, topic_1_36, hobbies, work)
-                if topic_1_37:
-                    topic_1_37 = generate_custom_content(preference, topic_1_37, hobbies, work)
-                if topic_1_38:
-                    topic_1_38 = generate_custom_content(preference, topic_1_38, hobbies, work)
-                if topic_1_39:
-                    topic_1_39 = generate_custom_content(preference, topic_1_39, hobbies, work)
-                if topic_1_40:
-                    topic_1_40 = generate_custom_content(preference, topic_1_40, hobbies, work)
-            else:
-                # Se for Generic Teaching, usa o conteúdo extraído diretamente
-                pass  # Não precisa fazer nada, pois já extraímos o conteúdo
-
-        else:
-            topic_1_35 = "Dados do usuário não encontrados."
-            topic_1_36 = "Dados do usuário não encontrados."
-            topic_1_37 = "Dados do usuário não encontrados."
-            topic_1_38 = "Dados do usuário não encontrados."
-            topic_1_39 = "Dados do usuário não encontrados."
-            topic_1_40 = "Dados do usuário não encontrados."
-
-        return render_template('TEST_page_3_7.html',
-                               topic_1_35=topic_1_35,
-                               topic_1_36=topic_1_36,
-                               topic_1_37=topic_1_37,
-                               topic_1_38=topic_1_38,
-                               topic_1_39=topic_1_39,
-                               topic_1_40=topic_1_40)
+    return render_template('TEST_page_3_7.html',
+                           topic_1_35=topic_1_35,
+                           topic_1_36=topic_1_36,
+                           topic_1_37=topic_1_37,
+                           topic_1_38=topic_1_38,
+                           topic_1_39=topic_1_39,
+                           topic_1_40=topic_1_40)
 # V2
 
 # Personal DATAS - page_1
@@ -854,19 +911,18 @@ def page_3_6():
 def index():
     form = PersonalDataForm()
     if request.method == 'POST':
-        name = request.form['name']
+        name = request.form['name'].upper()  # Converte o nome para maiúsculas
         hobbies = request.form['hobbies']
         work = request.form['work']
         learning_preference = request.form['learning_preference']
         age = request.form['age']
 
-        # Verifica se o nome já existe no banco de dados
-        existing_person = Person.query.filter_by(name=name).first()
+        # Verifica se já existe um registro com o mesmo nome (em maiúsculas) e preferência de aprendizado
+        existing_person = Person.query.filter_by(name=name, learning_preference=learning_preference).first()
         if existing_person:
             # Atualiza o registro existente
             existing_person.hobbies = hobbies
             existing_person.work = work
-            existing_person.learning_preference = learning_preference
             existing_person.age = age
             db.session.commit()
             session['person_id'] = existing_person.id

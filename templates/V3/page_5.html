@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+    <textarea id="text" rows="4" cols="50"></textarea><br>
+    <button onclick="analyzeSentiment()">Analyze</button><br>
+    <div id="result"></div>
+
+    <script>
+        function analyzeSentiment() {
+            const text = document.getElementById('text').value;
+
+            fetch('/analyze_sentiment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Debugging: Exibir o objeto data no console
+                console.log(data);
+
+                if (data.error) {
+                    document.getElementById('result').innerHTML = `Error: ${data.error}`;
+                } else {
+                    // Verificação para garantir que as propriedades existem
+                    if (data.sentiment && data.confidence) {
+                        document.getElementById('result').innerHTML = `Sentiment: ${data.sentiment}, Confidence: ${data.confidence}`;
+                    } else {
+                        document.getElementById('result').innerHTML = `Error: Sentiment or confidence data missing.`;
+                    }
+                }
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = `Error: ${error}`;
+            });
+        }
+    </script>
+</body>
+</html>

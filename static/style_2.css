@@ -1,12 +1,11 @@
 /* ... */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #A9A9A9; /* Cinza Escuro */
-    color: #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: #FFFFFF; /* Branco */    color: #333;
     margin: 0;
     padding: 20px;
-    font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
+    font-size: 12px; /* Ajuste o tamanho da fonte conforme necessário */
 }
 img {
     display: block;
@@ -25,7 +24,7 @@ img {
 }
 
 .fade-in {
-    animation: fadeIn 2s ease-in-out;
+    animation: fadeIn 4s ease-in-out;
 }
 
 h1 {
@@ -47,14 +46,13 @@ ul {
 }
 
 button {
-    background-color: #90EE90; /* Verde Claro */
+    background-color: #FFFFFF; /* Branco */
     color: black;
-    border: 2px solid #4CAF50; /* Borda verde */;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 10px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 8px;
@@ -235,4 +233,22 @@ h3 {
 @keyframes blink-caret {
     from, to { border-color: transparent; }
     50% { border-color: orange; }
+}
+
+/* Estilos para a barra de rolagem */
+::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Cor do fundo da área de rastreamento */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Cor do "polegar" da barra de rolagem */
+    border-radius: 6px; /* Arredondamento do "polegar" */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cor do "polegar" ao passar o mouse */
 }

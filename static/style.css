@@ -1,0 +1,70 @@
+html {
+    height: 100%;
+    background: linear-gradient(to bottom, #007bff, #ffffff);
+    background-attachment: fixed; /* Mantém o gradiente fixo */
+}
+
+body {
+    margin: 0;
+    overflow: auto; /* Permite a barra de rolagem */
+    height: 100%;
+    color: black;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, li, a, label {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+a {
+    text-decoration: none;
+}
+
+.botao-azul {
+    color: white;
+    background: linear-gradient(to bottom, #808080, #A9A9A9);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.botao-azul:hover {
+    background: linear-gradient(to bottom, #6610f2, #007bff);
+}
+
+.vditor-reset {
+    background-color: rgba(0, 0, 0, 0.35);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+canvas {
+    position: fixed; /* Mantém o canvas fixo na tela */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* Garante que o canvas fique atrás do conteúdo */
+    pointer-events: auto; /* Permite a interação com o canvas */
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
