@@ -5,17 +5,6 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
-        <style>
-            canvas {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: -11; /* Coloca o canvas atrás do conteúdo principal */
-                pointer-events: none; /* Permite a interação com o conteúdo principal */
-            }
-        </style>
     </head>
     <body>
         <canvas id="canvas"></canvas>
@@ -39,7 +28,7 @@
                 </center>
             </h3>
             <blockquote>
-                <p><em>{{ topic_3|safe }}</em></p>
+                <p><em style="color: white;">{{ topic_3|safe }}</em></p>
             </blockquote>
     <hr />
     <blockquote>
@@ -63,7 +52,7 @@
 
     <blockquote>
     <ul>
-    <li><em>{{ topic_4|safe }}</em></li>
+    <li><em style="color: white;">{{ topic_4|safe }}</em></li>
     </ul>
     </blockquote>
     <hr />
@@ -102,8 +91,8 @@
             canvas.height = window.innerHeight;
 
             const hexagons = [];
-            const numHexagons = 40;
-            const hexagonRadius = 20;
+            const numHexagons = 15;
+            const hexagonRadius = 15;
 
             class Hexagon {
                 constructor(x, y) {
@@ -189,20 +178,7 @@
                 }
             });
 
-            // Código JavaScript para a renderização do Vditor
-            const previewElement = document.getElementById('preview');
-            Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
-            Vditor.codeRender(previewElement);
-            Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-            Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}});
-            Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-            Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-            Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-            Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-            Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-            Vditor.abcRender(previewElement, 'https-0xd2.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-            Vditor.mediaRender(previewElement);
-            Vditor.speechRender(previewElement);
+
         </script>
         <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
     </body>

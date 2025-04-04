@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
 </head>
-<body style="width: 1075px;">
+<body>
+    <canvas id="canvas"></canvas>
     <div class="vditor-reset" id="preview">
         <h1 id="-Basic-Concepts-of-Artificial-Intelligence-">
             <center> Basic Concepts of Artificial Intelligence </center>
@@ -53,14 +55,14 @@
                 </svg>
             </a>
         </h2>
-        <center> {{comparison_analysis}} </center>
+        <center style="color: white;"> {{comparison_analysis}} </center>
 
             <form method="POST" action="{{ url_for('page_6') }}">
 
                 <h2 style="text-align: center;">Now, give me your feedback, this will help me a lot :)</h2>
                 <label for="feedback" style="display: block; text-align: center;"></label><br>
                 <textarea id="feedback" name="feedback" rows="5" cols="50" style="display: block; margin: 0 auto;"></textarea><br><br>
-                <button type="submit" style="display: block; margin: 0 auto;" onclick="showMessage()">Send Feedback</button>
+                <button type="submit" class="botao-azul" style="display: block; margin: 0 auto;" onclick="showMessage()">Send Feedback</button>
                 <p id="message" style="text-align: center; display: none;">Enviado!</p>
 
             </form>
@@ -92,6 +94,101 @@
         function showMessage() {
             document.getElementById('message').style.display = 'block';
         }
+        // Código JavaScript para os hexágonos interativos aqui
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const hexagons = [];
+        const numHexagons = 15;
+        const hexagonRadius = 15;
+
+        class Hexagon {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.vx = (Math.random() * 2 - 1) * 0.5; // Velocidade reduzida
+            this.vy = (Math.random() * 2 - 1) * 0.5; // Velocidade reduzida
+        }
+
+        draw() {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = 2 * Math.PI / 6 * i;
+                const x = this.x + hexagonRadius * Math.cos(angle);
+                const y = this.y + hexagonRadius * Math.sin(angle);
+                ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > canvas.width) {
+                this.vx *= -1;
+            }
+
+            if (this.y < 0 || this.y > canvas.height) {
+                this.vy *= -1;
+            }
+
+            // Adicionando amortecimento
+            this.vx *= 0.98;
+            this.vy *= 0.98;
+        }
+        }
+
+        for (let i = 0; i < numHexagons; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        hexagons.push(new Hexagon(x, y));
+        }
+
+        function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < hexagons.length; i++) {
+            hexagons[i].update();
+            hexagons[i].draw();
+
+            for (let j = i + 1; j < hexagons.length; j++) {
+                const dx = hexagons[i].x - hexagons[j].x;
+                const dy = hexagons[i].y - hexagons[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 200) {
+                    ctx.beginPath();
+                    ctx.moveTo(hexagons[i].x, hexagons[i].y);
+                    ctx.lineTo(hexagons[j].x, hexagons[j].y);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        canvas.addEventListener('mousemove', (event) => {
+        for (let i = 0; i < hexagons.length; i++) {
+            const dx = event.clientX - hexagons[i].x;
+            const dy = event.clientY - hexagons[i].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                hexagons[i].vx += dx * 0.005; // Força reduzida
+                hexagons[i].vy += dy * 0.005; // Força reduzida
+            }
+        }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
 </body>

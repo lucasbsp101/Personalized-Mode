@@ -1,11 +1,428 @@
-<html><head><meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script><script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script></head><body style="width: 1075px;"><div class="vditor-reset" id="preview"><h1 id="Basic-Concepts-of-Artificial-Intelligence"><center>Basic Concepts of Artificial Intelligence<a id="vditorAnchor-Basic-Concepts-of-Artificial-Intelligence" class="vditor-anchor" href="#Basic-Concepts-of-Artificial-Intelligence"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h1>
-<h3 id="Student-s-Project"><center>Student's Project<a id="vditorAnchor-Student-s-Project" class="vditor-anchor" href="#Student-s-Project"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-<hr />
-<p>...</p>
-<hr />
-<center><form action="{{ url_for('page_4') }}" method="get">
-    <button type="submit">Go to TEST 2 </button>
-</form></center>
-<hr />
-<p><a href="/page_3_5">BACK</a></p>
-</div><script>    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); </script>  <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script></body></html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="vditor-reset" id="preview">
+        <h1 id="Basic-Concepts-of-Artificial-Intelligence">
+            <center>Basic Concepts of Artificial Intelligence</center>
+            <a id="vditorAnchor-Basic-Concepts-of-Artificial-Intelligence" class="vditor-anchor" href="#Basic-Concepts-of-Artificial-Intelligence">
+                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+                </svg>
+            </a>
+        </h1><blockquote>
+<h3 id="What-it-is-this-application-">What it is this application?<a id="vditorAnchor-What-it-is-this-application-" class="vditor-anchor" href="#What-it-is-this-application-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<p>Sentiment analysis is a natural language processing (NLP) technique that aims to determine the emotional polarity of a text. In other words, it seeks to identify whether a text expresses a positive, negative, or neutral opinion.</p>
+</blockquote>
+<blockquote>
+<h3 id="How-does-it-work-"><strong>How does it work?</strong><a id="vditorAnchor-How-does-it-work-" class="vditor-anchor" href="#How-does-it-work-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<blockquote>
+<h3 id="Text-Preprocessing-"><strong>Text Preprocessing:</strong><a id="vditorAnchor-Text-Preprocessing-" class="vditor-anchor" href="#Text-Preprocessing-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<ul>
+<li>The input text is cleaned and prepared for analysis. This may include removing punctuation, special characters, and irrelevant words (stop words).</li>
+<li>The text is divided into smaller units, such as words or phrases.</li>
+</ul>
+</blockquote>
+<blockquote>
+<h3 id="Feature-Extraction-"><strong>Feature Extraction:</strong><a id="vditorAnchor-Feature-Extraction-" class="vditor-anchor" href="#Feature-Extraction-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<p>The sentiment analysis model extracts relevant features from the text, such as keywords, phrases, and linguistic patterns.<br />
+These features are used to represent the text numerically, allowing the model to process them.</p>
+</blockquote>
+<blockquote>
+<h3 id="Classification-"><strong>Classification:</strong><a id="vditorAnchor-Classification-" class="vditor-anchor" href="#Classification-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<p>The sentiment analysis model uses machine learning algorithms to classify the text into one of the sentiment categories (positive, negative, or neutral).<br />
+The model was trained on a dataset of texts labeled with their respective sentiments, allowing it to learn to associate text features with different emotional polarities.<br />
+In the case of phi-4, it performs sentiment analysis based on the data it was trained on, using a technique called &quot;zero-shot learning,&quot; where the model can perform sentiment analysis without specific training for this task.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<h3 id="Confidence-Score-"><strong>Confidence Score:</strong><a id="vditorAnchor-Confidence-Score-" class="vditor-anchor" href="#Confidence-Score-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<p>In addition to sentiment classification, the model usually provides a confidence score, indicating the probability of the text belonging to each sentiment category.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<h3 id="Applications-"><strong>Applications:</strong><a id="vditorAnchor-Applications-" class="vditor-anchor" href="#Applications-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+<p>Sentiment analysis has various applications, including:</p>
+<ul>
+<li>Social media monitoring: To understand public opinion about brands, products, or events.</li>
+<li>Customer review analysis: To identify strengths and weaknesses of products or services.</li>
+<li>Hate speech detection: To identify and remove offensive or harmful content.</li>
+<li>Market research: To understand consumer trends and preferences.</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="Text-Examples-">Text Examples:<a id="vditorAnchor-Text-Examples-" class="vditor-anchor" href="#Text-Examples-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<h4 id="Positive-Sentiment-">Positive Sentiment:<a id="vditorAnchor-Positive-Sentiment-" class="vditor-anchor" href="#Positive-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<ul>
+<li>&quot;I loved the movie! The performances were amazing and the story kept me hooked from start to finish.&quot;</li>
+<li>&quot;I received the product today and am extremely satisfied with the quality. I recommend it to everyone!&quot;</li>
+<li>&quot;What a wonderful day! The sun is shining and I feel very happy.&quot;</li>
+</ul>
+<h4 id="Negative-Sentiment-">Negative Sentiment:<a id="vditorAnchor-Negative-Sentiment-" class="vditor-anchor" href="#Negative-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<ul>
+<li>&quot;The service was horrible. I waited for hours and no one helped me. Never going back!&quot;</li>
+<li>&quot;I am very disappointed with the product. It arrived broken and doesn't work.&quot;</li>
+<li>&quot;What a terrible day! Everything went wrong and I am very frustrated.&quot;</li>
+</ul>
+<h4 id="Neutral-Sentiment-">Neutral Sentiment:<a id="vditorAnchor-Neutral-Sentiment-" class="vditor-anchor" href="#Neutral-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<ul>
+<li>&quot;The weather is cloudy today. It might rain later.&quot;</li>
+<li>&quot;I bought a new book at the bookstore. The story seems interesting.&quot;</li>
+<li>&quot;I am going to work. The traffic is a bit congested.&quot;</li>
+</ul>
+<h4 id="Mixed-Sentiment-">Mixed Sentiment:<a id="vditorAnchor-Mixed-Sentiment-" class="vditor-anchor" href="#Mixed-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<ul>
+<li>&quot;The movie was good, but the ending left me a bit confused.&quot;</li>
+<li>&quot;The product is great, but the price is too high.&quot;</li>
+<li>&quot;I am happy to have gotten the job, but the salary is not ideal.&quot;</li>
+</ul>
+<h4 id="Sarcastic-Sentiment-">Sarcastic Sentiment:<a id="vditorAnchor-Sarcastic-Sentiment-" class="vditor-anchor" href="#Sarcastic-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+<ul>
+<li>&quot;What a beautiful day to be stuck in traffic for hours. Love it!&quot;</li>
+<li>&quot;Wow, what amazing service! I only waited an eternity to be attended.&quot;</li>
+<li>&quot;I love it when the food comes cold. It's so tasty!&quot;</li>
+</ul>
+<center> <h3>Enter the text you want to analyze:</h3> </center>
+<center> <textarea id="text" rows="4" cols="50"></textarea><br> </center><br>
+
+<center> <button onclick="analyzeSentiment()">Analyze</button><br> </center><br>
+<center><div id="result"></div></center>
+<script>
+    function analyzeSentiment() {
+        const text = document.getElementById('text').value;
+        const resultElement = document.getElementById('result');
+
+        // Mostrar a mensagem de "analisando sentimento"
+        resultElement.innerHTML = 'Analisando sentimento, por favor aguarde...';
+
+        fetch('/analyze_sentiment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: text })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Ocultar a mensagem de "analisando sentimento" e exibir o resultado
+            if (data.error) {
+                resultElement.innerHTML = `Error: ${data.error}`;
+            } else {
+                if (data.sentiment && data.confidence) {
+                    resultElement.innerHTML = `Sentiment: ${data.sentiment}, Confidence: ${data.confidence}`;
+                } else {
+                    resultElement.innerHTML = `Error: Sentiment or confidence data missing.`;
+                }
+            }
+        })
+        .catch(error => {
+            resultElement.innerHTML = `Error: ${error}`;
+        });
+    }
+</script>
+<h2 id="Below-is-the-HTML-code-for-the-page-and-the-JavaScript-function-to-analyze-sentiment">Below is the HTML code for the page and the JavaScript function to analyze sentiment<a id="vditorAnchor-Below-is-the-HTML-code-for-the-page-and-the-JavaScript-function-to-analyze-sentiment" class="vditor-anchor" href="#Below-is-the-HTML-code-for-the-page-and-the-JavaScript-function-to-analyze-sentiment"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<pre><code class="language-html">    &lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css&quot;/&gt;&lt;script src=&quot;https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body style=&quot;width: 1075px;&quot;&gt;&lt;div class=&quot;vditor-reset&quot; id=&quot;preview&quot;&gt;&lt;h1 id=&quot;Basic-Concepts-of-Artificial-Intelligence&quot;&gt;&lt;center&gt;Basic Concepts of Artificial Intelligence&lt;a id=&quot;vditorAnchor-Basic-Concepts-of-Artificial-Intelligence&quot; class=&quot;vditor-anchor&quot; href=&quot;#Basic-Concepts-of-Artificial-Intelligence&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h1&gt;
+    &lt;h2 id=&quot;-Application-Example&quot;&gt;&lt;center&gt; &lt;em&gt;Application Example&lt;/em&gt;&lt;a id=&quot;vditorAnchor--Application-Example&quot; class=&quot;vditor-anchor&quot; href=&quot;#-Application-Example&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h2&gt;
+    &lt;hr /&gt;
+    &lt;form method=&quot;POST&quot; action=&quot;{{ url_for('page_5') }}&quot;&gt;&lt;/form&gt;
+    &lt;h2 id=&quot;-Sentiment-Analysis-&quot;&gt;&lt;center&gt; Sentiment Analysis &lt;/center&gt;&lt;a id=&quot;vditorAnchor--Sentiment-Analysis-&quot; class=&quot;vditor-anchor&quot; href=&quot;#-Sentiment-Analysis-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h2&gt;
+    &lt;h4 id=&quot;Here-we-have-an-example-of-a-sentiment-analysis-application-&quot;&gt;Here we have an example of a sentiment analysis application.&lt;a id=&quot;vditorAnchor-Here-we-have-an-example-of-a-sentiment-analysis-application-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Here-we-have-an-example-of-a-sentiment-analysis-application-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h4&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;What-it-is-this-application-&quot;&gt;What it is this application?&lt;a id=&quot;vditorAnchor-What-it-is-this-application-&quot; class=&quot;vditor-anchor&quot; href=&quot;#What-it-is-this-application-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;p&gt;Sentiment analysis is a natural language processing (NLP) technique that aims to determine the emotional polarity of a text. In other words, it seeks to identify whether a text expresses a positive, negative, or neutral opinion.&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;How-does-it-work-&quot;&gt;&lt;strong&gt;How does it work?&lt;/strong&gt;&lt;a id=&quot;vditorAnchor-How-does-it-work-&quot; class=&quot;vditor-anchor&quot; href=&quot;#How-does-it-work-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;Text-Preprocessing-&quot;&gt;&lt;strong&gt;Text Preprocessing:&lt;/strong&gt;&lt;a id=&quot;vditorAnchor-Text-Preprocessing-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Text-Preprocessing-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;ul&gt;
+    &lt;li&gt;The input text is cleaned and prepared for analysis. This may include removing punctuation, special characters, and irrelevant words (stop words).&lt;/li&gt;
+    &lt;li&gt;The text is divided into smaller units, such as words or phrases.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;Feature-Extraction-&quot;&gt;&lt;strong&gt;Feature Extraction:&lt;/strong&gt;&lt;a id=&quot;vditorAnchor-Feature-Extraction-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Feature-Extraction-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;p&gt;The sentiment analysis model extracts relevant features from the text, such as keywords, phrases, and linguistic patterns.&lt;br /&gt;
+    These features are used to represent the text numerically, allowing the model to process them.&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;Classification-&quot;&gt;&lt;strong&gt;Classification:&lt;/strong&gt;&lt;a id=&quot;vditorAnchor-Classification-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Classification-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;p&gt;The sentiment analysis model uses machine learning algorithms to classify the text into one of the sentiment categories (positive, negative, or neutral).&lt;br /&gt;
+    The model was trained on a dataset of texts labeled with their respective sentiments, allowing it to learn to associate text features with different emotional polarities.&lt;br /&gt;
+    In the case of phi-4, it performs sentiment analysis based on the data it was trained on, using a technique called &quot;zero-shot learning,&quot; where the model can perform sentiment analysis without specific training for this task.&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;/blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;Confidence-Score-&quot;&gt;&lt;strong&gt;Confidence Score:&lt;/strong&gt;&lt;a id=&quot;vditorAnchor-Confidence-Score-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Confidence-Score-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;p&gt;In addition to sentiment classification, the model usually provides a confidence score, indicating the probability of the text belonging to each sentiment category.&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;/blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;blockquote&gt;
+    &lt;h3 id=&quot;Applications-&quot;&gt;&lt;strong&gt;Applications:&lt;/strong&gt;&lt;a id=&quot;vditorAnchor-Applications-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Applications-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h3&gt;
+    &lt;p&gt;Sentiment analysis has various applications, including:&lt;/p&gt;
+    &lt;ul&gt;
+    &lt;li&gt;Social media monitoring: To understand public opinion about brands, products, or events.&lt;/li&gt;
+    &lt;li&gt;Customer review analysis: To identify strengths and weaknesses of products or services.&lt;/li&gt;
+    &lt;li&gt;Hate speech detection: To identify and remove offensive or harmful content.&lt;/li&gt;
+    &lt;li&gt;Market research: To understand consumer trends and preferences.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/blockquote&gt;
+    &lt;/blockquote&gt;
+    &lt;h2 id=&quot;Text-Examples-&quot;&gt;Text Examples:&lt;a id=&quot;vditorAnchor-Text-Examples-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Text-Examples-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h2&gt;
+    &lt;h4 id=&quot;Positive-Sentiment-&quot;&gt;Positive Sentiment:&lt;a id=&quot;vditorAnchor-Positive-Sentiment-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Positive-Sentiment-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h4&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&quot;I loved the movie! The performances were amazing and the story kept me hooked from start to finish.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;I received the product today and am extremely satisfied with the quality. I recommend it to everyone!&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;What a wonderful day! The sun is shining and I feel very happy.&quot;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h4 id=&quot;Negative-Sentiment-&quot;&gt;Negative Sentiment:&lt;a id=&quot;vditorAnchor-Negative-Sentiment-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Negative-Sentiment-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h4&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&quot;The service was horrible. I waited for hours and no one helped me. Never going back!&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;I am very disappointed with the product. It arrived broken and doesn't work.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;What a terrible day! Everything went wrong and I am very frustrated.&quot;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h4 id=&quot;Neutral-Sentiment-&quot;&gt;Neutral Sentiment:&lt;a id=&quot;vditorAnchor-Neutral-Sentiment-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Neutral-Sentiment-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h4&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&quot;The weather is cloudy today. It might rain later.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;I bought a new book at the bookstore. The story seems interesting.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;I am going to work. The traffic is a bit congested.&quot;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h4 id=&quot;Mixed-Sentiment-&quot;&gt;Mixed Sentiment:&lt;a id=&quot;vditorAnchor-Mixed-Sentiment-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Mixed-Sentiment-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h4&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&quot;The movie was good, but the ending left me a bit confused.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;The product is great, but the price is too high.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;I am happy to have gotten the job, but the salary is not ideal.&quot;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h4 id=&quot;Sarcastic-Sentiment-&quot;&gt;Sarcastic Sentiment:&lt;a id=&quot;vditorAnchor-Sarcastic-Sentiment-&quot; class=&quot;vditor-anchor&quot; href=&quot;#Sarcastic-Sentiment-&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;/h4&gt;
+    &lt;ul&gt;
+    &lt;li&gt;&quot;What a beautiful day to be stuck in traffic for hours. Love it!&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;Wow, what amazing service! I only waited an eternity to be attended.&quot;&lt;/li&gt;
+    &lt;li&gt;&quot;I love it when the food comes cold. It's so tasty!&quot;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;center&gt; &lt;textarea id=&quot;text&quot; rows=&quot;4&quot; cols=&quot;50&quot;&gt;&lt;/textarea&gt;&lt;br&gt; &lt;/center&gt;&lt;br&gt;
+    &lt;center&gt; &lt;button onclick=&quot;analyzeSentiment()&quot;&gt;Analyze&lt;/button&gt;&lt;br&gt; &lt;/center&gt;&lt;br&gt;
+    &lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+    &lt;form action=&quot;{{ url_for('page_6') }}&quot; method=&quot;get&quot;&gt;
+        &lt;center&gt; &lt;button type=&quot;submit&quot;&gt;Go to Next page&lt;/button&gt; &lt;/center&gt;
+    &lt;/form&gt;
+    &lt;div&gt;
+        &lt;a href=&quot;/page_6&quot;&gt;BACK&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        function analyzeSentiment() {
+            const text = document.getElementById('text').value;
+            const resultElement = document.getElementById('result');
+  
+            // Mostrar a mensagem de &quot;Analyzing sentiment&quot;
+            resultElement.innerHTML = 'Analyzing sentiment, please wait...';
+  
+            fetch('/analyze_sentiment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response =&gt; response.json())
+            .then(data =&gt; {
+                // Ocultar a mensagem de &quot;Analyzing sentiment&quot; e exibir o resultado
+                if (data.error) {
+                    resultElement.innerHTML = `Error: ${data.error}`;
+                } else {
+                    if (data.sentiment &amp;&amp; data.confidence) {
+                        resultElement.innerHTML = `Sentiment: ${data.sentiment}, Confidence: ${data.confidence}`;
+                    } else {
+                        resultElement.innerHTML = `Error: Sentiment or confidence data missing.`;
+                    }
+                }
+            })
+            .catch(error =&gt; {
+                resultElement.innerHTML = `Error: ${error}`;
+            });
+        }
+    &lt;/script&gt;
+    &lt;/div&gt;&lt;script&gt;    const previewElement = document.getElementById('preview');    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');    Vditor.codeRender(previewElement);    Vditor.highlightRender({&quot;enable&quot;:true,&quot;lineNumber&quot;:false,&quot;style&quot;:&quot;dracula&quot;}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {&quot;engine&quot;:&quot;KaTeX&quot;,&quot;inlineDigit&quot;:true,&quot;macros&quot;:{}}});    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');    Vditor.mediaRender(previewElement);    Vditor.speechRender(previewElement); &lt;/script&gt;  &lt;script src=&quot;https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+
+</code></pre>
+<h2 id="Below-is-the-code-for-the-sentiment-analysis-application-using-Flask-and-Azure-OpenAI-">Below is the code for the sentiment analysis application using Flask and Azure OpenAI.<a id="vditorAnchor-Below-is-the-code-for-the-sentiment-analysis-application-using-Flask-and-Azure-OpenAI-" class="vditor-anchor" href="#Below-is-the-code-for-the-sentiment-analysis-application-using-Flask-and-Azure-OpenAI-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+<pre><code class="language-PYTHON">@app.route('/analyze_sentiment', methods=['POST'])
+def analyze_sentiment():
+    try:
+        data = request.get_json()
+        text = data['text']
+
+        endpoint = &quot;https://models.inference.ai.azure.com&quot;
+        model_name = &quot;Phi-4&quot;
+        token = os.environ[&quot;GITHUB_TOKEN&quot;]
+
+        client = ChatCompletionsClient(
+            endpoint=endpoint,
+            credential=AzureKeyCredential(token),
+        )
+
+        prompt = f&quot;Analyze the sentiment of the following text and return 'positive', 'negative', or 'neutral', and the confidence: {text}&quot;
+
+        response = client.complete(
+            messages=[UserMessage(content=prompt)],
+            temperature=0.7,
+            top_p=0.9,
+            max_tokens=500,
+            model=model_name
+        )
+
+        result = response.choices[0].message.content.strip()
+
+        # Debugging: Exibir a resposta bruta da API
+        print(f&quot;API Response (Raw): {result}&quot;)
+
+        # Extração de sentimento e confiança usando expressões regulares ajustadas
+        try:
+            sentiment_match = re.search(r&quot;sentiment of the text is '(\w+)'&quot;, result, re.IGNORECASE)
+            confidence_match = re.search(r&quot;Confidence:\s*(\w+)&quot;, result, re.IGNORECASE)
+
+            if sentiment_match and confidence_match:
+                sentiment = sentiment_match.group(1).lower()
+                confidence = confidence_match.group(1)
+                return jsonify({'sentiment': sentiment, 'confidence': confidence})
+            else:
+                if not sentiment_match:
+                    return jsonify({'error': 'Sentiment not found in API response'}), 500
+                if not confidence_match:
+                    return jsonify({'error': 'Confidence not found in API response'}), 500
+                return jsonify({'error': 'Could not extract sentiment and confidence from API response (regex mismatch)'}), 500
+
+        except Exception as regex_error:
+            return jsonify({'error': f'Error during regex extraction: {regex_error}'}), 500
+
+    except Exception as api_error:
+        return jsonify({'error': f'Error during API call: {api_error}'}), 500
+</code></pre>
+<form action="{{ url_for('page_4') }}" method="get">
+    <center> <button type="submit" class="botao-azul">Go to TEST TWO</button> </center>
+</form>
+<div>
+    <a href="/page_3_5">BACK</a><br><br>
+</div>
+<script>
+    const previewElement = document.getElementById('preview');
+    Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
+    Vditor.codeRender(previewElement);
+    Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
+    Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+    Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+    Vditor.mediaRender(previewElement);
+    Vditor.speechRender(previewElement);
+    // Código JavaScript para os hexágonos interativos aqui
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const hexagons = [];
+        const numHexagons = 15;
+        const hexagonRadius = 15;
+
+        class Hexagon {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.vx = (Math.random() * 2 - 1) * 0.5; // Velocidade reduzida
+            this.vy = (Math.random() * 2 - 1) * 0.5; // Velocidade reduzida
+        }
+
+        draw() {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = 2 * Math.PI / 6 * i;
+                const x = this.x + hexagonRadius * Math.cos(angle);
+                const y = this.y + hexagonRadius * Math.sin(angle);
+                ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > canvas.width) {
+                this.vx *= -1;
+            }
+
+            if (this.y < 0 || this.y > canvas.height) {
+                this.vy *= -1;
+            }
+
+            // Adicionando amortecimento
+            this.vx *= 0.98;
+            this.vy *= 0.98;
+        }
+        }
+
+        for (let i = 0; i < numHexagons; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        hexagons.push(new Hexagon(x, y));
+        }
+
+        function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < hexagons.length; i++) {
+            hexagons[i].update();
+            hexagons[i].draw();
+
+            for (let j = i + 1; j < hexagons.length; j++) {
+                const dx = hexagons[i].x - hexagons[j].x;
+                const dy = hexagons[i].y - hexagons[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 200) {
+                    ctx.beginPath();
+                    ctx.moveTo(hexagons[i].x, hexagons[i].y);
+                    ctx.lineTo(hexagons[j].x, hexagons[j].y);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        canvas.addEventListener('mousemove', (event) => {
+        for (let i = 0; i < hexagons.length; i++) {
+            const dx = event.clientX - hexagons[i].x;
+            const dy = event.clientY - hexagons[i].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                hexagons[i].vx += dx * 0.005; // Força reduzida
+                hexagons[i].vy += dy * 0.005; // Força reduzida
+            }
+        }
+        });
+</script>
+<script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+</body>
+</html>

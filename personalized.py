@@ -187,7 +187,7 @@ def generate_comparison_analysis(person):
         f"Test 1: {person.grade_test_1}, Test 2: {person.grade_test_2}."
         "Be more mainly"
         "Speak like a teenager, using {person.hobbies} and {person.work} as examples."
-        "Return the analysis in HTML format.")
+        )
 
     response = client.complete(
         messages=[UserMessage(content=prompt)],
@@ -218,12 +218,12 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
         Rewrite to teenagers between 18 and 25 years!
         Make it more personal!
         Make it more engaging!
-        Make the text output in HTML format.
         In the {base_content}, when you read Example:, create an example that is related to the person's hobbies{hobbies} and work{work}.
         Don't send: ``` This HTML document encapsulates your interests and aligns Python's applications with your personal hobbies and academic pursuits, 
         making the content not only informative but also entertaining and relatable.
         Don't send: ```html to {generate_custom_content}
-        """
+        Don't change the color of fonts, use just white"""
+
         response = client.complete(
             messages=[UserMessage(content=prompt)],
             temperature=1,
@@ -529,56 +529,8 @@ def page_3_5():
 
 @app.route('/page_3_6')#
 def page_3_6():
-    with open('base_content.txt', 'r', encoding='utf-8') as f:
-        base_content = f.read()
+    return render_template('page_3_6.html')
 
-    person_id = session.get('person_id')  # Obtém o ID da pessoa da sessão
-    person = db.session.get(Person, person_id)  # Obtém a pessoa do banco de dados
-
-    topic_1_25 = extract_topic_content(base_content, 25)
-    topic_1_26 = extract_topic_content(base_content, 26)
-    topic_1_27 = extract_topic_content(base_content, 27)
-    topic_1_28 = extract_topic_content(base_content, 28)
-    topic_1_29 = extract_topic_content(base_content, 29)
-    topic_1_30 = extract_topic_content(base_content, 30)
-
-    if person:
-        preference = person.learning_preference
-        hobbies = person.hobbies
-        work = person.work
-
-        if preference == "Personalized Teaching":
-            if topic_1_25:
-                topic_1_25 = generate_custom_content(preference, topic_1_25, hobbies, work)
-            if topic_1_26:
-                topic_1_26 = generate_custom_content(preference, topic_1_26, hobbies, work)
-            if topic_1_27:
-                topic_1_27 = generate_custom_content(preference, topic_1_27, hobbies, work)
-            if topic_1_28:
-                topic_1_28 = generate_custom_content(preference, topic_1_28, hobbies, work)
-            if topic_1_29:
-                topic_1_29 = generate_custom_content(preference, topic_1_29, hobbies, work)
-            if topic_1_30:
-                topic_1_30 = generate_custom_content(preference, topic_1_30, hobbies, work)
-        else:
-            # Se for Generic Teaching, usa o conteúdo extraído diretamente
-            pass  # Não precisa fazer nada, pois já extraímos o conteúdo
-
-    else:
-        topic_1_25 = "Dados do usuário não encontrados."
-        topic_1_26 = "Dados do usuário não encontrados."
-        topic_1_27 = "Dados do usuário não encontrados."
-        topic_1_28 = "Dados do usuário não encontrados."
-        topic_1_29 = "Dados do usuário não encontrados."
-        topic_1_30 = "Dados do usuário não encontrados."
-
-    return render_template('page_3_6.html',
-                           topic_1_25=topic_1_25,
-                           topic_1_26=topic_1_26,
-                           topic_1_27=topic_1_27,
-                           topic_1_28=topic_1_28,
-                           topic_1_29=topic_1_29,
-                           topic_1_30=topic_1_30)
 # V3 - CRIANDO COM MD
 
 # V2
@@ -1045,7 +997,7 @@ def page_4():
 # Student's project
 @app.route('/page_5')
 def page_5():
-    return render_template('page_5.html')
+    return render_template('page_3_6.html')
 
 # Comparison analysis
 @app.route('/page_6', methods=['GET', 'POST'])
