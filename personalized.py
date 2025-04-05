@@ -18,13 +18,22 @@ app.secret_key = 'secret_key'
 # Cache configuration
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
-# Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+# Database configuration (APENAS PostgreSQL no Heroku)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,
+    'pool_recycle': 300
+}
 
 # Initialize the database
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# Criação do banco de dados (apenas em produção)
+if 'DATABASE_URL' in os.environ:
+    with app.app_context():
+        db.create_all()
 
 #Student's Project
 @app.route('/analyze_sentiment', methods=['POST'])
