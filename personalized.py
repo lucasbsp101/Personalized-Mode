@@ -31,9 +31,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # Criação do banco de dados (apenas em produção)
-if 'DATABASE_URL' in os.environ:
-    with app.app_context():
-        db.create_all()
+db.create_all()
 
 #Student's Project
 @app.route('/analyze_sentiment', methods=['POST'])
