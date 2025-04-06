@@ -15,23 +15,18 @@ from flask_caching import Cache
 app = Flask(__name__)
 app.secret_key = 'secret_key'
 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///database.db')
+
 # Cache configuration
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
-# Database configuration (APENAS PostgreSQL no Heroku)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
+# Database configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    'pool_pre_ping': True,
-    'pool_recycle': 300
-}
 
 # Initialize the database
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
-# Criação do banco de dados (apenas em produção)
-db.create_all()
 
 #Student's Project
 @app.route('/analyze_sentiment', methods=['POST'])

@@ -26,10 +26,10 @@ def get_engine():
 
 def get_engine_url():
     try:
-        return get_engine().url.render_as_string(hide_password=False).replace(
+        return current_app.extensions['migrate'].db.engine.url.render_as_string(hide_password=False).replace(
             '%', '%%')
     except AttributeError:
-        return str(get_engine().url).replace('%', '%%')
+        return str(current_app.extensions['migrate'].db.engine.url).replace('%', '%%')
 
 
 # add your model's MetaData object here
