@@ -94,13 +94,13 @@
             body: formData
         }).then(response => {
             if (response.ok) {
-                alert('Dados enviados com sucesso!');
+                alert('Data sent!');
             } else {
-                alert('Erro ao enviar dados.');
+                alert('Error to sent data');
             }
         }).catch(error => {
             console.error('Erro:', error);
-            alert('Erro ao enviar dados.');
+            alert('Error to sent data');
         });
     }
 </script>

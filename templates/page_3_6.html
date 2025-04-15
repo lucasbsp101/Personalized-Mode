@@ -100,8 +100,8 @@ In the case of phi-4, it performs sentiment analysis based on the data it was tr
         const text = document.getElementById('text').value;
         const resultElement = document.getElementById('result');
 
-        // Mostrar a mensagem de "analisando sentimento"
-        resultElement.innerHTML = 'Analisando sentimento, por favor aguarde...';
+        // Show the message "Analyzing sentiment"
+        resultElement.innerHTML = 'Analyzing sentiment, please wait...';
 
         fetch('/analyze_sentiment', {
             method: 'POST',
@@ -112,7 +112,7 @@ In the case of phi-4, it performs sentiment analysis based on the data it was tr
         })
         .then(response => response.json())
         .then(data => {
-            // Ocultar a mensagem de "analisando sentimento" e exibir o resultado
+            // Hide the "analyzing sentiment" message and display the result
             if (data.error) {
                 resultElement.innerHTML = `Error: ${data.error}`;
             } else {
