@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
 </head>
@@ -33,23 +33,23 @@
             <blockquote>
                 <p><label for="AQ1">What is Artificial Intelligence (AI)?</label><br></p>
                 <div class="radio-group">
-                    <input type="radio" id="ai_ai1" name="AQ1" value="a" required>
+                    <input type="radio" id="ai_ai1" name="AQ1" value="a">
                     <label for="ai_ai1">A specific category of computational hardware engineered for accelerated processing of algorithms commonly employed in intelligent systems.</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" id="ai_ai2" name="AQ1" value="b" required>
+                    <input type="radio" id="ai_ai2" name="AQ1" value="b">
                     <label for="ai_ai2">A high-level programming paradigm primarily utilized for the development of interactive web applications with integrated intelligent functionalities.</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" id="ai_ai3" name="AQ1" value="c" required>
+                    <input type="radio" id="ai_ai3" name="AQ1" value="c">
                     <label for="ai_ai3">A suite of cryptographic methodologies and protocols aimed at ensuring the secure transmission and storage of sensitive data utilized within artificial intelligence frameworks.</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" id="ai_ai4" name="AQ1" value="d" required>
+                    <input type="radio" id="ai_ai4" name="AQ1" value="d">
                     <label for="ai_ai4">The theoretical and practical discipline concerned with the design, development, and implementation of computational systems capable of performing tasks that typically require human cognitive abilities, such as reasoning, learning, problem-solving, and perception.</label>
                 </div>
                 <div class="radio-group">
-                    <input type="radio" id="ai_ai5" name="AQ1" value="e" required>
+                    <input type="radio" id="ai_ai5" name="AQ1" value="e">
                     <label for="ai_ai5">A collection of software tools and techniques employed in the creation and manipulation of digital visual content, often incorporating AI-driven features for enhanced creativity and efficiency.</label>
                 </div>
             </blockquote>
@@ -455,6 +455,16 @@
         Vditor.mediaRender(previewElement);
         Vditor.speechRender(previewElement);
     </script>
+
+    <!-- Script para rolar para o final após POST -->
+    <script>
+        {% if success_message %}
+            window.onload = function() {
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        {% endif %}
+    </script>
+
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
 </body>
 </html>

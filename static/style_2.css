@@ -1,67 +1,69 @@
-/* ... */
-
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #FFFFFF; /* Branco */    color: #333;
+    font-family: 'Roboto', Arial, sans-serif; /* Adiciona fallbacks */
+    /* Fundo: Um gradiente suave ou cor off-white */
+    background: linear-gradient(to bottom, #eef2f3, #f8f9fa); /* Exemplo: Gradiente suave */
+    /* background-color: #f8f9fa; */ /* Alternativa: Off-white */
+    color: #495057; /* Cinza escuro para texto principal - melhor contraste */
     margin: 0;
     padding: 20px;
-    font-size: 12px; /* Ajuste o tamanho da fonte conforme necessário */
-}
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 14px; /* Um pouco maior para legibilidade */
+    line-height: 1.7; /* Aumenta espaçamento entre linhas */
 }
 
-/* Animação de Fade In */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.fade-in {
-    animation: fadeIn 4s ease-in-out;
+h1, h2, h3 {
+    font-family: 'Arial', sans-serif; /* Mantém a fonte, mas pode variar pesos */
+    color: #0056b3; /* Azul mais sóbrio e consistente para títulos */
+    text-align: center;
+    font-weight: 600; /* Um pouco mais de peso */
 }
 
 h1 {
-    color:#000000; /* Branco */
+    font-size: 1.8em; /* Ajuste fino */
+    margin-bottom: 25px;
 }
 
 h2 {
-    color: #32cd32; /* Verde Lima */
+    font-size: 1.4em; /* Ajuste fino */
+    margin-bottom: 20px;
+    color: #007bff; /* Azul um pouco mais claro para H2 */
+}
+
+h3 {
+    font-size: 1.1em; /* Ajuste fino */
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
 p {
-    line-height: 1.6;
-    color: #4682b4; /* Azul Aço */
-}
-
-ul {
-    list-style-type: square;
-    padding-left: 20px;
+    color: #495057; /* Mesma cor do body para consistência */
+    /* line-height já definido no body */
 }
 
 button {
-    background-color: #FFFFFF; /* Branco */
-    color: black;
-    padding: 10px 20px;
+    background-color: #007bff; /* Azul primário */
+    color: white; /* Texto branco */
+    padding: 12px 25px; /* Mais padding */
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 10px;
+    font-size: 14px; /* Tamanho consistente */
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
-    width: auto; /* Ajusta a largura ao conteúdo */
-    height: auto; /* Ajusta a altura ao conteúdo */
+    border-radius: 25px; /* Bordas bem arredondadas */
+    border: none; /* Remove borda padrão */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 button:hover {
-    background-color: #5cb85c;
+    background-color: #0056b3; /* Azul mais escuro no hover */
+    transform: translateY(-2px); /* Leve elevação no hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada */
+}
+
+button:active {
+    transform: translateY(0); /* Volta ao normal ao clicar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #loading {
@@ -71,13 +73,14 @@ button:hover {
 }
 
 a {
-    color: #007bff;
-    text-decoration: none;
+    color: #007bff; /* Mesma cor primária dos botões */
+    text-decoration: none; /* Remove sublinhado padrão */
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
-    color: #0056b3;
+    color: #0056b3; /* Escurece no hover */
+    text-decoration: underline; /* Adiciona sublinhado no hover */
 }
 
 /* Estilos adicionais para a página de curso */
@@ -128,32 +131,60 @@ a:hover {
 
 /* Estilo para formulários */
 form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Um pouco mais largo */
+    margin: 40px auto; /* Mais espaço vertical */
+    padding: 30px; /* Mais padding interno */
+    background-color: #ffffff; /* Fundo branco para destacar */
+    border-radius: 10px; /* Bordas mais suaves */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra mais definida */
 }
 
 form label {
     display: block;
     margin-bottom: 8px;
-    font-weight: bold;
+    font-weight: 600; /* Labels um pouco mais fortes */
+    color: #495057; /* Cor consistente */
 }
-/* Ajustes de campos brancos */
+
 form input[type="text"],
 form input[type="number"],
 form textarea {
-    width: 90%;
+    width: calc(100% - 22px); /* Ajusta largura considerando padding e borda */
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: 15px; /* Mais espaço abaixo */
+    border: 1px solid #ced4da; /* Borda cinza claro */
+    border-radius: 5px; /* Leve arredondamento */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form textarea:focus {
+    border-color: #80bdff; /* Muda cor da borda ao focar */
+    outline: 0; /* Remove outline padrão */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Adiciona brilho suave */
+}
+
+/* Ajuste para inputs de rádio (mantendo o estilo do page_1.html se necessário) */
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px; /* Mais espaço */
 }
 
 form input[type="radio"] {
-    margin-right: 10px;
+    margin-right: 5px; /* Ajuste fino */
+    cursor: pointer;
+}
+form label { /* Garante que labels gerais não afetem as de radio */
+    margin-bottom: 8px;
+}
+.radio-group label { /* Estilo específico para label de radio */
+     margin-bottom: 0; /* Remove margem inferior */
+     font-weight: normal; /* Peso normal */
+     color: #495057;
+     cursor: pointer;
 }
 
 /* Estilo para rodapé */

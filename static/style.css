@@ -31,6 +31,15 @@ a {
     background: linear-gradient(to bottom, #6610f2, #007bff);
 }
 
+/* Forçar cor branca para texto dentro de blockquote no Vditor */
+.vditor-reset blockquote,
+.vditor-reset blockquote p,
+.vditor-reset blockquote em {
+    color: white !important; /* Usar !important para garantir a sobreposição */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Manter a sombra se desejar */
+}
+
+
 .vditor-reset {
     background-color: rgba(0, 0, 0, 0.35);
     padding: 20px;
@@ -67,4 +76,9 @@ canvas {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+/* Garante que o texto do botao-azul permaneça branco mesmo após visitado */
+.botao-azul:visited {
+    color: white;
 }

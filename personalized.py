@@ -220,7 +220,6 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
         Rewrite to teenagers between 18 and 25 years!
         Make it more personal!
         Make it more engaging!
-        Create text with paragraphs.
         In the {base_content}, when you read Example:, create an example that is related to the person's hobbies{hobbies} and work{work}.
         Don't send: ``` This HTML document encapsulates your interests and aligns Python's applications with your personal hobbies and academic pursuits, 
         making the content not only informative but also entertaining and relatable.
@@ -229,7 +228,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
 
         response = client.complete(
             messages=[UserMessage(content=prompt)],
-            temperature=0.9,
+            temperature=1.0,
             top_p=0.9,
             max_tokens=500,
             model=model_name

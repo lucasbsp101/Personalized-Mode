@@ -1,11 +1,14 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
+    <!-- Inclui o CSS do Vditor via CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
+    <!-- Inclui seu CSS local -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Scripts JS do Vditor (necessários para renderização) -->
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
-
 </head>
 <body>
     <canvas id="canvas"></canvas>
@@ -20,12 +23,7 @@
         </h1>
         <h2 id="-What-is-AI-">
             <center> What is AI?</center>
-            <hr>
-            <a id="vditorAnchor--What-is-AI-" class="vditor-anchor" href="#-What-is-AI-">
-                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-                </svg>
-            </a>
+
         </h2>
         <h3 id="Artificial-Intelligence-implies-that-machines-can-imitate-humans-in-">
             Artificial Intelligence implies that machines can imitate humans in:
@@ -43,149 +41,197 @@
             <li>Understanding</li>
         </ul>
         <hr>
-    <center> <img class="fade-in" src="{{ url_for('static', filename='images/AA.png') }}" alt="Imagem AA corrigida"> </center>
-<hr />
-<h3 id="Concept">Concept<a id="vditorAnchor-Concept" class="vditor-anchor" href="#Concept"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-<blockquote>
-<p><em style="color: white;">{{ topic_1|safe }}</em></p>
-</blockquote>
-<hr />
-<center> <img class="fade-in" src="{{ url_for('static', filename='images/A.png') }}" alt="Imagem A corrigida"> </center>
-<hr />
-<h3 id="Citations">Citations<a id="vditorAnchor-Citations" class="vditor-anchor" href="#Citations"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-<h4 id="Arthur-Samuel-1959-">Arthur Samuel 1959:<a id="vditorAnchor-Arthur-Samuel-1959-" class="vditor-anchor" href="#Arthur-Samuel-1959-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<blockquote>
-<p>&quot;Machine Learning is a subfield of computer science that gives computers the ability to learn without being programmed&quot;</p>
-<p><em>Arthur Samuel, IBM Journal of Research and Development, Vol. 3, 1959.</em></p>
-</blockquote>
-<h4 id="IBM-2022-">IBM 2022:<a id="vditorAnchor-IBM-2022-" class="vditor-anchor" href="#IBM-2022-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<blockquote>
-<p>&quot;Artificial intelligence leverages computers and machines to mimic the problem-solving and decision-making capabilities of the human mind.&quot;</p>
-</blockquote>
-<hr />
-<h3 id="-APPLICATIONS"><center> APPLICATIONS<a id="vditorAnchor--APPLICATIONS" class="vditor-anchor" href="#-APPLICATIONS"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-<h4 id="AI-applications-today-are-diverse-and-cover-many-areas-Here-are-some-key-examples-">The current <strong>applications</strong> of artificial intelligence (AI) are diverse and cover many areas. Here are some key examples:</h4><a id="vditorAnchor-AI-applications-today-are-diverse-and-cover-many-areas-Here-are-some-key-examples-" class="vditor-anchor" href="#AI-applications-today-are-diverse-and-cover-many-areas-Here-are-some-key-examples-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<blockquote>
-<ul>
-<li><em>Virtual Assistants</em> : Assistants like Siri, Alexa, and Google Assistant use AI to understand and respond to voice commands, perform tasks, and provide information.</li>
-<li><em>Image and Video Recognition</em>: Facial recognition tools, medical image analysis, and surveillance systems use AI to identify and classify objects and people.</li>
-<li><em>Autonomous Vehicles</em>: Self-driving cars, such as those developed by Tesla and Waymo, use AI to navigate and make real-time decisions.</li>
-</ul>
-</blockquote>
-<hr />
-<br />
-<center> <img class="fade-in" src="{{ url_for('static', filename='images/B.png') }}" alt="Imagem B"> </center>
-<br />
-<hr />
-<h3 id="Example">Example<a id="vditorAnchor-Example" class="vditor-anchor" href="#Example"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-<blockquote>
-<p><em style="color: white;">{{ topic_2|safe }}</em></p>
-</blockquote>
-<hr />
-    <div>
-        <center><form action="{{ url_for('page_3_2') }}" method="get">
-            <button type="submit" class="botao-azul">Go to Second topic</button>
-        </form>
-    </div>
-<hr />
-<p><a href="/page_3" class="botao-azul">BACK</a></p>
-</div></div>
+            <blockquote>
+                <center> Below you can see and understand, where is AI and your subtopics. </center>
+            </blockquote>
+        <center> <img class="fade-in" src="{{ url_for('static', filename='images/AA.png') }}" alt="Imagem AA corrigida"> </center>
+        <hr />
+        <h3 id="Concept">Concept of Artifical Intelligence (AI)<a id="vditorAnchor-Concept" class="vditor-anchor" href="#Concept"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+        <blockquote>
+            <!-- Usando |safe pois o conteúdo pode vir com HTML da IA -->
+            <p><em style="color: white;">{{ topic_1|safe }}</em></p>
+        </blockquote>
+
+        <blockquote>
+            <center> And now, the video below shows the second way to see how AI works! </center>
+        </blockquote>
+
+        <!-- VÍDEO DO YOUTUBE INCORPORADO ABAIXO -->
+        <center> <!-- Opcional: para centralizar o player -->
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/uMzUB89uSxU?si=BdK-Ks3hglc3pZzC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </center>
+        <!-- FIM DO VÍDEO DO YOUTUBE -->
+
+        <hr />
+        <blockquote>
+            <center> The image below show more applications... </center>
+        </blockquote>
+        <center> <img class="fade-in" src="{{ url_for('static', filename='images/A.png') }}" alt="Imagem A corrigida"> </center>
+        <hr />
+        <blockquote>
+            Now, there is some famous citations a couple years ago.
+        </blockquote>
+        <h3 id="Citations">Citations<a id="vditorAnchor-Citations" class="vditor-anchor" href="#Citations"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+        <h4 id="Arthur-Samuel-1959-">Arthur Samuel 1959:<a id="vditorAnchor-Arthur-Samuel-1959-" class="vditor-anchor" href="#Arthur-Samuel-1959-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+        <blockquote>
+            <p>&quot;Machine Learning is a subfield of computer science that gives computers the ability to learn without being programmed&quot;</p>
+            <p><em>Arthur Samuel, IBM Journal of Research and Development, Vol. 3, 1959.</em></p>
+        </blockquote>
+        <h4 id="IBM-2022-">IBM 2022:<a id="vditorAnchor-IBM-2022-" class="vditor-anchor" href="#IBM-2022-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+        <blockquote>
+            <p>&quot;Artificial intelligence leverages computers and machines to mimic the problem-solving and decision-making capabilities of the human mind.&quot;</p>
+        </blockquote>
+        <hr />
+        <h3 id="-APPLICATIONS"><center> APPLICATIONS<a id="vditorAnchor--APPLICATIONS" class="vditor-anchor" href="#-APPLICATIONS"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+        <h4 id="AI-applications-today-are-diverse-and-cover-many-areas-Here-are-some-key-examples-">The current <strong>applications</strong> of artificial intelligence (AI) are diverse and cover many areas. Here are some key examples:</h4><a id="vditorAnchor-AI-applications-today-are-diverse-and-cover-many-areas-Here-are-some-key-examples-" class="vditor-anchor" href="#AI-applications-today-are-diverse-and-cover-many-areas-Here-are-some-key-examples-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
+        <blockquote>
+            <ul>
+                <li><em>Virtual Assistants</em> : Assistants like Siri, Alexa, and Google Assistant use AI to understand and respond to voice commands, perform tasks, and provide information.</li>
+                <li><em>Image and Video Recognition</em>: Facial recognition tools, medical image analysis, and surveillance systems use AI to identify and classify objects and people.</li>
+                <li><em>Autonomous Vehicles</em>: Self-driving cars, such as those developed by Tesla and Waymo, use AI to navigate and make real-time decisions.</li>
+            </ul>
+        </blockquote>
+        <hr />
+        <br />
+        <center> <img class="fade-in" src="{{ url_for('static', filename='images/B.png') }}" alt="Imagem B"> </center>
+        <br />
+        <hr />
+
+        <h3 id="Example">Example<a id="vditorAnchor-Example" class="vditor-anchor" href="#Example"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+        <blockquote>
+            <!-- Usando |safe pois o conteúdo pode vir com HTML da IA -->
+            <p><em style="color: white;">{{ topic_2|safe }}</em></p>
+        </blockquote>
+        <hr />
+
+        <div>
+            <center><form action="{{ url_for('page_3_2') }}" method="get">
+                <button type="submit" class="botao-azul">Go to Second topic</button>
+            </form></center> <!-- Fechei o center aqui -->
+        </div>
+        <hr />
+        <p><a href="/page_3" class="botao-azul">BACK</a></p>
+    </div> <!-- Fechamento da div id="preview" -->
+
     <script>
-    // Código JavaScript para os hexágonos interativos
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+        // Código JavaScript para os hexágonos interativos
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            const hexagons = [];
-            const numHexagons = 15;
-            const hexagonRadius = 15;
+        const hexagons = [];
+        const numHexagons = 15;
+        const hexagonRadius = 15;
 
-            class Hexagon {
-                constructor(x, y) {
-                    this.x = x;
-                    this.y = y;
-                    this.vx = (Math.random() * 2 - 1) * 0.5;
-                    this.vy = (Math.random() * 2 - 1) * 0.5;
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    for (let i = 0; i < 6; i++) {
-                        const angle = 2 * Math.PI / 6 * i;
-                        const x = this.x + hexagonRadius * Math.cos(angle);
-                        const y = this.y + hexagonRadius * Math.sin(angle);
-                        ctx.lineTo(x, y);
-                    }
-                    ctx.closePath();
-                    ctx.strokeStyle = 'white';
-                    ctx.stroke();
-                }
-
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-
-                    if (this.x < 0 || this.x > canvas.width) {
-                        this.vx *= -1;
-                    }
-
-                    if (this.y < 0 || this.y > canvas.height) {
-                        this.vy *= -1;
-                    }
-
-                    this.vx *= 0.98;
-                    this.vy *= 0.98;
-                }
+        class Hexagon {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() * 2 - 1) * 0.5;
+                this.vy = (Math.random() * 2 - 1) * 0.5;
             }
 
-            for (let i = 0; i < numHexagons; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                hexagons.push(new Hexagon(x, y));
+            draw() {
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    const angle = 2 * Math.PI / 6 * i;
+                    const x = this.x + hexagonRadius * Math.cos(angle);
+                    const y = this.y + hexagonRadius * Math.sin(angle);
+                    ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = 'white';
+                ctx.stroke();
             }
 
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
 
-                for (let i = 0; i < hexagons.length; i++) {
-                    hexagons[i].update();
-                    hexagons[i].draw();
-
-                    for (let j = i + 1; j < hexagons.length; j++) {
-                        const dx = hexagons[i].x - hexagons[j].x;
-                        const dy = hexagons[i].y - hexagons[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 200) {
-                            ctx.beginPath();
-                            ctx.moveTo(hexagons[i].x, hexagons[i].y);
-                            ctx.lineTo(hexagons[j].x, hexagons[j].y);
-                            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-                            ctx.stroke();
-                        }
-                    }
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.vx *= -1;
                 }
 
-                requestAnimationFrame(animate);
+                if (this.y < 0 || this.y > canvas.height) {
+                    this.vy *= -1;
+                }
+
+                this.vx *= 0.98;
+                this.vy *= 0.98;
             }
+        }
 
-            animate();
+        for (let i = 0; i < numHexagons; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            hexagons.push(new Hexagon(x, y));
+        }
 
-            canvas.addEventListener('mousemove', (event) => {
-                for (let i = 0; i < hexagons.length; i++) {
-                    const dx = event.clientX - hexagons[i].x;
-                    const dy = event.clientY - hexagons[i].y;
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < hexagons.length; i++) {
+                hexagons[i].update();
+                hexagons[i].draw();
+
+                for (let j = i + 1; j < hexagons.length; j++) {
+                    const dx = hexagons[i].x - hexagons[j].x;
+                    const dy = hexagons[i].y - hexagons[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 100) {
-                        hexagons[i].vx += dx * 0.005;
-                        hexagons[i].vy += dy * 0.005;
+                    if (distance < 200) {
+                        ctx.beginPath();
+                        ctx.moveTo(hexagons[i].x, hexagons[i].y);
+                        ctx.lineTo(hexagons[j].x, hexagons[j].y);
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                        ctx.stroke();
                     }
                 }
-            });
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        canvas.addEventListener('mousemove', (event) => {
+            for (let i = 0; i < hexagons.length; i++) {
+                const dx = event.clientX - hexagons[i].x;
+                const dy = event.clientY - hexagons[i].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    hexagons[i].vx += dx * 0.005;
+                    hexagons[i].vy += dy * 0.005;
+                }
+            }
+        });
+
+        // Código JavaScript para a renderização do Vditor (ADICIONADO)
+        const previewElement = document.getElementById('preview');
+        // Define o tema (opcional, mas bom para consistência)
+        Vditor.setContentTheme('dark', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme'); // Ou 'light', 'classic', etc.
+        // Renderiza blocos de código
+        Vditor.codeRender(previewElement);
+        // Renderiza destaque de sintaxe
+        Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        // Renderiza matemática (KaTeX)
+        Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
+        // Renderiza diagramas Mermaid
+        Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'dark'); // Ajuste 'dark' ou 'light' conforme o tema
+        // Outras renderizações que você pode precisar (descomente se necessário)
+        // Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        // Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        // Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'dark');
+        // Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'dark');
+        // Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        // Vditor.mediaRender(previewElement);
+        // Vditor.speechRender(previewElement); // Se precisar de leitura em voz alta
+
      </script>
-<script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+     <!-- Ícones (opcional, mas pode ser necessário para alguns recursos do Vditor) -->
+     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
 </body>
 </html>
