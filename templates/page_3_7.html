@@ -1,0 +1,396 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
+    <!-- Link para seu CSS existente -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
+
+    <!-- ****** NOVO ESTILO CSS ****** -->
+    <style>
+        .centered-content-container {
+            max-width: 900px; /* Ajuste a largura máxima conforme necessário */
+            margin: 20px auto; /* Centraliza o container na página (auto nas laterais) */
+            padding: 15px; /* Adiciona um espaçamento interno */
+            text-align: center; /* Centraliza o texto e elementos inline */
+            background-color: rgba(255, 255, 255, 0.1); /* Opcional: fundo levemente visível */
+            border-radius: 8px; /* Opcional: bordas arredondadas */
+        }
+
+        /* Garante que imagens dentro do container centralizado também sejam centralizadas */
+        .centered-content-container img {
+            display: block; /* Faz a imagem se comportar como um bloco */
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%; /* Garante que a imagem não ultrapasse o container */
+            height: auto; /* Mantém a proporção da imagem */
+        }
+
+        /* Ajuste para alinhar texto de listas e parágrafos à esquerda dentro do container centralizado */
+        .centered-content-container .vditor-reset,
+        .centered-content-container p,
+        .centered-content-container ul,
+        .centered-content-container ol {
+             text-align: left;
+        }
+
+         /* Centraliza os botões especificamente se necessário */
+        .centered-content-container form,
+        .centered-content-container .back-link-div { /* Adicione uma classe ao div do link BACK se precisar */
+             text-align: center;
+             margin-top: 20px; /* Espaçamento acima dos botões */
+        }
+
+        /* Mantém o canvas no fundo */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Garante que fique atrás de tudo */
+        }
+
+        /* Estilos do overlay de carregamento (mantidos como antes) */
+        #loading-overlay {
+            /* ... seus estilos ... */
+            position: fixed; /* Garante que cubra a tela */
+            /* ... */
+        }
+
+    </style>
+    <!-- ****** FIM DO NOVO ESTILO CSS ****** -->
+
+</head>
+<body> <!-- Removido o style="width: 1075px;" do body -->
+
+    <!-- Overlay de Carregamento (mantido fora do container) -->
+    <div id="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading next page...</p>
+    </div>
+
+    <!-- Canvas (mantido fora do container) -->
+    <canvas id="canvas"></canvas>
+
+    <!-- ****** INÍCIO DO CONTAINER CENTRALIZADO ****** -->
+    <div class="centered-content-container">
+
+        <div class="vditor-reset" id="preview">
+            <!-- O conteúdo gerado pelo Vditor/Markdown vai aqui -->
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+            <h1 id="-Basic-Concepts-of-Artificial-Intelligence-"><center> <strong>Basic Concepts of Artificial Intelligence</strong> </center><a id="vditorAnchor--Basic-Concepts-of-Artificial-Intelligence-" class="vditor-anchor" href="#-Basic-Concepts-of-Artificial-Intelligence-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h1>
+
+            <h3 id="-How-to-create-a-IA-model-"><center> How to create a IA model?</center><a id="vditorAnchor--How-to-create-a-IA-model-" class="vditor-anchor" href="#-How-to-create-a-IA-model-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+            <hr />
+            <h2 id="Basic-Concepts-for-AI-Creation">Basic Concepts for AI Creation<a id="vditorAnchor-Basic-Concepts-for-AI-Creation" class="vditor-anchor" href="#Basic-Concepts-for-AI-Creation"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
+            <p>Now you will see some necessary concepts to create a IA model. Below have a little bit more words than usual, but will be the last page, so get your last breath and let's go!<br />
+            To embark on the journey of creating Artificial Intelligence (AI), a foundational understanding of several key concepts is essential. Here's a structured overview:</p>
+            <h3 id="I--Core-Machine-Learning-Terminology">I. Core Machine Learning Terminology<a id="vditorAnchor-I--Core-Machine-Learning-Terminology" class="vditor-anchor" href="#I--Core-Machine-Learning-Terminology"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+            <ol>
+            <li><strong>Dataset:</strong> The bedrock of machine learning, a collection of <strong>samples</strong> (individual data points or instances) each described by a set of <strong>attributes</strong> (features). The quality and relevance of the dataset are paramount to the performance of any AI model.</li>
+            <li><strong>Supervised Learning:</strong> A learning paradigm where the AI model learns a mapping function from input attributes to known output values (the <strong>labels</strong>). This requires a dataset where each sample is paired with its corresponding correct output.</li>
+            <li><strong>Unsupervised Learning:</strong> In contrast to supervised learning, this paradigm involves training models on unlabeled data to discover hidden patterns, structures, or relationships within the data itself.</li>
+            <li><strong>Reinforcement Learning:</strong> An approach where an agent learns optimal behavior by interacting with an environment, receiving rewards or penalties for its actions. The goal is to maximize cumulative reward over time.</li>
+            <li><strong>Algorithm:</strong> The specific method or set of rules that a machine learning model uses to learn from data and make predictions or decisions. Different types of problems call for different algorithms.</li>
+            <li><strong>Model:</strong> The learned representation or function derived from the training process. It embodies the patterns and relationships discovered in the data and is used to make predictions on new, unseen data.</li>
+            <li><strong>Training:</strong> The iterative process of exposing the model to the training dataset and adjusting its internal parameters to minimize the difference between its predictions and the actual labels (in supervised learning) or to optimize for a specific objective (in unsupervised and reinforcement learning). This process often involves a <strong>loss function</strong> that quantifies the error of the model.</li>
+            <li><strong>Evaluation:</strong> Assessing the performance of a trained model on a separate <strong>test dataset</strong> (data not used during training) to gauge its ability to generalize to new, unseen data. Various <strong>metrics</strong> are used to quantify performance, depending on the task (e.g., accuracy, precision, recall for classification; mean squared error for regression).</li>
+            <li><strong>Feature Engineering:</strong> A crucial step involving the selection, transformation, and creation of informative features from the raw data. Well-engineered features can significantly improve the performance and interpretability of a model.</li>
+            <li><strong>Overfitting:</strong> A common pitfall where a model learns the training data too well, capturing noise and specific details that do not generalize to new data, resulting in poor performance on unseen data.</li>
+            <li><strong>Library (e.g., Scikit-learn):</strong> A collection of pre-built tools, functions, and modules that provide efficient implementations of machine learning algorithms, data preprocessing techniques, and model evaluation utilities. Python libraries like Scikit-learn (sklearn) are fundamental for practical AI development.</li>
+            </ol>
+            <!-- Corrigido o caminho da imagem para usar url_for -->
+            <p><img src="{{ url_for('static', filename='images/J.png') }}" alt="ML Terminology" /></p>
+            <h3 id="II--Deep-Dive-into-Classification">II. Deep Dive into Classification<a id="vditorAnchor-II--Deep-Dive-into-Classification" class="vditor-anchor" href="#II--Deep-Dive-into-Classification"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+            <p><strong>Objective:</strong> The core goal of a classification task is to build a model that can accurately assign data points to one of several predefined, discrete categories or <strong>classes</strong>.</p>
+            <ol>
+            <li>
+            <p><strong>Mapping Inputs to Classes:</strong> A classification algorithm learns a function that takes a set of input <strong>features</strong> describing a data sample and outputs the predicted class label for that sample.</p>
+            </li>
+            <li>
+            <p><strong>Discrete Target Variable:</strong> The variable we aim to predict is categorical, belonging to a finite and distinct set of possible values. Examples include:</p>
+            <ul>
+            <li>Binary Classification: &quot;Yes&quot; or &quot;No&quot;, &quot;Spam&quot; or &quot;Not Spam&quot;.</li>
+            <li>Multiclass Classification: &quot;Cat&quot;, &quot;Dog&quot;, &quot;Bird&quot;; &quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot; risk.</li>
+            </ul>
+            </li>
+            </ol>
+            <p><strong>Common Classification Algorithms (Implemented in Scikit-learn):</strong></p>
+            <ul>
+            <li>
+            <p><strong>Logistic Regression:</strong> Although named &quot;regression,&quot; it's a linear model for binary classification, estimating the probability of a sample belonging to a particular class using the sigmoid function. It can be extended for multiclass problems.</p>
+            <ul>
+            <li><em>Key Terms:</em> Sigmoid function, Probability, Decision boundary.</li>
+            </ul>
+            </li>
+            <li>
+            <p><strong>Support Vector Machines (SVM):</strong> A powerful algorithm that seeks to find the optimal hyperplane that best separates different classes in the feature space, maximizing the <strong>margin</strong> between them. <strong>Kernels</strong> can be used to handle non-linearly separable data.</p>
+            <ul>
+            <li><em>Key Terms:</em> Hyperplane, Support vectors, Margin, Kernel.</li>
+            </ul>
+            </li>
+            <li>
+            <p><strong>Decision Trees:</strong> Tree-like structures where each internal node tests a feature, each branch represents the outcome of the test, and each leaf node holds a class prediction.</p>
+            <ul>
+            <li><em>Key Terms:</em> Root node, Internal node, Leaf node, Split, Impurity (Gini, Entropy).</li>
+            </ul>
+            </li>
+            <li>
+            <p><strong>Random Forest:</strong> An <strong>ensemble learning</strong> technique that builds multiple decision trees and aggregates their predictions (often through majority voting) to improve robustness and accuracy. <strong>Bagging</strong> is a key concept here.</p>
+            <ul>
+            <li><em>Key Terms:</em> Ensemble learning, Bagging, Decision trees.</li>
+            </ul>
+            </li>
+            <li>
+            <p><strong>K-Nearest Neighbors (KNN):</strong> A non-parametric, instance-based learning algorithm that classifies a new data point based on the majority class among its <em>k</em> closest neighbors in the feature space, as determined by a <strong>distance metric</strong>.</p>
+            <ul>
+            <li><em>Key Terms:</em> Distance (Euclidean, Manhattan, etc.), Number of neighbors (<em>k</em>).</li>
+            </ul>
+            </li>
+            <li>
+            <p><strong>Naive Bayes:</strong> A probabilistic algorithm based on <strong>Bayes' theorem</strong>, assuming conditional independence of features given the class. It's efficient and often used in text classification.</p>
+            <ul>
+            <li><em>Key Terms:</em> Bayes' theorem, Prior probability, Conditional probability.</li>
+            </ul>
+            </li>
+            </ul>
+            <p><strong>The Classification Workflow:</strong></p>
+            <ol>
+            <li><strong>Data Acquisition and Preprocessing:</strong> Gathering relevant, labeled data and preparing it for modeling through cleaning, handling missing values, scaling features, and other necessary transformations.</li>
+            <li><strong>Data Splitting:</strong> Dividing the dataset into a <strong>training set</strong> (used to train the model) and a <strong>test set</strong> (used to evaluate its generalization ability). Common splits include 70/30 or 80/20.</li>
+            <li><strong>Model Selection:</strong> Choosing an appropriate classification algorithm based on the characteristics of the data, the problem requirements (e.g., interpretability, speed), and prior knowledge or experimentation.</li>
+            <li><strong>Model Training:</strong> Feeding the training data to the selected algorithm, allowing it to learn the underlying patterns and relationships between the features and the class labels.</li>
+            <li><strong>Model Evaluation:</strong> Assessing the trained model's performance on the unseen test data using relevant <strong>evaluation metrics</strong>.</li>
+            <li><strong>Hyperparameter Tuning:</strong> Optimizing the settings of the chosen algorithm (hyperparameters, which are not learned from the data) to further improve the model's performance. Techniques like <strong>GridSearchCV</strong> and <strong>RandomizedSearchCV</strong> are often employed.</li>
+            <li><strong>Deployment:</strong> Making the trained and evaluated model available for use in real-world applications to classify new, incoming data.</li>
+            </ol>
+            <p><strong>Key Evaluation Metrics for Classification:</strong></p>
+            <p>These metrics provide quantitative measures of a classification model's effectiveness:</p>
+            <ul>
+            <li><strong>Accuracy:</strong> The overall proportion of correctly classified instances.</li>
+            <li><strong>Precision:</strong> Out of all the instances predicted as positive, what proportion was actually positive? (True Positives / (True Positives + False Positives)).</li>
+            <li><strong>Recall (Sensitivity or True Positive Rate - TPR):</strong> Out of all the actual positive instances, what proportion was correctly identified as positive? (True Positives / (True Positives + False Negatives)).</li>
+            <li><strong>F1-Score:</strong> The harmonic mean of precision and recall, providing a balanced measure, especially useful when dealing with imbalanced datasets.</li>
+            <li><strong>Confusion Matrix:</strong> A table that visualizes the performance of a classifier by showing the counts of true positives, true negatives, false positives, and false negatives.</li>
+            <li><strong>ROC (Receiver Operating Characteristic) Curve &amp; AUC (Area Under the Curve):</strong> For binary classifiers, the ROC curve plots the True Positive Rate against the False Positive Rate at various threshold settings, and the AUC summarizes the overall performance of the classifier across all possible thresholds.</li>
+            </ul>
+            <p>This enhanced organization aims to provide a clearer and more structured understanding of the fundamental concepts for AI creation, with a specific focus on classification. Let me know if you'd like to delve deeper into any of these areas!</p>
+            <!-- Corrigido o caminho da imagem para usar url_for -->
+            <p><img src="{{ url_for('static', filename='images/K.png') }}" alt="Classification Workflow" /></p>
+
+        </div> <!-- Fim do <div id="preview"> -->
+
+        <!-- Botões de Navegação (agora dentro do container) -->
+        <form action="{{ url_for('page_4') }}" method="get">
+            <center> <button type="submit" class="botao-azul">Go to TEST TWO</button> </center>
+        </form>
+        <div class="back-link-div"> <!-- Adicionada classe para possível estilo específico -->
+            <a href="{{ url_for('page_3_6') }}" class="botao-azul">BACK</a><br><br> <!-- Usando url_for para o link BACK -->
+        </div>
+
+    </div>
+    <!-- ****** FIM DO CONTAINER CENTRALIZADO ****** -->
+
+
+    <!-- Scripts (mantidos fora do container, no final do body) -->
+    <script>
+        // Código JavaScript para os hexágonos interativos (mantido como antes)
+        const canvas = document.getElementById('canvas'); // Garante que pegue o canvas correto
+        // ... (resto do script dos hexágonos) ...
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const hexagons = [];
+        const numHexagons = 25;
+        const hexagonRadius = 30;
+
+        class Hexagon {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.vx = (Math.random() * 2 - 1) * 0.5; // Velocidade reduzida
+            this.vy = (Math.random() * 2 - 1) * 0.5; // Velocidade reduzida
+        }
+
+        draw() {
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                const angle = 2 * Math.PI / 6 * i;
+                const x = this.x + hexagonRadius * Math.cos(angle);
+                const y = this.y + hexagonRadius * Math.sin(angle);
+                ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > canvas.width) {
+                this.vx *= -1;
+            }
+
+            if (this.y < 0 || this.y > canvas.height) {
+                this.vy *= -1;
+            }
+
+            // Adicionando amortecimento
+            this.vx *= 0.98;
+            this.vy *= 0.98;
+        }
+        }
+
+        for (let i = 0; i < numHexagons; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        hexagons.push(new Hexagon(x, y));
+        }
+
+        function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < hexagons.length; i++) {
+            hexagons[i].update();
+            hexagons[i].draw();
+
+            for (let j = i + 1; j < hexagons.length; j++) {
+                const dx = hexagons[i].x - hexagons[j].x;
+                const dy = hexagons[i].y - hexagons[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 200) {
+                    ctx.beginPath();
+                    ctx.moveTo(hexagons[i].x, hexagons[i].y);
+                    ctx.lineTo(hexagons[j].x, hexagons[j].y);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        canvas.addEventListener('mousemove', (event) => {
+        for (let i = 0; i < hexagons.length; i++) {
+            const dx = event.clientX - hexagons[i].x;
+            const dy = event.clientY - hexagons[i].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                hexagons[i].vx += dx * 0.005; // Força reduzida
+                hexagons[i].vy += dy * 0.005; // Força reduzida
+            }
+        }
+        });
+    </script>
+    <script>
+        // Script do Vditor (mantido como antes)
+        const previewElement = document.getElementById('preview');
+        Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
+        Vditor.codeRender(previewElement);
+        Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
+        Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+        Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+        Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+        Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+        Vditor.mediaRender(previewElement);
+        Vditor.speechRender(previewElement);
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+    <script>
+        // Script do loader (mantido como antes)
+        (function() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            // ... (resto do script do loader) ...
+            // Função para mostrar o overlay
+            function showLoader() {
+                if (loadingOverlay) {
+                    loadingOverlay.style.display = 'flex'; // Primeiro torna o elemento 'flex'
+                    // Força um reflow para garantir que display:flex seja aplicado antes da opacidade
+                    void loadingOverlay.offsetWidth;
+                    loadingOverlay.classList.add('visible'); // Adiciona a classe para iniciar a transição de opacidade
+                }
+            }
+
+            // --- Gatilhos para mostrar o loader ---
+
+            // 1. Para links normais que navegam para outra página
+            document.querySelectorAll('a[href]').forEach(link => {
+                // Ignora links internos da página (#) e links que abrem em nova aba
+                if (link.getAttribute('href') &&
+                    !link.getAttribute('href').startsWith('#') &&
+                    (!link.target || link.target.toLowerCase() === '_self'))
+                {
+                    link.addEventListener('click', function(event) {
+                        // Verifica se não é um link especial (ex: mailto, tel)
+                        const protocol = link.protocol;
+                        if (protocol === 'http:' || protocol === 'https:') {
+                            showLoader();
+                            // Não prevenimos o default, o navegador navegará normalmente
+                        }
+                    });
+                }
+            });
+
+            // 2. Para submissões de formulário que causam navegação
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    // Verifica se o formulário NÃO está sendo tratado por AJAX específico
+                    // (No seu page_1.html, o submit principal é AJAX, então este listener não deve ativá-lo)
+                    // Este listener pegará os submits dos botões "Go to Next page" em page_2 e page_4, por exemplo.
+                    const isAjaxForm = form.querySelector('button[onclick^="submitForm"]'); // Verifica se é o form AJAX de page_1
+
+                    if (!isAjaxForm) {
+                         // Pequeno delay para garantir que o loader apareça antes da navegação iniciar
+                         // Útil para transições rápidas.
+                         setTimeout(showLoader, 10); // Mostra após 10ms
+                    }
+                });
+            });
+
+            // --- Lógica para esconder o loader ---
+
+            // Esconde o loader se o usuário voltar usando o botão do navegador
+            // O evento 'pageshow' é disparado quando a página é exibida, incluindo via bfcache
+            window.addEventListener('pageshow', function(event) {
+                // event.persisted é true se a página foi carregada do back/forward cache
+                // Se veio do cache, significa que o usuário voltou, então escondemos o loader.
+                if (loadingOverlay && loadingOverlay.classList.contains('visible')) {
+                     loadingOverlay.classList.remove('visible');
+                     // Espera a transição de opacidade terminar antes de setar display: none
+                     setTimeout(() => {
+                         // Verifica novamente caso algo tenha mudado rapidamente
+                         if (!loadingOverlay.classList.contains('visible')) {
+                            loadingOverlay.style.display = 'none';
+                         }
+                     }, 300); // Tempo igual à duração da transição CSS (0.3s)
+                }
+            });
+
+            // Caso especial para o formulário AJAX em page_1.html
+            // (Se você estiver em page_1.html, este código será relevante)
+            // Removido pois esta não é a page_1.html
+            /*
+            if (typeof submitForm === 'function') {
+                // ... código AJAX de page_1 ...
+            }
+            */
+
+        })();
+    </script>
+
+</body>
+</html>
