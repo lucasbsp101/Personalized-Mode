@@ -283,3 +283,50 @@ h3 {
 ::-webkit-scrollbar-thumb:hover {
     background: #555; /* Cor do "polegar" ao passar o mouse */
 }
+
+/* Tela de carregamento de pagina */
+
+#loading-overlay {
+    position: fixed; /* Cobre a tela inteira, mesmo com rolagem */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75); /* Fundo escuro semi-transparente */
+    display: flex; /* Necessário para centralizar o conteúdo com flexbox */
+    flex-direction: column; /* Empilha o spinner e o texto verticalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    z-index: 9999; /* Garante que fique acima de todo o resto */
+    color: white; /* Cor do texto "Loading..." */
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.3s ease-in-out; /* Transição suave para aparecer */
+    pointer-events: none; /* Não interfere com cliques quando invisível */
+}
+
+#loading-overlay.visible {
+    opacity: 1; /* Torna visível */
+    pointer-events: auto; /* Permite interação se necessário (geralmente não) */
+}
+
+
+.spinner {
+    border: 8px solid #f3f3f3; /* Cinza claro */
+    border-top: 8px solid #3498db; /* Azul (pode mudar para combinar com seu tema) */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px; /* Espaço entre spinner e texto */
+}
+
+/* Animação do spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loading-overlay p {
+    font-size: 1.2em;
+    font-family: Arial, sans-serif; /* Fonte simples para o loading */
+}

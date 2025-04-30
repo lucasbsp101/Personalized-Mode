@@ -7,6 +7,13 @@
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
 </head>
 <body>
+
+    <!-- Overlay de Carregamento -->
+        <div id="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading next page...</p>
+        </div>
+
     <canvas id="canvas"></canvas>
     <div class="vditor-reset" id="preview">
         <h1 id="Basic-Concepts-of-Artificial-Intelligence">
@@ -65,37 +72,12 @@ In the case of phi-4, it performs sentiment analysis based on the data it was tr
 </blockquote>
         <hr>
 <h2 id="Text-Examples-">Text Examples<a id="vditorAnchor-Text-Examples-" class="vditor-anchor" href="#Text-Examples-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h2>
-<h4 id="Positive-Sentiment-">Positive Sentiment:<a id="vditorAnchor-Positive-Sentiment-" class="vditor-anchor" href="#Positive-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<ul>
-<li>&quot;I loved the movie! The performances were amazing and the story kept me hooked from start to finish.&quot;</li>
-<li>&quot;I received the product today and am extremely satisfied with the quality. I recommend it to everyone!&quot;</li>
-<li>&quot;What a wonderful day! The sun is shining and I feel very happy.&quot;</li>
-</ul>
-<h4 id="Negative-Sentiment-">Negative Sentiment:<a id="vditorAnchor-Negative-Sentiment-" class="vditor-anchor" href="#Negative-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<ul>
-<li>&quot;The service was horrible. I waited for hours and no one helped me. Never going back!&quot;</li>
-<li>&quot;I am very disappointed with the product. It arrived broken and doesn't work.&quot;</li>
-<li>&quot;What a terrible day! Everything went wrong and I am very frustrated.&quot;</li>
-</ul>
-<h4 id="Neutral-Sentiment-">Neutral Sentiment:<a id="vditorAnchor-Neutral-Sentiment-" class="vditor-anchor" href="#Neutral-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<ul>
-<li>&quot;The weather is cloudy today. It might rain later.&quot;</li>
-<li>&quot;I bought a new book at the bookstore. The story seems interesting.&quot;</li>
-<li>&quot;I am going to work. The traffic is a bit congested.&quot;</li>
-</ul>
-<h4 id="Mixed-Sentiment-">Mixed Sentiment:<a id="vditorAnchor-Mixed-Sentiment-" class="vditor-anchor" href="#Mixed-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
-<ul>
-<li>&quot;The movie was good, but the ending left me a bit confused.&quot;</li>
-<li>&quot;The product is great, but the price is too high.&quot;</li>
-<li>&quot;I am happy to have gotten the job, but the salary is not ideal.&quot;</li>
-</ul>
 <h4 id="Sarcastic-Sentiment-">Sarcastic Sentiment:<a id="vditorAnchor-Sarcastic-Sentiment-" class="vditor-anchor" href="#Sarcastic-Sentiment-"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h4>
 <ul>
 <li>&quot;What a beautiful day to be stuck in traffic for hours. Love it!&quot;</li>
-<li>&quot;Wow, what amazing service! I only waited an eternity to be attended.&quot;</li>
-<li>&quot;I love it when the food comes cold. It's so tasty!&quot;</li>
 </ul>
-<center> <h3>Enter the TEXT that you want to analyze:</h3> </center>
+<center> <h3>Enter the TEXT above</h3> </center>
+<label>  When you input the text below and click "analyze", the PHI-4(IA) will analyze and will give an answer with <strong>sentimental and confidence</strong> of this analysis. <strong> Correct answer:</strong> Sentiment: sarcastic, Confidence: High. Happens if the answer is different from the right one, IAs have an error gap.</label>
 <center> <textarea id="text" rows="4" cols="50"></textarea><br> </center><br>
 
 <center> <button onclick="analyzeSentiment()">Analyze</button><br> </center><br>
@@ -217,11 +199,11 @@ In the case of phi-4, it performs sentiment analysis based on the data it was tr
     &lt;center&gt; &lt;textarea id=&quot;text&quot; rows=&quot;4&quot; cols=&quot;50&quot;&gt;&lt;/textarea&gt;&lt;br&gt; &lt;/center&gt;&lt;br&gt;
     &lt;center&gt; &lt;button onclick=&quot;analyzeSentiment()&quot;&gt;Analyze&lt;/button&gt;&lt;br&gt; &lt;/center&gt;&lt;br&gt;
     &lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
-    &lt;form action=&quot;{{ url_for('page_6') }}&quot; method=&quot;get&quot;&gt;
+    &lt;form action=&quot;{{ url_for('page_3_7') }}&quot; method=&quot;get&quot;&gt;
         &lt;center&gt; &lt;button type=&quot;submit&quot;&gt;Go to Next page&lt;/button&gt; &lt;/center&gt;
     &lt;/form&gt;
     &lt;div&gt;
-        &lt;a href=&quot;/page_6&quot;&gt;BACK&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+        &lt;a href=&quot;/page_3_5&quot;&gt;BACK&lt;/a&gt;&lt;br&gt;&lt;br&gt;
     &lt;/div&gt;
     &lt;script&gt;
         function analyzeSentiment() {
@@ -312,8 +294,8 @@ def analyze_sentiment():
     except Exception as api_error:
         return jsonify({'error': f'Error during API call: {api_error}'}), 500
 </code></pre>
-<form action="{{ url_for('page_4') }}" method="get">
-    <center> <button type="submit" class="botao-azul">Go to TEST TWO</button> </center>
+<form action="{{ url_for('page_3_7') }}" method="get">
+    <center> <button type="submit" class="botao-azul">Go to NEXT TOPIC</button> </center>
 </form>
 <div>
     <a href="/page_3_5" class="botao-azul">BACK</a><br><br>
@@ -429,5 +411,124 @@ def analyze_sentiment():
         });
 </script>
 <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+        <!-- Pagina sobreposta de carregamento -->
+    <script>
+    (function() {
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        // Função para mostrar o overlay
+        function showLoader() {
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex'; // Primeiro torna o elemento 'flex'
+                // Força um reflow para garantir que display:flex seja aplicado antes da opacidade
+                void loadingOverlay.offsetWidth;
+                loadingOverlay.classList.add('visible'); // Adiciona a classe para iniciar a transição de opacidade
+            }
+        }
+
+        // --- Gatilhos para mostrar o loader ---
+
+        // 1. Para links normais que navegam para outra página
+        document.querySelectorAll('a[href]').forEach(link => {
+            // Ignora links internos da página (#) e links que abrem em nova aba
+            if (link.getAttribute('href') &&
+                !link.getAttribute('href').startsWith('#') &&
+                (!link.target || link.target.toLowerCase() === '_self'))
+            {
+                link.addEventListener('click', function(event) {
+                    // Verifica se não é um link especial (ex: mailto, tel)
+                    const protocol = link.protocol;
+                    if (protocol === 'http:' || protocol === 'https:') {
+                        showLoader();
+                        // Não prevenimos o default, o navegador navegará normalmente
+                    }
+                });
+            }
+        });
+
+        // 2. Para submissões de formulário que causam navegação
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                // Verifica se o formulário NÃO está sendo tratado por AJAX específico
+                // (No seu page_1.html, o submit principal é AJAX, então este listener não deve ativá-lo)
+                // Este listener pegará os submits dos botões "Go to Next page" em page_2 e page_4, por exemplo.
+                const isAjaxForm = form.querySelector('button[onclick^="submitForm"]'); // Verifica se é o form AJAX de page_1
+
+                if (!isAjaxForm) {
+                     // Pequeno delay para garantir que o loader apareça antes da navegação iniciar
+                     // Útil para transições rápidas.
+                     setTimeout(showLoader, 10); // Mostra após 10ms
+                }
+            });
+        });
+
+        // --- Lógica para esconder o loader ---
+
+        // Esconde o loader se o usuário voltar usando o botão do navegador
+        // O evento 'pageshow' é disparado quando a página é exibida, incluindo via bfcache
+        window.addEventListener('pageshow', function(event) {
+            // event.persisted é true se a página foi carregada do back/forward cache
+            // Se veio do cache, significa que o usuário voltou, então escondemos o loader.
+            if (loadingOverlay && loadingOverlay.classList.contains('visible')) {
+                 loadingOverlay.classList.remove('visible');
+                 // Espera a transição de opacidade terminar antes de setar display: none
+                 setTimeout(() => {
+                     // Verifica novamente caso algo tenha mudado rapidamente
+                     if (!loadingOverlay.classList.contains('visible')) {
+                        loadingOverlay.style.display = 'none';
+                     }
+                 }, 300); // Tempo igual à duração da transição CSS (0.3s)
+            }
+        });
+
+        // Caso especial para o formulário AJAX em page_1.html
+        // (Se você estiver em page_1.html, este código será relevante)
+        if (typeof submitForm === 'function') {
+            const originalSubmitForm = submitForm; // Guarda a função original
+            window.submitForm = function() { // Sobrescreve a função global
+                showLoader(); // Mostra o loader ANTES de iniciar o fetch
+
+                const form = document.querySelector('form[action="{{ url_for('index') }}"]');
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        // Navega para a próxima página APÓS o sucesso do POST
+                        // O loader continuará visível até a page_2 carregar
+                        window.location.href = "{{ url_for('page_2') }}";
+                        // Não escondemos o loader aqui, pois a navegação vai acontecer
+                    } else {
+                        // Se der erro no POST, esconde o loader e mostra alerta
+                        alert('Error sending data. Please try again.');
+                        if (loadingOverlay) {
+                            loadingOverlay.classList.remove('visible');
+                            setTimeout(() => {
+                                 if (!loadingOverlay.classList.contains('visible')) {
+                                    loadingOverlay.style.display = 'none';
+                                 }
+                            }, 300);
+                        }
+                    }
+                }).catch(error => {
+                    // Se der erro na rede/fetch, esconde o loader e mostra alerta
+                    console.error('Error:', error);
+                    alert('Error sending data. Please try again.');
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.remove('visible');
+                        setTimeout(() => {
+                             if (!loadingOverlay.classList.contains('visible')) {
+                                loadingOverlay.style.display = 'none';
+                             }
+                        }, 300);
+                    }
+                });
+            }
+        }
+
+    })();
+    </script>
 </body>
 </html>

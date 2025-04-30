@@ -41,6 +41,13 @@
     </style>
 </head>
 <body>
+
+        <!-- Overlay de Carregamento -->
+        <div id="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading next page...</p>
+        </div>
+
     <h1 class="fade-in" style="background-color: #f0f0f0;" >Welcome to the AI Course for Beginners</h1>
 
 
@@ -51,58 +58,151 @@
     </div>
 
     <form method="POST" action="{{ url_for('index') }}">
-        {{ form.hidden_tag() }}
+        {{ form.hidden_tag() }} <!-- Se estiver usando WTForms -->
 
-        <label for="name">Please, tell me your complete name</label><br>
-        <input type="text" id="name" name="name" size="32" required><br><br>
+        <!-- Exibe mensagem de erro geral -->
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
 
-        <label for="age">How old are you, buddy?</label>
-        <input type="number" id="age" name="age" required><br><br>
+                <center> <h1>Orientations</h1> </center>
+        <label>1. Enter your name to continue, or fill all fields if you are new.</label>
+        <label>2. Choose the course mode according that Lucas oriented to choose</label>
+        <label style="font-weight: bold;">3. Translation: Use your browser's built-in translation feature (Chrome or Edge recommended).</label>
+        <ul style="margin-top: 0; padding-left: 40px; font-size: 0.9em;"> <!-- Lista para detalhar a tradução -->
+            <li><strong>Chrome:</strong> Right-click anywhere on the page -> Select "Translate to [Your Language]".</li>
+            <li><strong>Edge:</strong> Right-click anywhere on the page -> Select "Translate to [Your Language]". Or click the translation icon in the address bar.</li>
+        </ul><br>
 
-        <label for="hobbies">Tell about your Hobbies and Interests</label><br>
-        <textarea id="hobbies" name="hobbies" rows="2" cols="50"></textarea><br><br>
+        <label for="name">Please, enter your full name to start or continue</label>
+        <label for="hobbies" style="font-size: 0.85em" >Obs: Memorize how you wrote, in case you lose your connection or close the window. The name will recover the session and data </label>
+        <input type="text" id="name" name="name" size="32" value="{{ name if name else '' }}" required><br><br>
 
-        <label for="work">Tell me about your job or your studies:</label><br>
-        <textarea id="work" name="work" rows="2" cols="50"></textarea><br><br>
+        <label for="age">How old are you?</label> <!-- Removido 'buddy?' -->
+        <input type="number" id="age" name="age" value="{{ age if age else '' }}"><br><br>
 
-        <label for="learning_preference">Below, select the MODE that you was selected by Lucas</label><br>
+        <label for="hobbies">Tell about your Hobbies and Interests</label>
+        <label for="hobbies" style="font-size: 0.85em" >Obs: describe maximum information you can, then IA of website can personalized the content creating a awesome experience to you </label>
+        <textarea id="hobbies" name="hobbies" rows="2" cols="50">{{ hobbies if hobbies else '' }}</textarea><br>
 
+        <label for="work">Write your job area and\or name of your course study in progress or completed</label>
+        <textarea id="work" name="work" rows="2" cols="50">{{ work if work else '' }}</textarea><br><br>
+
+        <!-- ****** CAMPO EDUCATION LEVEL ****** -->
+        <label>What is your highest level of education (or current)?</label>
         <div class="radio-group">
-            <input type="radio" id="Generic Teaching" name="learning_preference" value="Generic Teaching" required>
+            <input type="radio" id="middle_school" name="education_level" value="Middle School or lower" {% if education_level == 'Middle School or lower' %}checked{% endif %}>
+            <label for="middle_school">Middle School or lower</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="high_school_in_progress" name="education_level" value="High School (In Progress)" {% if education_level == 'High School (In Progress)' %}checked{% endif %}>
+            <label for="high_school_in_progress">High School (In Progress)</label>
+        </div>
+        <!-- ... repita para as outras opções, removendo 'required' e adicionando a lógica 'checked' ... -->
+         <div class="radio-group">
+            <input type="radio" id="high_school_completed" name="education_level" value="High School (Completed)" {% if education_level == 'High School (Completed)' %}checked{% endif %}>
+            <label for="high_school_completed">High School (Completed)</label>
+        </div>
+                <!-- Existing Specialization -->
+        <div class="radio-group">
+            <input type="radio" id="specialization" name="education_level" value="Specialization Course (after degree)" {% if education_level == 'Specialization Course (after degree)' %}checked{% endif %}>
+            <label for="specialization">Specialization Course (after degree)(completed)</label>
+        </div>
+
+        <!-- NEW: Specialization In Progress -->
+        <div class="radio-group">
+            <input type="radio" id="specialization_in_progress" name="education_level" value="Specialization Course (In Progress)" {% if education_level == 'Specialization Course (In Progress)' %}checked{% endif %}>
+            <label for="specialization_in_progress">Specialization Course (In Progress)</label>
+        </div>
+
+        <!-- Existing Technical -->
+        <div class="radio-group">
+            <input type="radio" id="technical" name="education_level" value="Technical Course (6mo-2yr)" {% if education_level == 'Technical Course (6mo-2yr)' %}checked{% endif %}>
+            <label for="technical">Technical Course (6mo-2yr)(Completed)</label>
+        </div>
+
+        <!-- NEW: Technical In Progress -->
+        <div class="radio-group">
+            <input type="radio" id="technical_in_progress" name="education_level" value="Technical Course (In Progress)" {% if education_level == 'Technical Course (In Progress)' %}checked{% endif %}>
+            <label for="technical_in_progress">Technical Course (In Progress)</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="bachelors_in_progress" name="education_level" value="Bachelor's Degree (In Progress)" {% if education_level == "Bachelor's Degree (In Progress)" %}checked{% endif %}>
+            <label for="bachelors_in_progress">Bachelor's Degree (In Progress)</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="bachelors_completed" name="education_level" value="Bachelor's Degree (Completed)" {% if education_level == "Bachelor's Degree (Completed)" %}checked{% endif %}>
+            <label for="bachelors_completed">Bachelor's Degree (Completed)</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="masters_in_progress" name="education_level" value="Master's Degree (In Progress)" {% if education_level == "Master's Degree (In Progress)" %}checked{% endif %}>
+            <label for="masters_in_progress">Master's Degree (In Progress)</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="masters_completed" name="education_level" value="Master's Degree (Completed)" {% if education_level == "Master's Degree (Completed)" %}checked{% endif %}>
+            <label for="masters_completed">Master's Degree (Completed)</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="phd_in_progress" name="education_level" value="PhD or Doctorate (In Progress)" {% if education_level == 'PhD or Doctorate (In Progress)' %}checked{% endif %}>
+            <label for="phd_in_progress">PhD or Doctorate (In Progress)</label>
+        </div>
+        <div class="radio-group">
+            <input type="radio" id="phd_completed" name="education_level" value="PhD or Doctorate (Completed)" {% if education_level == 'PhD or Doctorate (Completed)' %}checked{% endif %}>
+            <label for="phd_completed">PhD or Doctorate (Completed)</label>
+        </div>
+        <br>
+        <!-- ****** FIM DO CAMPO EDUCATION LEVEL ****** -->
+
+        <label>Select the course MODE according that Lucas oriented to choose</label>
+        <div class="radio-group">
+            <input type="radio" id="Generic Teaching" name="learning_preference" value="Generic Teaching" {% if learning_preference == 'Generic Teaching' %}checked{% endif %}>
             <label for="Generic Teaching">Generic Teaching</label>
         </div>
         <div class="radio-group">
-            <input type="radio" id="Personalized Teaching" name="learning_preference" value="Personalized Teaching" required>
+            <input type="radio" id="Personalized Teaching" name="learning_preference" value="Personalized Teaching" {% if learning_preference == 'Personalized Teaching' %}checked{% endif %}>
             <label for="Personalized Teaching">Personalized Teaching</label>
         </div>
-
-        <center><button type="button" onclick="submitForm()">Send!</button><br><br></center>
-        <center><label>Please, verify your data before sending</label></center>
         <br>
-            <form action="{{ url_for('page_2') }}" method="get">
-                <center><button type="submit">Go to Next page</button></center>
-            </form>
+
+        <center><button type="submit" class="botao-azul">Start / Continue</button><br><br></center> <!-- Botão type="submit" -->
+        <br>
+
     </form>
 
-<script>
-    function submitForm() {
-        const form = document.querySelector('form');
-        const formData = new FormData(form);
+    <!-- Seus scripts JS (loader, etc.) -->
+    <script>
+        // Script do Loader (adaptado para o form principal)
+        (function() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const form = document.querySelector('form[action="{{ url_for('index') }}"]');
 
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        }).then(response => {
-            if (response.ok) {
-                alert('Data sent!');
-            } else {
-                alert('Error to sent data');
+            function showLoader() {
+                if (loadingOverlay) {
+                    loadingOverlay.style.display = 'flex';
+                    void loadingOverlay.offsetWidth;
+                    loadingOverlay.classList.add('visible');
+                }
             }
-        }).catch(error => {
-            console.error('Erro:', error);
-            alert('Error to sent data');
-        });
-    }
-</script>
+
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    // Mostra o loader ao submeter via POST padrão
+                    showLoader();
+                });
+            }
+
+            // Esconder loader ao voltar
+            window.addEventListener('pageshow', function(event) {
+                if (loadingOverlay && loadingOverlay.classList.contains('visible')) {
+                    loadingOverlay.classList.remove('visible');
+                    setTimeout(() => {
+                        if (!loadingOverlay.classList.contains('visible')) {
+                            loadingOverlay.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

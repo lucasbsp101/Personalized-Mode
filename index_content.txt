@@ -4,3 +4,4 @@
 4- What is Machine Learning?
 5- What is Deep Learning?
 6- Application example
+7- How to create IA model?

@@ -101,4 +101,39 @@ d) A collection of statistical analysis tools, techniques, and methodologies uti
 e) Computational models inspired by the structural and functional organization of the biological brain, fundamentally composed of interconnected layers of processing units (artificial neurons or nodes) that process information through weighted connections and non-linear activation functions to learn complex patterns from data.
 Nova Resposta Correta: e)
 
-Sequência de Respostas Corretas: d, d, e, b, d, b, d, e, e, e
+11. Which of the following is the fundamental basis for the learning of an Artificial Intelligence model?
+(a) Training algorithm
+(b) Loss function
+(c) Dataset - Correct Answer
+(d) Trained model
+(e) Evaluation metric
+
+12. In the context of supervised learning, what is the role of labels in the training data?
+(a) Describe the attributes of the samples.
+(b) Indicate the internal parameters of the model.
+(c) Provide the desired outputs for the inputs. - Correct Answer
+(d) Measure the model's performance on unseen data.
+(e) Optimize the hyperparameters of the algorithm.
+
+13. Which of the following machine learning algorithms is fundamentally based on finding the hyperplane that best separates the classes?
+(a) Linear Regression
+(b) Decision Trees
+(c) K-Means Clustering
+(d) Support Vector Machines (SVM) - Correct Answer
+(e) Naive Bayes
+
+14. Which evaluation metric measures the proportion of actual positive instances that were correctly identified by the classifier?
+(a) Accuracy
+(b) Precision
+(c) F1-Score
+(d) Recall (Sensitivity) - Correct Answer
+(e) AUC (Area Under the Curve)
+
+15. What happens when a classification model suffers from overfitting?
+(a) It generalizes well to new, unseen data.
+(b) Its performance is excellent on both the training and test data.
+(c) It learns the training data very well but performs poorly on test data. - Correct Answer
+(d) It fails to learn significant patterns in the training data.
+(e) Its hyperparameters are optimized for ideal performance.
+
+Sequência de Respostas Corretas: d, d, e, b, d, b, d, e, e, e, c, c, d, d, c

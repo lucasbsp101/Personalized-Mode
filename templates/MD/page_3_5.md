@@ -1,5 +1,7 @@
 # <center>**Basic Concepts of Artificial Intelligence**
 
+---
+
 ### <center> What is Deep Learning?
 
 ---

@@ -6,343 +6,572 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
+    <style>
+        /* Estilos CSS (incluindo #loading-overlay, #canvas, .content-wrapper) */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Garante que fique atrás de tudo */
+        }
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none; /* Permite cliques através quando invisível */
+        }
+        #loading-overlay.visible {
+            opacity: 1;
+            pointer-events: auto; /* Bloqueia cliques quando visível */
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #fff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .content-wrapper {
+            max-width: 900px; /* Ou a largura desejada */
+            margin: 20px auto;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1); /* Fundo leve opcional */
+            border-radius: 8px; /* Bordas arredondadas opcionais */
+        }
+         /* Ajuste para alinhar texto de listas e parágrafos à esquerda */
+        .content-wrapper .vditor-reset p,
+        .content-wrapper .vditor-reset ul,
+        .content-wrapper .vditor-reset ol,
+        .content-wrapper .vditor-reset blockquote p {
+             text-align: left;
+        }
+         /* Centraliza títulos e botões */
+        .content-wrapper .vditor-reset h1,
+        .content-wrapper .vditor-reset h2,
+        .content-wrapper .vditor-reset h3,
+        .content-wrapper .vditor-reset h6,
+        .content-wrapper .navigation-buttons {
+             text-align: center;
+        }
+        .content-wrapper .navigation-buttons form,
+        .content-wrapper .navigation-buttons div {
+            display: inline-block;
+            margin: 10px;
+        }
+        /* Garante que o radio button e o label fiquem na mesma linha */
+        .radio-group {
+            display: block; /* Garante que cada grupo fique em uma linha */
+            margin-bottom: 10px; /* Espaçamento entre as opções */
+            text-align: left; /* Alinha o conteúdo do grupo à esquerda */
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 5px; /* Espaço entre o botão e o label */
+            vertical-align: middle; /* Alinha verticalmente com o texto */
+        }
+        .radio-group label {
+            vertical-align: middle; /* Alinha verticalmente com o botão */
+            display: inline; /* Permite que o label fique ao lado do input */
+        }
+         .alert-success { /* Estilo básico para a mensagem de sucesso */
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            text-align: center; /* Centraliza o texto */
+        }
+
+    </style>
 </head>
 <body>
+
+    <!-- Overlay de Carregamento -->
+    <div id="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading next page...</p>
+    </div>
+
     <canvas id="canvas"></canvas>
 
-    <div class="vditor-reset" id="preview">
-        <h1 id="TEST-TWO">
-            <center>TEST TWO</center>
-            <a id="vditorAnchor-TEST-TWO" class="vditor-anchor" href="#TEST-TWO">
-                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-                </svg>
-            </a>
-        </h1>
-        <h6 id="Obs--Now--try-your-best-to-remember-the-course-s-content--and-answer-honestly--This-course-will-be-part-of-international-search-">
-            Obs: Now, try your best to remember the course's content, and answer honestly. This course will be part of international search.
-            <a id="vditorAnchor-Obs--Now--try-your-best-to-remember-the-course-s-content--and-answer-honestly--This-course-will-be-part-of-international-search-" class="vditor-anchor" href="#Obs--Now--try-your-best-to-remember-the-course-s-content--and-answer-honestly--This-course-will-be-part-of-international-search-">
-                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-                </svg>
-            </a>
-        </h6>
-        <hr />
-
-        <form method="POST" action="{{ url_for('page_4') }}">
-            <!-- Question 1 -->
-            <h3 id="Question-1">
-                <strong>Question 1</strong>
-                <a id="vditorAnchor-Question-1" class="vditor-anchor" href="#Question-1">
-                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                        <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-                    </svg>
+    <div class="content-wrapper"> <!-- Wrapper para centralizar -->
+        <div class="vditor-reset" id="preview">
+            <h1 id="TEST-TWO">
+                <center>TEST TWO</center>
+                <a id="vditorAnchor-TEST-TWO" class="vditor-anchor" href="#TEST-TWO">
+                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>
                 </a>
-            </h3>
-            <blockquote>
-                <p><label for="AQ11">What is Artificial Intelligence (AI)?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ai_ai1" name="AQ11" value="a" required>
-                    <label for="ai_ai1">A specific category of computational hardware engineered for accelerated processing of algorithms commonly employed in intelligent systems.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ai_ai2" name="AQ11" value="b" required>
-                    <label for="ai_ai2">A high-level programming paradigm primarily utilized for the development of interactive web applications with integrated intelligent functionalities.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ai_ai3" name="AQ11" value="c" required>
-                    <label for="ai_ai3">A suite of cryptographic methodologies and protocols aimed at ensuring the secure transmission and storage of sensitive data utilized within artificial intelligence frameworks.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ai_ai4" name="AQ11" value="d" required>
-                    <label for="ai_ai4">The theoretical and practical discipline concerned with the design, development, and implementation of computational systems capable of performing tasks that typically require human cognitive abilities, such as reasoning, learning, problem-solving, and perception.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ai_ai5" name="AQ11" value="e" required>
-                    <label for="ai_ai5">A collection of software tools and techniques employed in the creation and manipulation of digital visual content, often incorporating AI-driven features for enhanced creativity and efficiency.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 2 -->
-            <h3 id="Question-2"><strong>Question 2</strong><a id="vditorAnchor-Question-2" class="vditor-anchor" href="#Question-2"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ12">Which options are representative applications of Artificial Intelligence?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml" name="AQ12" value="a" required>
-                    <label for="ml_ml">Standardized protocols for navigating the World Wide Web and managing asynchronous electronic mail communication between users on networked systems.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann" name="AQ12" value="b" required>
-                    <label for="ann_ann">Relational database management systems designed for structured data organization and automated processes for the entry and retrieval of information.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp" name="AQ12" value="c" required>
-                    <label for="nlp_nlp">Spreadsheet software designed for tabular data manipulation and analysis, and word processing applications facilitating the automated generation and formatting of textual documents.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv" name="AQ12" value="d" required>
-                    <label for="cv_cv">Sophisticated biometric identification systems utilizing machine vision, intelligent virtual assistants capable of natural language interaction, and autonomous vehicles employing complex sensor fusion and decision-making algorithms.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds" name="AQ12" value="e" required>
-                    <label for="ds_ds">Graphic design software platforms enabling the creation of visual assets and video editing suites offering intelligent tools for post-production effects and object manipulation.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 3 -->
-            <h3 id="Question-3"><strong>Question 3</strong><a id="vditorAnchor-Question-3" class="vditor-anchor" href="#Question-3"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ13">What encompasses the spectrum of possibilities offered by the Python programming language?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="python_poss1" name="AQ13" value="a" required>
-                    <label for="python_poss1">Primarily the development of client-side and server-side logic for user interfaces interacting with artificial intelligence models deployed on web platforms.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="python_poss2" name="AQ13" value="b" required>
-                    <label for="python_poss2">Predominantly the management and querying of large-scale datasets utilized for training and evaluating artificial intelligence algorithms within database systems.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="python_poss3" name="AQ13" value="c" required>
-                    <label for="python_poss3">Primarily the scripting and automation of tasks within graphic design software for the generation of visualizations derived from artificial intelligence analyses.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="python_poss4" name="AQ13" value="d" required>
-                    <label for="python_poss4">Solely the post-processing and manipulation of video content generated or enhanced through artificial intelligence techniques and algorithms.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="python_poss5" name="AQ13" value="e" required>
-                    <label for="python_poss5">A versatile ecosystem supporting web development across various frameworks, advanced data science and statistical analysis, the implementation of artificial intelligence and machine learning models, and the automation of diverse computational processes and workflows.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 4 -->
-            <h3 id="Question-4"><strong>Question 4</strong><a id="vditorAnchor-Question-4" class="vditor-anchor" href="#Question-4"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ14">Select the option that comprehensively lists fundamental subdomains within the field of Artificial Intelligence?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml4" name="AQ14" value="a" required>
-                    <label for="ml_ml4">Advanced hardware architectures for parallel processing, comprehensive software development kits for AI implementation, and robust network infrastructure for distributed AI systems.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann4" name="AQ14" value="b" required>
-                    <label for="ann_ann4">Machine learning paradigms focusing on data-driven learning, deep learning methodologies employing artificial neural networks, and natural language processing techniques for human-computer linguistic interaction.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp4" name="AQ14" value="c" required>
-                    <label for="nlp_nlp4">Core operating system functionalities enabling efficient resource allocation, sophisticated database architectures for managing AI knowledge bases, and scalable server orchestration for AI service deployment.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv4" name="AQ14" value="d" required>
-                    <label for="cv_cv4">HyperText Markup Language for structuring AI result presentations on the web, Cascading Style Sheets for styling user interfaces of AI applications, and JavaScript for enabling dynamic interactions with AI models.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds4" name="AQ14" value="e" required>
-                    <label for="ds_ds4">Word processing software for documenting AI research and findings, spreadsheet software for analyzing AI performance metrics, and presentation software for communicating AI concepts and results.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 5 -->
-            <h3 id="Question-5"><strong>Question 5</strong><a id="vditorAnchor-Question-5" class="vditor-anchor" href="#Question-5"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ15">What is Machine Learning (ML)?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml5" name="AQ15" value="a" required>
-                    <label for="ml_ml5">A specific type of central processing unit within a computational system that is architecturally optimized for the complex mathematical operations inherent in artificial intelligence algorithms.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann5" name="AQ15" value="b" required>
-                    <label for="ann_ann5">An extensive collection of pre-written code modules and libraries predominantly utilized in the development of dynamic and interactive web-based applications for user engagement.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp5" name="AQ15" value="c" required>
-                    <label for="nlp_nlp5">A critical domain within cybersecurity that focuses on the development and deployment of sophisticated techniques for encoding digital information to safeguard against unauthorized access, modification, or disclosure.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv5" name="AQ15" value="d" required>
-                    <label for="cv_cv5">An overarching paradigm within the broader field of Artificial Intelligence that endows computational systems with the capability to iteratively enhance their performance on specific tasks through the statistical analysis and extraction of meaningful patterns from empirical data, without requiring explicit procedural encoding for every conceivable scenario.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds5" name="AQ15" value="e" required>
-                    <label for="ds_ds5">A specialized category of software applications and digital tools primarily employed for the creation, manipulation, and rendering of intricate visual elements and designs in the realm of graphic arts and digital media production.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 6 -->
-            <h3 id="Question-6"><strong>Question 6</strong><a id="vditorAnchor-Question-6" class="vditor-anchor" href="#Question-6"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ16">How does the process of Machine Learning typically function?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml6" name="AQ16" value="a" required>
-                    <label for="ml_ml6">Through the meticulous and exhaustive manual specification of all deterministic rules, logical conditions, and procedural steps that the computational system must execute for every conceivable permutation of input data it might encounter.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann6" name="AQ16" value="b" required>
-                    <label for="ann_ann6">By the application of a diverse array of statistical and computational algorithms to voluminous datasets, thereby enabling the system to autonomously discern underlying patterns, generate logical inferences, and construct predictive models or make decisions with a defined degree of operational autonomy.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp6" name="AQ16" value="c" required>
-                    <label for="nlp_nlp6">Primarily through the utilization of high-throughput parallel processing architectures offered by specialized Graphics Processing Units (GPUs), which significantly accelerate the computational demands associated with training and deploying complex machine learning models.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv6" name="AQ16" value="d" required>
-                    <label for="cv_cv6">By the implementation of advanced cryptographic protocols and techniques for the robust encryption of sensitive data, thereby ensuring the confidentiality, integrity, and availability of the information utilized in the training and validation phases of machine learning model development.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds6" name="AQ16" value="e" required>
-                    <label for="ds_ds6">By the generation of initial, often stochastic, outputs that are subsequently subjected to rigorous evaluation and iterative refinement through feedback loops involving human domain experts and predefined performance evaluation metrics.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 7 -->
-            <h3 id="Question-7"><strong>Question 7</strong><a id="vditorAnchor-Question-7" class="vditor-anchor" href="#Question-7"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ17">Which fundamental categories delineate the field of Machine Learning?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml7" name="AQ17" value="a" required>
-                    <label for="ml_ml7">The architectural design of central processing units, the core functionalities of operating system kernels, and the standardized protocols governing network communication between computing devices.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann7" name="AQ17" value="b" required>
-                    <label for="ann_ann7">Foundational statistical models such as linear regression, tree-based decision algorithms, and artificial neural networks with a limited number of processing layers.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp7" name="AQ17" value="c" required>
-                    <label for="nlp_nlp7">Software applications designed for textual document creation and editing, electronic spreadsheets for data organization and analysis, and presentation software for the visual communication of information.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv7" name="AQ17" value="d" required>
-                    <label for="cv_cv7">Supervised learning, characterized by training on labeled data; unsupervised learning, involving pattern discovery in unlabeled data; and reinforcement learning, where an agent learns through interaction with an environment and reward signals, each distinguished by the nature of the training data's annotation and the feedback mechanisms employed during the learning process.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds7" name="AQ17" value="e" required>
-                    <label for="ds_ds7">Programming languages categorized by their compilation process (compiled), execution method (interpreted), and level of abstraction from the underlying hardware (low-level).</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 8 -->
-            <h3 id="Question-8"><strong>Question 8</strong><a id="vditorAnchor-Question-8" class="vditor-anchor" href="#Question-8"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ18">What are the fundamental distinguishing characteristics of supervised, unsupervised, and reinforcement learning methodologies?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml8" name="AQ18" value="a" required>
-                    <label for="ml_ml8">Varied hardware configurations and specialized processing units engineered to optimize the computational efficiency and performance of diverse artificial intelligence algorithms.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann8" name="AQ18" value="b" required>
-                    <label for="ann_ann8">A range of sophisticated data anonymization techniques and robust security protocols implemented to safeguard sensitive and personally identifiable information within machine learning systems and datasets.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp8" name="AQ18" value="c" required>
-                    <label for="nlp_nlp8">A set of established software development paradigms and methodologies utilized in the creation, testing, and deployment of a wide array of artificial intelligence-driven applications and intelligent services across various domains.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv8" name="AQ18" value="d" required>
-                    <label for="cv_cv8">A collection of advanced techniques for the visual representation of high-dimensional datasets, employed to facilitate the interpretation, validation, and communication of the outputs and performance metrics generated by machine learning models.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds8" name="AQ18" value="e" required>
-                    <label for="ds_ds8">Three distinct and primary approaches to training machine learning models, fundamentally differentiated by the presence or absence of explicit labels within the training data provided for guidance and the nature of the feedback signals (e.g., rewards, penalties) received by the learning agent during the training process.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 9 -->
-            <h3 id="Question-9"><strong>Question 9</strong><a id="vditorAnchor-Question-9" class="vditor-anchor" href="#Question-9"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ19">What is Deep Learning fundamentally understood to be?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml9" name="AQ19" value="a" required>
-                    <label for="ml_ml9">A category of NoSQL database management systems specifically optimized for the efficient storage, retrieval, and manipulation of large volumes of unstructured data commonly encountered in artificial intelligence applications.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann9" name="AQ19" value="b" required>
-                    <label for="ann_ann9">An iterative and incremental software development framework and a set of best practices employed to accelerate the lifecycle of artificial intelligence-based projects from conception to deployment.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp9" name="AQ19" value="c" required>
-                    <label for="nlp_nlp9">A class of lossy data compression algorithms and techniques utilized to significantly reduce the storage requirements of the large datasets frequently employed in the training of computationally intensive artificial intelligence models.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv9" name="AQ19" value="d" required>
-                    <label for="cv_cv9">A user-friendly graphical interface and a suite of interactive tools designed to simplify the process of interacting with and configuring the parameters of various machine learning algorithms and models.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds9" name="AQ19" value="e" required>
-                    <label for="ds_ds9">A specialized and advanced subfield within the broader discipline of machine learning that leverages artificial neural networks with a deep architecture, comprising multiple interconnected layers, to automatically learn intricate and hierarchical representations from extensive and complex datasets.</label>
-                </div>
-            </blockquote>
-
-            <!-- Question 10 -->
-            <h3 id="Question-10"><strong>Question 10</strong><a id="vditorAnchor-Question-10" class="vditor-anchor" href="#Question-10"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
-            <blockquote>
-                <p><label for="AQ20">What are Neural Networks fundamentally comprised of?</label><br></p>
-                <div class="radio-group">
-                    <input type="radio" id="ml_ml10" name="AQ20" value="a" required>
-                    <label for="ml_ml10">Highly specialized electronic circuit boards and integrated semiconductor devices engineered to perform the high-volume matrix and tensor operations essential for the efficient execution of artificial intelligence algorithms.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ann_ann10" name="AQ20" value="b" required>
-                    <label for="ann_ann10">High-level programming languages specifically designed with built-in functionalities, libraries, and abstractions that facilitate the development and implementation of artificial intelligence applications.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="nlp_nlp10" name="AQ20" value="c" required>
-                    <label for="nlp_nlp10">A set of standardized communication protocols and data exchange formats employed to enable the seamless transfer of information and knowledge between disparate artificial intelligence systems and intelligent agents operating within distributed environments.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="cv_cv10" name="AQ20" value="d" required>
-                    <label for="cv_cv10">A collection of statistical analysis tools, techniques, and methodologies utilized to interpret the outputs generated by machine learning models and to rigorously evaluate their performance based on predefined metrics and benchmarks.</label>
-                </div>
-                <div class="radio-group">
-                    <input type="radio" id="ds_ds10" name="AQ20" value="e" required>
-                    <label for="ds_ds10">Computational models inspired by the structural and functional organization of the biological brain, fundamentally composed of interconnected layers of processing units (artificial neurons or nodes) that process information through weighted connections and non-linear activation functions to learn complex patterns from data.</label>
-                </div>
-            </blockquote>
-
+            </h1>
+            <h6 id="Obs--Now--try-your-best-to-remember-the-course-s-content--and-answer-honestly--This-course-will-be-part-of-international-search-">
+                Obs: Now, try your best to remember the course's content, and answer honestly. This course will be part of international search.
+                <a id="vditorAnchor-Obs--Now--try-your-best-to-remember-the-course-s-content--and-answer-honestly--This-course-will-be-part-of-international-search-" class="vditor-anchor" href="#Obs--Now--try-your-best-to-remember-the-course-s-content--and-answer-honestly--This-course-will-be-part-of-international-search-">
+                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>
+                </a>
+            </h6>
             <hr />
 
-            <!-- Submit Button -->
-            <center>
-                <button type="submit" class="botao-azul">Send answers</button>
-            </center>
-        </form> <!-- Fechamento do form principal -->
+            <form method="POST" action="{{ url_for('page_4') }}">
+                <!-- Question 1 (Mapped to AQ16) -->
+                <h3 id="Question-1"><strong>Question 1</strong><a id="vditorAnchor-Question-1" class="vditor-anchor" href="#Question-1"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ16">What is Artificial Intelligence (AI)?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q16_a" name="AQ16" value="a" {% if AQ16 == 'a' %}checked{% endif %} required>
+                        <label for="q16_a">(a) A specific category of computational hardware engineered for accelerated processing of algorithms commonly employed in intelligent systems.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q16_b" name="AQ16" value="b" {% if AQ16 == 'b' %}checked{% endif %} required>
+                        <label for="q16_b">(b) A high-level programming paradigm primarily utilized for the development of interactive web applications with integrated intelligent functionalities.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q16_c" name="AQ16" value="c" {% if AQ16 == 'c' %}checked{% endif %} required>
+                        <label for="q16_c">(c) A suite of cryptographic methodologies and protocols aimed at ensuring the secure transmission and storage of sensitive data utilized within artificial intelligence frameworks.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q16_d" name="AQ16" value="d" {% if AQ16 == 'd' %}checked{% endif %} required>
+                        <label for="q16_d">(d) The theoretical and practical discipline concerned with the design, development, and implementation of computational systems capable of performing tasks that typically require human cognitive abilities, such as reasoning, learning, problem-solving, and perception.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q16_e" name="AQ16" value="e" {% if AQ16 == 'e' %}checked{% endif %} required>
+                        <label for="q16_e">(e) A collection of software tools and techniques employed in the creation and manipulation of digital visual content, often incorporating AI-driven features for enhanced creativity and efficiency.</label>
+                    </div>
+                </blockquote>
 
-        <!-- Success Message -->
+                <!-- Question 2 (Mapped to AQ17) -->
+                <h3 id="Question-2"><strong>Question 2</strong><a id="vditorAnchor-Question-2" class="vditor-anchor" href="#Question-2"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ17">Which options are representative applications of Artificial Intelligence?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q17_a" name="AQ17" value="a" {% if AQ17 == 'a' %}checked{% endif %} required>
+                        <label for="q17_a">(a) Standardized protocols for navigating the World Wide Web and managing asynchronous electronic mail communication between users on networked systems.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q17_b" name="AQ17" value="b" {% if AQ17 == 'b' %}checked{% endif %} required>
+                        <label for="q17_b">(b) Relational database management systems designed for structured data organization and automated processes for the entry and retrieval of information.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q17_c" name="AQ17" value="c" {% if AQ17 == 'c' %}checked{% endif %} required>
+                        <label for="q17_c">(c) Spreadsheet software designed for tabular data manipulation and analysis, and word processing applications facilitating the automated generation and formatting of textual documents.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q17_d" name="AQ17" value="d" {% if AQ17 == 'd' %}checked{% endif %} required>
+                        <label for="q17_d">(d) Sophisticated biometric identification systems utilizing machine vision, intelligent virtual assistants capable of natural language interaction, and autonomous vehicles employing complex sensor fusion and decision-making algorithms.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q17_e" name="AQ17" value="e" {% if AQ17 == 'e' %}checked{% endif %} required>
+                        <label for="q17_e">(e) Graphic design software platforms enabling the creation of visual assets and video editing suites offering intelligent tools for post-production effects and object manipulation.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 3 (Mapped to AQ18) -->
+                <h3 id="Question-3"><strong>Question 3</strong><a id="vditorAnchor-Question-3" class="vditor-anchor" href="#Question-3"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ18">What encompasses the spectrum of possibilities offered by the Python programming language?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q18_a" name="AQ18" value="a" {% if AQ18 == 'a' %}checked{% endif %} required>
+                        <label for="q18_a">(a) Primarily the development of client-side and server-side logic for user interfaces interacting with artificial intelligence models deployed on web platforms.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q18_b" name="AQ18" value="b" {% if AQ18 == 'b' %}checked{% endif %} required>
+                        <label for="q18_b">(b) Predominantly the management and querying of large-scale datasets utilized for training and evaluating artificial intelligence algorithms within database systems.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q18_c" name="AQ18" value="c" {% if AQ18 == 'c' %}checked{% endif %} required>
+                        <label for="q18_c">(c) Primarily the scripting and automation of tasks within graphic design software for the generation of visualizations derived from artificial intelligence analyses.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q18_d" name="AQ18" value="d" {% if AQ18 == 'd' %}checked{% endif %} required>
+                        <label for="q18_d">(d) Solely the post-processing and manipulation of video content generated or enhanced through artificial intelligence techniques and algorithms.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q18_e" name="AQ18" value="e" {% if AQ18 == 'e' %}checked{% endif %} required>
+                        <label for="q18_e">(e) A versatile ecosystem supporting web development across various frameworks, advanced data science and statistical analysis, the implementation of artificial intelligence and machine learning models, and the automation of diverse computational processes and workflows.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 4 (Mapped to AQ19) -->
+                <h3 id="Question-4"><strong>Question 4</strong><a id="vditorAnchor-Question-4" class="vditor-anchor" href="#Question-4"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ19">Select the option that comprehensively lists fundamental subdomains within the field of Artificial Intelligence?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q19_a" name="AQ19" value="a" {% if AQ19 == 'a' %}checked{% endif %} required>
+                        <label for="q19_a">(a) Advanced hardware architectures for parallel processing, comprehensive software development kits for AI implementation, and robust network infrastructure for distributed AI systems.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q19_b" name="AQ19" value="b" {% if AQ19 == 'b' %}checked{% endif %} required>
+                        <label for="q19_b">(b) Machine learning paradigms focusing on data-driven learning, deep learning methodologies employing artificial neural networks, and natural language processing techniques for human-computer linguistic interaction.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q19_c" name="AQ19" value="c" {% if AQ19 == 'c' %}checked{% endif %} required>
+                        <label for="q19_c">(c) Core operating system functionalities enabling efficient resource allocation, sophisticated database architectures for managing AI knowledge bases, and scalable server orchestration for AI service deployment.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q19_d" name="AQ19" value="d" {% if AQ19 == 'd' %}checked{% endif %} required>
+                        <label for="q19_d">(d) HyperText Markup Language for structuring AI result presentations on the web, Cascading Style Sheets for styling user interfaces of AI applications, and JavaScript for enabling dynamic interactions with AI models.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q19_e" name="AQ19" value="e" {% if AQ19 == 'e' %}checked{% endif %} required>
+                        <label for="q19_e">(e) Word processing software for documenting AI research and findings, spreadsheet software for analyzing AI performance metrics, and presentation software for communicating AI concepts and results.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 5 (Mapped to AQ20) -->
+                <h3 id="Question-5"><strong>Question 5</strong><a id="vditorAnchor-Question-5" class="vditor-anchor" href="#Question-5"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ20">What is Machine Learning (ML)?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q20_a" name="AQ20" value="a" {% if AQ20 == 'a' %}checked{% endif %} required>
+                        <label for="q20_a">(a) A specific type of central processing unit within a computational system that is architecturally optimized for the complex mathematical operations inherent in artificial intelligence algorithms.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q20_b" name="AQ20" value="b" {% if AQ20 == 'b' %}checked{% endif %} required>
+                        <label for="q20_b">(b) An extensive collection of pre-written code modules and libraries predominantly utilized in the development of dynamic and interactive web-based applications for user engagement.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q20_c" name="AQ20" value="c" {% if AQ20 == 'c' %}checked{% endif %} required>
+                        <label for="q20_c">(c) A critical domain within cybersecurity that focuses on the development and deployment of sophisticated techniques for encoding digital information to safeguard against unauthorized access, modification, or disclosure.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q20_d" name="AQ20" value="d" {% if AQ20 == 'd' %}checked{% endif %} required>
+                        <label for="q20_d">(d) An overarching paradigm within the broader field of Artificial Intelligence that endows computational systems with the capability to iteratively enhance their performance on specific tasks through the statistical analysis and extraction of meaningful patterns from empirical data, without requiring explicit procedural encoding for every conceivable scenario.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q20_e" name="AQ20" value="e" {% if AQ20 == 'e' %}checked{% endif %} required>
+                        <label for="q20_e">(e) A specialized category of software applications and digital tools primarily employed for the creation, manipulation, and rendering of intricate visual elements and designs in the realm of graphic arts and digital media production.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 6 (Mapped to AQ21) -->
+                <h3 id="Question-6"><strong>Question 6</strong><a id="vditorAnchor-Question-6" class="vditor-anchor" href="#Question-6"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ21">How does the process of Machine Learning typically function?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q21_a" name="AQ21" value="a" {% if AQ21 == 'a' %}checked{% endif %} required>
+                        <label for="q21_a">(a) Through the meticulous and exhaustive manual specification of all deterministic rules, logical conditions, and procedural steps that the computational system must execute for every conceivable permutation of input data it might encounter.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q21_b" name="AQ21" value="b" {% if AQ21 == 'b' %}checked{% endif %} required>
+                        <label for="q21_b">(b) By the application of a diverse array of statistical and computational algorithms to voluminous datasets, thereby enabling the system to autonomously discern underlying patterns, generate logical inferences, and construct predictive models or make decisions with a defined degree of operational autonomy.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q21_c" name="AQ21" value="c" {% if AQ21 == 'c' %}checked{% endif %} required>
+                        <label for="q21_c">(c) Primarily through the utilization of high-throughput parallel processing architectures offered by specialized Graphics Processing Units (GPUs), which significantly accelerate the computational demands associated with training and deploying complex machine learning models.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q21_d" name="AQ21" value="d" {% if AQ21 == 'd' %}checked{% endif %} required>
+                        <label for="q21_d">(d) By the implementation of advanced cryptographic protocols and techniques for the robust encryption of sensitive data, thereby ensuring the confidentiality, integrity, and availability of the information utilized in the training and validation phases of machine learning model development.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q21_e" name="AQ21" value="e" {% if AQ21 == 'e' %}checked{% endif %} required>
+                        <label for="q21_e">(e) By the generation of initial, often stochastic, outputs that are subsequently subjected to rigorous evaluation and iterative refinement through feedback loops involving human domain experts and predefined performance evaluation metrics.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 7 (Mapped to AQ22) -->
+                <h3 id="Question-7"><strong>Question 7</strong><a id="vditorAnchor-Question-7" class="vditor-anchor" href="#Question-7"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ22">Which fundamental categories delineate the field of Machine Learning?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q22_a" name="AQ22" value="a" {% if AQ22 == 'a' %}checked{% endif %} required>
+                        <label for="q22_a">(a) The architectural design of central processing units, the core functionalities of operating system kernels, and the standardized protocols governing network communication between computing devices.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q22_b" name="AQ22" value="b" {% if AQ22 == 'b' %}checked{% endif %} required>
+                        <label for="q22_b">(b) Foundational statistical models such as linear regression, tree-based decision algorithms, and artificial neural networks with a limited number of processing layers.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q22_c" name="AQ22" value="c" {% if AQ22 == 'c' %}checked{% endif %} required>
+                        <label for="q22_c">(c) Software applications designed for textual document creation and editing, electronic spreadsheets for data organization and analysis, and presentation software for the visual communication of information.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q22_d" name="AQ22" value="d" {% if AQ22 == 'd' %}checked{% endif %} required>
+                        <label for="q22_d">(d) Supervised learning, characterized by training on labeled data; unsupervised learning, involving pattern discovery in unlabeled data; and reinforcement learning, where an agent learns through interaction with an environment and reward signals, each distinguished by the nature of the training data's annotation and the feedback mechanisms employed during the learning process.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q22_e" name="AQ22" value="e" {% if AQ22 == 'e' %}checked{% endif %} required>
+                        <label for="q22_e">(e) Programming languages categorized by their compilation process (compiled), execution method (interpreted), and level of abstraction from the underlying hardware (low-level).</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 8 (Mapped to AQ23) -->
+                <h3 id="Question-8"><strong>Question 8</strong><a id="vditorAnchor-Question-8" class="vditor-anchor" href="#Question-8"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ23">What are the fundamental distinguishing characteristics of supervised, unsupervised, and reinforcement learning methodologies?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q23_a" name="AQ23" value="a" {% if AQ23 == 'a' %}checked{% endif %} required>
+                        <label for="q23_a">(a) Varied hardware configurations and specialized processing units engineered to optimize the computational efficiency and performance of diverse artificial intelligence algorithms.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q23_b" name="AQ23" value="b" {% if AQ23 == 'b' %}checked{% endif %} required>
+                        <label for="q23_b">(b) A range of sophisticated data anonymization techniques and robust security protocols implemented to safeguard sensitive and personally identifiable information within machine learning systems and datasets.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q23_c" name="AQ23" value="c" {% if AQ23 == 'c' %}checked{% endif %} required>
+                        <label for="q23_c">(c) A set of established software development paradigms and methodologies utilized in the creation, testing, and deployment of a wide array of artificial intelligence-driven applications and intelligent services across various domains.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q23_d" name="AQ23" value="d" {% if AQ23 == 'd' %}checked{% endif %} required>
+                        <label for="q23_d">(d) A collection of advanced techniques for the visual representation of high-dimensional datasets, employed to facilitate the interpretation, validation, and communication of the outputs and performance metrics generated by machine learning models.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q23_e" name="AQ23" value="e" {% if AQ23 == 'e' %}checked{% endif %} required>
+                        <label for="q23_e">(e) Three distinct and primary approaches to training machine learning models, fundamentally differentiated by the presence or absence of explicit labels within the training data provided for guidance and the nature of the feedback signals (e.g., rewards, penalties) received by the learning agent during the training process.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 9 (Mapped to AQ24) -->
+                <h3 id="Question-9"><strong>Question 9</strong><a id="vditorAnchor-Question-9" class="vditor-anchor" href="#Question-9"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ24">What is Deep Learning fundamentally understood to be?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q24_a" name="AQ24" value="a" {% if AQ24 == 'a' %}checked{% endif %} required>
+                        <label for="q24_a">(a) A category of NoSQL database management systems specifically optimized for the efficient storage, retrieval, and manipulation of large volumes of unstructured data commonly encountered in artificial intelligence applications.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q24_b" name="AQ24" value="b" {% if AQ24 == 'b' %}checked{% endif %} required>
+                        <label for="q24_b">(b) An iterative and incremental software development framework and a set of best practices employed to accelerate the lifecycle of artificial intelligence-based projects from conception to deployment.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q24_c" name="AQ24" value="c" {% if AQ24 == 'c' %}checked{% endif %} required>
+                        <label for="q24_c">(c) A class of lossy data compression algorithms and techniques utilized to significantly reduce the storage requirements of the large datasets frequently employed in the training of computationally intensive artificial intelligence models.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q24_d" name="AQ24" value="d" {% if AQ24 == 'd' %}checked{% endif %} required>
+                        <label for="q24_d">(d) A user-friendly graphical interface and a suite of interactive tools designed to simplify the process of interacting with and configuring the parameters of various machine learning algorithms and models.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q24_e" name="AQ24" value="e" {% if AQ24 == 'e' %}checked{% endif %} required>
+                        <label for="q24_e">(e) A specialized and advanced subfield within the broader discipline of machine learning that leverages artificial neural networks with a deep architecture, comprising multiple interconnected layers, to automatically learn intricate and hierarchical representations from extensive and complex datasets.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 10 (Mapped to AQ25) -->
+                <h3 id="Question-10"><strong>Question 10</strong><a id="vditorAnchor-Question-10" class="vditor-anchor" href="#Question-10"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ25">What are Neural Networks fundamentally comprised of?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q25_a" name="AQ25" value="a" {% if AQ25 == 'a' %}checked{% endif %} required>
+                        <label for="q25_a">(a) Highly specialized electronic circuit boards and integrated semiconductor devices engineered to perform the high-volume matrix and tensor operations essential for the efficient execution of artificial intelligence algorithms.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q25_b" name="AQ25" value="b" {% if AQ25 == 'b' %}checked{% endif %} required>
+                        <label for="q25_b">(b) High-level programming languages specifically designed with built-in functionalities, libraries, and abstractions that facilitate the development and implementation of artificial intelligence applications.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q25_c" name="AQ25" value="c" {% if AQ25 == 'c' %}checked{% endif %} required>
+                        <label for="q25_c">(c) A set of standardized communication protocols and data exchange formats employed to enable the seamless transfer of information and knowledge between disparate artificial intelligence systems and intelligent agents operating within distributed environments.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q25_d" name="AQ25" value="d" {% if AQ25 == 'd' %}checked{% endif %} required>
+                        <label for="q25_d">(d) A collection of statistical analysis tools, techniques, and methodologies utilized to interpret the outputs generated by machine learning models and to rigorously evaluate their performance based on predefined metrics and benchmarks.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q25_e" name="AQ25" value="e" {% if AQ25 == 'e' %}checked{% endif %} required>
+                        <label for="q25_e">(e) Computational models inspired by the structural and functional organization of the biological brain, fundamentally composed of interconnected layers of processing units (artificial neurons or nodes) that process information through weighted connections and non-linear activation functions to learn complex patterns from data.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 11 (Mapped to AQ26) -->
+                <h3 id="Question-11"><strong>Question 11</strong><a id="vditorAnchor-Question-11" class="vditor-anchor" href="#Question-11"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ26">Which of the following is the fundamental basis for the learning of an Artificial Intelligence model?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q26_a" name="AQ26" value="a" {% if AQ26 == 'a' %}checked{% endif %} required>
+                        <label for="q26_a">(a) Training algorithm</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q26_b" name="AQ26" value="b" {% if AQ26 == 'b' %}checked{% endif %} required>
+                        <label for="q26_b">(b) Loss function</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q26_c" name="AQ26" value="c" {% if AQ26 == 'c' %}checked{% endif %} required>
+                        <label for="q26_c">(c) Dataset</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q26_d" name="AQ26" value="d" {% if AQ26 == 'd' %}checked{% endif %} required>
+                        <label for="q26_d">(d) Trained model</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q26_e" name="AQ26" value="e" {% if AQ26 == 'e' %}checked{% endif %} required>
+                        <label for="q26_e">(e) Evaluation metric</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 12 (Mapped to AQ27) -->
+                <h3 id="Question-12"><strong>Question 12</strong><a id="vditorAnchor-Question-12" class="vditor-anchor" href="#Question-12"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ27">In the context of supervised learning, what is the role of labels in the training data?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q27_a" name="AQ27" value="a" {% if AQ27 == 'a' %}checked{% endif %} required>
+                        <label for="q27_a">(a) Describe the attributes of the samples.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q27_b" name="AQ27" value="b" {% if AQ27 == 'b' %}checked{% endif %} required>
+                        <label for="q27_b">(b) Indicate the internal parameters of the model.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q27_c" name="AQ27" value="c" {% if AQ27 == 'c' %}checked{% endif %} required>
+                        <label for="q27_c">(c) Provide the desired outputs for the inputs.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q27_d" name="AQ27" value="d" {% if AQ27 == 'd' %}checked{% endif %} required>
+                        <label for="q27_d">(d) Measure the model's performance on unseen data.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q27_e" name="AQ27" value="e" {% if AQ27 == 'e' %}checked{% endif %} required>
+                        <label for="q27_e">(e) Optimize the hyperparameters of the algorithm.</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 13 (Mapped to AQ28) -->
+                <h3 id="Question-13"><strong>Question 13</strong><a id="vditorAnchor-Question-13" class="vditor-anchor" href="#Question-13"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ28">Which of the following machine learning algorithms is fundamentally based on finding the hyperplane that best separates the classes?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q28_a" name="AQ28" value="a" {% if AQ28 == 'a' %}checked{% endif %} required>
+                        <label for="q28_a">(a) Linear Regression</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q28_b" name="AQ28" value="b" {% if AQ28 == 'b' %}checked{% endif %} required>
+                        <label for="q28_b">(b) Decision Trees</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q28_c" name="AQ28" value="c" {% if AQ28 == 'c' %}checked{% endif %} required>
+                        <label for="q28_c">(c) K-Means Clustering</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q28_d" name="AQ28" value="d" {% if AQ28 == 'd' %}checked{% endif %} required>
+                        <label for="q28_d">(d) Support Vector Machines (SVM)</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q28_e" name="AQ28" value="e" {% if AQ28 == 'e' %}checked{% endif %} required>
+                        <label for="q28_e">(e) Naive Bayes</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 14 (Mapped to AQ29) -->
+                <h3 id="Question-14"><strong>Question 14</strong><a id="vditorAnchor-Question-14" class="vditor-anchor" href="#Question-14"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ29">Which evaluation metric measures the proportion of actual positive instances that were correctly identified by the classifier?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q29_a" name="AQ29" value="a" {% if AQ29 == 'a' %}checked{% endif %} required>
+                        <label for="q29_a">(a) Accuracy</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q29_b" name="AQ29" value="b" {% if AQ29 == 'b' %}checked{% endif %} required>
+                        <label for="q29_b">(b) Precision</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q29_c" name="AQ29" value="c" {% if AQ29 == 'c' %}checked{% endif %} required>
+                        <label for="q29_c">(c) F1-Score</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q29_d" name="AQ29" value="d" {% if AQ29 == 'd' %}checked{% endif %} required>
+                        <label for="q29_d">(d) Recall (Sensitivity)</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q29_e" name="AQ29" value="e" {% if AQ29 == 'e' %}checked{% endif %} required>
+                        <label for="q29_e">(e) AUC (Area Under the Curve)</label>
+                    </div>
+                </blockquote>
+
+                <!-- Question 15 (Mapped to AQ30) -->
+                <h3 id="Question-15"><strong>Question 15</strong><a id="vditorAnchor-Question-15" class="vditor-anchor" href="#Question-15"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a></h3>
+                <blockquote>
+                    <p><label for="AQ30">What happens when a classification model suffers from overfitting?</label><br></p>
+                    <div class="radio-group">
+                        <input type="radio" id="q30_a" name="AQ30" value="a" {% if AQ30 == 'a' %}checked{% endif %} required>
+                        <label for="q30_a">(a) It generalizes well to new, unseen data.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q30_b" name="AQ30" value="b" {% if AQ30 == 'b' %}checked{% endif %} required>
+                        <label for="q30_b">(b) Its performance is excellent on both the training and test data.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q30_c" name="AQ30" value="c" {% if AQ30 == 'c' %}checked{% endif %} required>
+                        <label for="q30_c">(c) It learns the training data very well but performs poorly on test data.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q30_d" name="AQ30" value="d" {% if AQ30 == 'd' %}checked{% endif %} required>
+                        <label for="q30_d">(d) It fails to learn significant patterns in the training data.</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="q30_e" name="AQ30" value="e" {% if AQ30 == 'e' %}checked{% endif %} required>
+                        <label for="q30_e">(e) Its hyperparameters are optimized for ideal performance.</label>
+                    </div>
+                </blockquote>
+                <!-- Fim das Novas Questões -->
+
+                <hr />
+
+                <!-- Submit Button -->
+                <center>
+                    <button type="submit" class="botao-azul">Send answers</button>
+                </center>
+            </form> <!-- Fechamento do form principal -->
+        </div> <!-- Fechamento da div id="preview" -->
+
+        <!-- Success Message (fora do form principal) -->
         {% if success_message %}
-        <p>
-            <div class="alert alert-success">
-                <center> {{ success_message }} </center>
-            </div>
-        </p>
+        <div class="alert alert-success">
+             {{ success_message }}
+        </div>
         {% endif %}
         <br>
 
-        <!-- Navigation Buttons -->
-        <form action="{{ url_for('page_6') }}" method="get">
-           <center>
-               <button type="submit" class="botao-azul">Go to Next page</button>
-           </center>
-        </form>
-        <div>
-            <a href="/page_3_6">BACK</a><br><br>
+        <!-- Navigation Buttons (fora do form principal) -->
+        <div class="navigation-buttons">
+            <form action="{{ url_for('page_5') }}" method="get">
+               <button type="submit" class="botao-azul">Go to Results</button>
+            </form>
+            <div>
+                <!-- Ajuste o url_for para a página anterior correta -->
+                <a href="{{ url_for('page_3_7') }}" class="botao-azul">BACK</a>
+            </div>
         </div>
-    </div> <!-- Fechamento da div id="preview" -->
+
+    </div> <!-- Fechamento do content-wrapper -->
+
 
     <script>
-        // Vditor Rendering
+        // Vditor Rendering (Mantido apenas uma vez, no final)
         const previewElement = document.getElementById('preview');
-        Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
-        Vditor.codeRender(previewElement);
-        Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
-        Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
-        Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
-        Vditor.mediaRender(previewElement);
-        Vditor.speechRender(previewElement);
+        if (previewElement) { // Verifica se o elemento existe
+            Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
+            Vditor.codeRender(previewElement);
+            Vditor.highlightRender({"enable":true,"lineNumber":false,"style":"dracula"}, previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+            Vditor.mathRender(previewElement, { cdn: 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor',math: {"engine":"KaTeX","inlineDigit":true,"macros":{}}});
+            Vditor.mermaidRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+            Vditor.flowchartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+            Vditor.graphvizRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+            Vditor.chartRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+            Vditor.mindmapRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor', 'light');
+            Vditor.abcRender(previewElement, 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor');
+            Vditor.mediaRender(previewElement);
+            Vditor.speechRender(previewElement);
+        }
 
-        // Interactive Hexagons Background
+        // Interactive Hexagons Background (Mantido apenas uma vez, no final)
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -350,8 +579,8 @@
         canvas.height = window.innerHeight;
 
         const hexagons = [];
-        const numHexagons = 40;
-        const hexagonRadius = 20;
+        const numHexagons = 40; // Ajustado para talvez preencher melhor
+        const hexagonRadius = 20; // Ajustado para talvez preencher melhor
 
         class Hexagon {
             constructor(x, y) {
@@ -370,7 +599,8 @@
                     ctx.lineTo(x, y);
                 }
                 ctx.closePath();
-                ctx.strokeStyle = 'white';
+                ctx.strokeStyle = 'white'; // Cor do contorno
+                ctx.lineWidth = 0.5; // Espessura da linha
                 ctx.stroke();
             }
 
@@ -378,21 +608,20 @@
                 this.x += this.vx;
                 this.y += this.vy;
 
-                if (this.x < 0 || this.x > canvas.width) {
-                    this.vx *= -1;
-                }
+                // Wrap around edges
+                if (this.x < -hexagonRadius) this.x = canvas.width + hexagonRadius;
+                if (this.x > canvas.width + hexagonRadius) this.x = -hexagonRadius;
+                if (this.y < -hexagonRadius) this.y = canvas.height + hexagonRadius;
+                if (this.y > canvas.height + hexagonRadius) this.y = -hexagonRadius;
 
-                if (this.y < 0 || this.y > canvas.height) {
-                    this.vy *= -1;
-                }
-
+                // Dampening
                 this.vx *= 0.98;
                 this.vy *= 0.98;
             }
         }
 
         function initHexagons() {
-            hexagons.length = 0; // Clear existing hexagons if any
+            hexagons.length = 0;
             for (let i = 0; i < numHexagons; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
@@ -412,11 +641,12 @@
                     const dy = hexagons[i].y - hexagons[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 200) {
+                    if (distance < 150) { // Distância para desenhar linhas
                         ctx.beginPath();
                         ctx.moveTo(hexagons[i].x, hexagons[i].y);
                         ctx.lineTo(hexagons[j].x, hexagons[j].y);
-                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 150})`; // Opacidade baseada na distância
+                        ctx.lineWidth = 0.3; // Espessura da linha de conexão
                         ctx.stroke();
                     }
                 }
@@ -425,7 +655,6 @@
             requestAnimationFrame(animate);
         }
 
-        // Initialize and start animation
         initHexagons();
         animate();
 
@@ -436,9 +665,10 @@
                 const dy = event.clientY - hexagons[i].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < 100) {
-                    hexagons[i].vx += dx * 0.005;
-                    hexagons[i].vy += dy * 0.005;
+                if (distance < 120) { // Raio de interação
+                    const force = (120 - distance) / 120;
+                    hexagons[i].vx -= (dx / distance) * force * 0.3; // Ajuste a força
+                    hexagons[i].vy -= (dy / distance) * force * 0.3;
                 }
             }
         });
@@ -451,13 +681,69 @@
         });
     </script>
 
-    <!-- Script para rolar para o final após POST -->
+    <!-- Script para rolar para o final após POST (Mantido) -->
     <script>
         {% if success_message %}
             window.onload = function() {
-                window.scrollTo(0, document.body.scrollHeight);
+                // Rola suavemente para o fim se houver mensagem de sucesso
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }
         {% endif %}
+    </script>
+
+    <!-- Script do Loader (Mantido) -->
+    <script>
+    (function() {
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        function showLoader() {
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex';
+                void loadingOverlay.offsetWidth;
+                loadingOverlay.classList.add('visible');
+            }
+        }
+
+        document.querySelectorAll('a[href]').forEach(link => {
+            if (link.getAttribute('href') &&
+                !link.getAttribute('href').startsWith('#') &&
+                (!link.target || link.target.toLowerCase() === '_self'))
+            {
+                link.addEventListener('click', function(event) {
+                    const protocol = link.protocol;
+                    if (protocol === 'http:' || protocol === 'https:') {
+                        // Não mostra o loader se for o link BACK desta página
+                        if (!link.getAttribute('href').includes('page_3_7')) { // Ajuste se a página anterior for outra
+                             showLoader();
+                        }
+                    }
+                });
+            }
+        });
+
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                const isAjaxForm = form.querySelector('button[onclick^="submitForm"]');
+                // Mostra o loader apenas para o form principal (POST para page_4)
+                if (!isAjaxForm && form.action.includes('page_4') && form.method.toUpperCase() === 'POST') {
+                     setTimeout(showLoader, 10);
+                }
+                 // Não mostra para o form GET que vai para page_5
+            });
+        });
+
+        window.addEventListener('pageshow', function(event) {
+            if (loadingOverlay && loadingOverlay.classList.contains('visible')) {
+                 loadingOverlay.classList.remove('visible');
+                 setTimeout(() => {
+                     if (!loadingOverlay.classList.contains('visible')) {
+                        loadingOverlay.style.display = 'none';
+                     }
+                 }, 300);
+            }
+        });
+
+    })();
     </script>
 
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>

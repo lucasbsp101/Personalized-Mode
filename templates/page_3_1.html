@@ -11,6 +11,14 @@
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
 </head>
 <body>
+
+    <!-- Overlay de Carregamento -->
+        <div id="loading-overlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading next page...</p>
+        </div>
+
+
     <canvas id="canvas"></canvas>
     <div class="vditor-reset" id="preview">
         <h1 id="-Basic-Concepts-of-Artificial-Intelligence">
@@ -110,7 +118,7 @@
             </form></center> <!-- Fechei o center aqui -->
         </div>
         <hr />
-        <p><a href="/page_3" class="botao-azul">BACK</a></p>
+
     </div> <!-- Fechamento da div id="preview" -->
 
     <script>
@@ -231,7 +239,127 @@
         // Vditor.speechRender(previewElement); // Se precisar de leitura em voz alta
 
      </script>
-     <!-- Ícones (opcional, mas pode ser necessário para alguns recursos do Vditor) -->
-     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/icons/ant.js"></script>
+
+    <!-- Pagina sobreposta de carregamento -->
+    <script>
+    (function() {
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        // Função para mostrar o overlay
+        function showLoader() {
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex'; // Primeiro torna o elemento 'flex'
+                // Força um reflow para garantir que display:flex seja aplicado antes da opacidade
+                void loadingOverlay.offsetWidth;
+                loadingOverlay.classList.add('visible'); // Adiciona a classe para iniciar a transição de opacidade
+            }
+        }
+
+        // --- Gatilhos para mostrar o loader ---
+
+        // 1. Para links normais que navegam para outra página
+        document.querySelectorAll('a[href]').forEach(link => {
+            // Ignora links internos da página (#) e links que abrem em nova aba
+            if (link.getAttribute('href') &&
+                !link.getAttribute('href').startsWith('#') &&
+                (!link.target || link.target.toLowerCase() === '_self'))
+            {
+                link.addEventListener('click', function(event) {
+                    // Verifica se não é um link especial (ex: mailto, tel)
+                    const protocol = link.protocol;
+                    if (protocol === 'http:' || protocol === 'https:') {
+                        showLoader();
+                        // Não prevenimos o default, o navegador navegará normalmente
+                    }
+                });
+            }
+        });
+
+        // 2. Para submissões de formulário que causam navegação
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                // Verifica se o formulário NÃO está sendo tratado por AJAX específico
+                // (No seu page_1.html, o submit principal é AJAX, então este listener não deve ativá-lo)
+                // Este listener pegará os submits dos botões "Go to Next page" em page_2 e page_4, por exemplo.
+                const isAjaxForm = form.querySelector('button[onclick^="submitForm"]'); // Verifica se é o form AJAX de page_1
+
+                if (!isAjaxForm) {
+                     // Pequeno delay para garantir que o loader apareça antes da navegação iniciar
+                     // Útil para transições rápidas.
+                     setTimeout(showLoader, 10); // Mostra após 10ms
+                }
+            });
+        });
+
+        // --- Lógica para esconder o loader ---
+
+        // Esconde o loader se o usuário voltar usando o botão do navegador
+        // O evento 'pageshow' é disparado quando a página é exibida, incluindo via bfcache
+        window.addEventListener('pageshow', function(event) {
+            // event.persisted é true se a página foi carregada do back/forward cache
+            // Se veio do cache, significa que o usuário voltou, então escondemos o loader.
+            if (loadingOverlay && loadingOverlay.classList.contains('visible')) {
+                 loadingOverlay.classList.remove('visible');
+                 // Espera a transição de opacidade terminar antes de setar display: none
+                 setTimeout(() => {
+                     // Verifica novamente caso algo tenha mudado rapidamente
+                     if (!loadingOverlay.classList.contains('visible')) {
+                        loadingOverlay.style.display = 'none';
+                     }
+                 }, 300); // Tempo igual à duração da transição CSS (0.3s)
+            }
+        });
+
+        // Caso especial para o formulário AJAX em page_1.html
+        // (Se você estiver em page_1.html, este código será relevante)
+        if (typeof submitForm === 'function') {
+            const originalSubmitForm = submitForm; // Guarda a função original
+            window.submitForm = function() { // Sobrescreve a função global
+                showLoader(); // Mostra o loader ANTES de iniciar o fetch
+
+                const form = document.querySelector('form[action="{{ url_for('index') }}"]');
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        // Navega para a próxima página APÓS o sucesso do POST
+                        // O loader continuará visível até a page_2 carregar
+                        window.location.href = "{{ url_for('page_2') }}";
+                        // Não escondemos o loader aqui, pois a navegação vai acontecer
+                    } else {
+                        // Se der erro no POST, esconde o loader e mostra alerta
+                        alert('Error sending data. Please try again.');
+                        if (loadingOverlay) {
+                            loadingOverlay.classList.remove('visible');
+                            setTimeout(() => {
+                                 if (!loadingOverlay.classList.contains('visible')) {
+                                    loadingOverlay.style.display = 'none';
+                                 }
+                            }, 300);
+                        }
+                    }
+                }).catch(error => {
+                    // Se der erro na rede/fetch, esconde o loader e mostra alerta
+                    console.error('Error:', error);
+                    alert('Error sending data. Please try again.');
+                    if (loadingOverlay) {
+                        loadingOverlay.classList.remove('visible');
+                        setTimeout(() => {
+                             if (!loadingOverlay.classList.contains('visible')) {
+                                loadingOverlay.style.display = 'none';
+                             }
+                        }, 300);
+                    }
+                });
+            }
+        }
+
+    })();
+    </script>
 </body>
 </html>

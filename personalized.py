@@ -11,6 +11,7 @@ from azure.ai.inference import ChatCompletionsClient
 from azure.ai.inference.models import UserMessage
 from azure.core.credentials import AzureKeyCredential
 from flask_caching import Cache
+from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
@@ -23,6 +24,7 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
 # Initialize the database
 db = SQLAlchemy(app)
@@ -93,6 +95,7 @@ def is_image_format_correct(image_path, allowed_formats=('JPEG', 'PNG')):
 #repassar depois para um txt também
 def calculate_score(answers):
     correct_answers = {
+        #test 1
         'AQ1': 'd',
         'AQ2': 'd',
         'AQ3': 'e',
@@ -103,16 +106,28 @@ def calculate_score(answers):
         'AQ8': 'e',
         'AQ9': 'e',
         'AQ10': 'e',
-        'AQ11': 'd',
-        'AQ12': 'd',
-        'AQ13': 'e',
-        'AQ14': 'b',
-        'AQ15': 'd',
-        'AQ16': 'b',
-        'AQ17': 'd',
-        'AQ18': 'e',
-        'AQ19': 'e',
-        'AQ20': 'e'
+        'AQ11': 'c',
+        'AQ12': 'c',
+        'AQ13': 'd',
+        'AQ14': 'd',
+        'AQ15': 'c',
+
+        # Test 2 (NEW: AQ16-AQ30 using answers from AQ1-AQ15 sequence)
+        'AQ16': 'd',  # Answer from AQ1
+        'AQ17': 'd',  # Answer from AQ2
+        'AQ18': 'e',  # Answer from AQ3
+        'AQ19': 'b',  # Answer from AQ4
+        'AQ20': 'd',  # Answer from AQ5
+        'AQ21': 'b',  # Answer from AQ6
+        'AQ22': 'd',  # Answer from AQ7
+        'AQ23': 'e',  # Answer from AQ8
+        'AQ24': 'e',  # Answer from AQ9
+        'AQ25': 'e',  # Answer from AQ10
+        'AQ26': 'c',  # Answer from AQ11
+        'AQ27': 'c',  # Answer from AQ12
+        'AQ28': 'd',  # Answer from AQ13
+        'AQ29': 'd',  # Answer from AQ14
+        'AQ30': 'c'  # Answer from AQ15
         }
     score = sum(1 for key, value in answers.items() if value == correct_answers[key])
     return score
@@ -123,6 +138,7 @@ class Person(db.Model):
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer)
     learning_preference = db.Column(db.String(50), nullable=False)
+    education_level = db.Column(db.String(100), nullable=True)
     test_1_score = db.Column(db.Integer, nullable=True)
     test_2_score = db.Column(db.Integer, nullable=True)
     grade_test_1 = db.Column(db.Integer, nullable=True)
@@ -150,6 +166,16 @@ class Person(db.Model):
     AQ18 = db.Column(db.String(500), nullable=True)
     AQ19 = db.Column(db.String(500), nullable=True)
     AQ20 = db.Column(db.String(500), nullable=True)
+    AQ21 = db.Column(db.String(500), nullable=True)
+    AQ22 = db.Column(db.String(500), nullable=True)
+    AQ23 = db.Column(db.String(500), nullable=True)
+    AQ24 = db.Column(db.String(500), nullable=True)
+    AQ25 = db.Column(db.String(500), nullable=True)
+    AQ26 = db.Column(db.String(500), nullable=True)
+    AQ27 = db.Column(db.String(500), nullable=True)
+    AQ28 = db.Column(db.String(500), nullable=True)
+    AQ29 = db.Column(db.String(500), nullable=True)
+    AQ30 = db.Column(db.String(500), nullable=True)
 
     def calculate_grades(self):
         if self.test_1_score is not None:
@@ -203,7 +229,9 @@ def generate_comparison_analysis(person):
     return comparison_analysis
 
 # Personalize content
+@cache.memoize(timeout=360000)  # Cache for 10 hours
 def generate_custom_content(learning_preference, base_content, hobbies=None, work=None):
+    print(f"--- Gerando conteúdo para: Pref={learning_preference}, Hobbies={hobbies}, Work={work} ---")
     if learning_preference == 'Personalized Teaching':
         endpoint = "https://models.inference.ai.azure.com"
         model_name = "Phi-4"
@@ -532,152 +560,229 @@ def page_3_5():
 @app.route('/page_3_6')#
 def page_3_6():
     return render_template('page_3_6.html')
+
+@app.route('/page_3_7')#
+def page_3_7():
+    return render_template('page_3_7.html')
 # V3 - CRIANDO COM MD
 
 # Personal DATAS - page_1
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = PersonalDataForm()
-    if request.method == 'POST':
-        name = request.form['name'].upper()  # Converte o nome para maiúsculas
-        hobbies = request.form['hobbies']
-        work = request.form['work']
-        learning_preference = request.form['learning_preference']
-        age = request.form['age']
+    form = PersonalDataForm()  # Usado para renderizar o formulário no GET
+    error_message = None
 
-        # Verifica se já existe um registro com o mesmo nome (em maiúsculas) e preferência de aprendizado
-        existing_person = Person.query.filter_by(name=name, learning_preference=learning_preference).first()
+    if request.method == 'POST':
+        # 1. Pega APENAS o nome inicialmente e limpa/formata
+        name_input = request.form.get('name', '').strip().upper()
+
+        if not name_input:
+            error_message = "Please enter your full name."
+            # Re-renderiza mostrando o erro
+            return render_template('page_1.html', form=form, error_message=error_message)
+
+        # Verifica se já existe um registro com o mesmo nome (em maiúsculas)
+        existing_person = Person.query.filter(db.func.upper(Person.name) == name_input).first()
+
         if existing_person:
-            # Atualiza o registro existente
-            existing_person.hobbies = hobbies
-            existing_person.work = work
-            existing_person.age = age
-            db.session.commit()
+            # 3. USUÁRIO ENCONTRADO PELO NOME
+            print(f"User '{name_input}' found. Loading ID: {existing_person.id}")
+            session.clear()  # Limpa qualquer sessão antiga antes de carregar a nova
             session['person_id'] = existing_person.id
+            session['name'] = existing_person.name  # Carrega nome do DB
+            # Carrega outros dados do DB para a sessão (se necessário em outras partes)
+            session['learning_preference'] = existing_person.learning_preference
+            session['hobbies'] = existing_person.hobbies
+            session['work'] = existing_person.work
+            session['education_level'] = existing_person.education_level
+            session['age'] = existing_person.age
+            session.permanent = True  # Torna a sessão permanente
+
+            # Redireciona para onde o usuário parou ou para o início do conteúdo
+            # Se você tiver um campo no DB para rastrear o progresso, use-o aqui.
+            # Por agora, vamos para page_2 (Teste 1) ou page_3 (Índice)
+            if existing_person.test_1_score is None:
+                return redirect(url_for('page_2'))  # Vai para o Teste 1 se não foi feito
+            else:
+                # Poderia ir para o Teste 2 (page_4) se Teste 1 foi feito, ou direto para o conteúdo
+                return redirect(url_for('page_3'))  # Exemplo: Vai para o índice do conteúdo
+
         else:
-            # Cria um novo registro
+            # 4. USUÁRIO NÃO ENCONTRADO - Tratar como NOVO usuário
+            print(f"User '{name_input}' not found. Proceeding as new user registration.")
+
+            # AGORA pega os OUTROS campos do formulário
+            age_str = request.form.get('age')
+            learning_preference = request.form.get('learning_preference')
+            education_level = request.form.get('education_level')
+            hobbies = request.form.get('hobbies')
+            work = request.form.get('work')
+            # Removi o CPF daqui, pois a lógica agora é baseada no nome
+            # Se precisar do CPF para novos usuários, pegue-o aqui: cpf_raw = request.form.get('cpf')
+
+            # Validação para os campos OBRIGATÓRIOS para NOVOS usuários
+            if not age_str or not age_str.isdigit():
+                error_message = "A valid age is required for new users."
+            elif not learning_preference:
+                error_message = "Learning preference is required for new users."
+            elif not education_level:  # Adicione validação para outros campos se forem obrigatórios
+                error_message = "Education level is required for new users."
+            # Adicione mais validações se necessário (ex: CPF se ainda for coletado)
+
+            if error_message:
+                # Re-renderiza com erro, passando dados de volta para repopular
+                return render_template('page_1.html', form=form, error_message=error_message,
+                                       name=name_input, age=age_str,  # Passa dados inseridos
+                                       learning_preference=learning_preference,
+                                       education_level=education_level,
+                                       hobbies=hobbies, work=work)
+
+            # Validação passou, cria o novo usuário
+            age = int(age_str)  # Converte idade
+            # cpf_cleaned = re.sub(r'\D', '', cpf_raw) if cpf_raw else None # Limpa CPF se coletado
+
             new_person = Person(
-                name=name,
-                hobbies=hobbies,
-                work=work,
+                name=name_input,
+                age=age,
                 learning_preference=learning_preference,
-                age=age
+                education_level=education_level,
+                hobbies=hobbies,
+                work=work
+                # cpf=cpf_cleaned # Adicione se ainda coletar CPF para novos
             )
             db.session.add(new_person)
-            db.session.commit()
+            db.session.commit()  # Salva para obter o ID
+
+            session.clear()  # Limpa sessão antiga
             session['person_id'] = new_person.id
+            session['name'] = new_person.name
+            session['learning_preference'] = new_person.learning_preference
+            # Salva outros dados na sessão
+            session['hobbies'] = new_person.hobbies
+            session['work'] = new_person.work
+            session['education_level'] = new_person.education_level
+            session['age'] = new_person.age
+            session.permanent = True  # Torna a sessão permanente
 
-        session['name'] = name
-        session['hobbies'] = hobbies
-        session['work'] = work
-        session['learning_preference'] = learning_preference
-        session['age'] = age
+            print(f"New user '{name_input}' created with ID: {new_person.id}")
+            return redirect(url_for('page_2'))  # Redireciona para o Teste 1
 
-        return redirect(url_for('page_2'))
-    return render_template('page_1.html', form=form)
+    # Se for um método GET
+    # session.clear() # Descomente se quiser limpar a sessão sempre que acessar a home via GET
+    return render_template('page_1.html', form=form, error_message=error_message)
+
 
 # TEST 1 - page_2
 @app.route('/page_2', methods=['GET', 'POST'])
 def page_2():
     success_message = None
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id) if person_id else None
+
     if request.method == 'POST':
-        answers = {
-            'AQ1': request.form['AQ1'],
-            'AQ2': request.form['AQ2'],
-            'AQ3': request.form['AQ3'],
-            'AQ4': request.form['AQ4'],
-            'AQ5': request.form['AQ5'],
-            'AQ6': request.form['AQ6'],
-            'AQ7': request.form['AQ7'],
-            'AQ8': request.form['AQ8'],
-            'AQ9': request.form['AQ9'],
-            'AQ10': request.form['AQ10']
-        }
-        session['test_1_score'] = calculate_score(answers)
+        if not person:
+            # Lidar com o caso onde a pessoa não está na sessão (talvez redirecionar para '/')
+            return redirect(url_for('index'))
 
-        # Determine the grade for test 1
-        total_questions = 10  # total de questões
-        session['grade_test_1'] = round(((10 / total_questions) * session['test_1_score']))
+        # Coleta as respostas de AQ1 a AQ15
+        answers = {}
+        for i in range(1, 16):
+            key = f'AQ{i}'
+            answers[key] = request.form.get(key) # Use .get() para evitar erro se faltar alguma
 
-        person_id = session.get('person_id')
-        person = db.session.get(Person, person_id)
+        # Calcula o score e a nota para o Teste 1 (baseado em 15 questões)
+        session['test_1_score'] = calculate_score({k: v for k, v in answers.items() if k.startswith('AQ') and int(k[2:]) <= 15 and v is not None})
+        total_questions_test_1 = 15 # Total de questões no Teste 1
+        session['grade_test_1'] = round(((10 / total_questions_test_1) * session['test_1_score'])) if total_questions_test_1 > 0 else 0
 
-        if person:
-            person.AQ1 = answers['AQ1']
-            person.AQ2 = answers['AQ2']
-            person.AQ3 = answers['AQ3']
-            person.AQ4 = answers['AQ4']
-            person.AQ5 = answers['AQ5']
-            person.AQ6 = answers['AQ6']
-            person.AQ7 = answers['AQ7']
-            person.AQ8 = answers['AQ8']
-            person.AQ9 = answers['AQ9']
-            person.AQ10 = answers['AQ10']
-            person.test_1_score = session['test_1_score']
-            person.grade_test_1 = session['grade_test_1']
-            db.session.commit()
+        # Salva as respostas e resultados no objeto Person
+        for i in range(1, 16):
+            key = f'AQ{i}'
+            if hasattr(person, key): # Verifica se o atributo existe no modelo
+                setattr(person, key, answers.get(key))
+
+        person.test_1_score = session['test_1_score']
+        person.grade_test_1 = session['grade_test_1']
+        db.session.commit()
 
         success_message = "DATA SENT SUCCESSFULLY !"
 
-    return render_template('page_2.html', AQ1=session.get('AQ1'), AQ2=session.get('AQ2'), AQ3=session.get('AQ3'), AQ4=session.get('AQ4'), AQ5=session.get('AQ5'), AQ6=session.get('AQ6'), AQ7=session.get('AQ7'), AQ8=session.get('AQ8'), AQ9=session.get('AQ9'), AQ10=session.get('AQ10'), success_message=success_message)
+        # Redireciona para a primeira página de conteúdo após enviar
+        return redirect(url_for('page_3'))
 
+    # Para GET, busca as respostas salvas para pré-preencher o formulário
+    saved_answers = {}
+    if person:
+        for i in range(1, 16):
+            key = f'AQ{i}'
+            if hasattr(person, key):
+                saved_answers[key] = getattr(person, key)
+
+    return render_template('page_2.html', success_message=success_message, **saved_answers)
+
+# INDEX - page_3
 @app.route('/page_3')
 def page_3():
     with open('index_content.txt', 'r') as f:
         content = [line.strip() for line in f]
     return render_template('page_3.html', content=content)
 
-# TEST 2
+# TEST 2 - page_4
 @app.route('/page_4', methods=['GET', 'POST'])
 def page_4():
     success_message = None
+    person_id = session.get('person_id')
+    person = db.session.get(Person, person_id) if person_id else None
+
     if request.method == 'POST':
-        answers = {
-            'AQ11': request.form['AQ11'],
-            'AQ12': request.form['AQ12'],
-            'AQ13': request.form['AQ13'],
-            'AQ14': request.form['AQ14'],
-            'AQ15': request.form['AQ15'],
-            'AQ16': request.form['AQ16'],
-            'AQ17': request.form['AQ17'],
-            'AQ18': request.form['AQ18'],
-            'AQ19': request.form['AQ19'],
-            'AQ20': request.form['AQ20']
-            }
-        session['test_2_score'] = calculate_score(answers)
-        total_questions = 10
-        session['grade_test_2'] = round(((10 / total_questions) * session['test_2_score']))
+        if not person:
+            # Lidar com o caso onde a pessoa não está na sessão
+            return redirect(url_for('index'))
 
-        person_id = session.get('person_id')
-        person = db.session.get(Person, person_id)
+        # Coleta as respostas de AQ16 a AQ30
+        answers = {}
+        for i in range(16, 31): # Loop de 16 a 30
+            key = f'AQ{i}'
+            answers[key] = request.form.get(key)
 
-        if person:
-            person.AQ11 = answers['AQ11']
-            person.AQ12 = answers['AQ12']
-            person.AQ13 = answers['AQ13']
-            person.AQ14 = answers['AQ14']
-            person.AQ15 = answers['AQ15']
-            person.AQ16 = answers['AQ16']
-            person.AQ17 = answers['AQ17']
-            person.AQ18 = answers['AQ18']
-            person.AQ19 = answers['AQ19']
-            person.AQ20 = answers['AQ20']
-            person.test_2_score = session['test_2_score']
-            person.grade_test_2 = session['grade_test_2']
-            db.session.commit()
+        # Calcula o score e a nota para o Teste 2 (baseado em 15 questões)
+        session['test_2_score'] = calculate_score({k: v for k, v in answers.items() if k.startswith('AQ') and int(k[2:]) >= 16 and v is not None})
+        total_questions_test_2 = 15 # Total de questões no Teste 2
+        session['grade_test_2'] = round(((10 / total_questions_test_2) * session['test_2_score'])) if total_questions_test_2 > 0 else 0
+
+        # Salva as respostas e resultados no objeto Person
+        # !!! GARANTA QUE AS COLUNAS AQ16 a AQ30 EXISTEM NO MODELO Person !!!
+        for i in range(16, 31):
+            key = f'AQ{i}'
+            if hasattr(person, key): # Verifica se o atributo existe
+                setattr(person, key, answers.get(key))
+            # else:
+            #     print(f"Aviso: Atributo {key} não encontrado no modelo Person.") # Para debug
+
+        person.test_2_score = session['test_2_score']
+        person.grade_test_2 = session['grade_test_2']
+        db.session.commit()
 
         success_message = "DATA SENT SUCCESSFULLY !"
 
-    return render_template('page_4.html', AQ11=session.get('AQ11'), AQ12=session.get('AQ12'), AQ13=session.get('AQ13'), AQ14=session.get('AQ14'), AQ15=session.get('AQ15'), AQ16=session.get('AQ16'), AQ17=session.get('AQ17'), AQ18=session.get('AQ18'), AQ19=session.get('AQ19'), AQ20=session.get('AQ20'), success_message=success_message)
+        # Redireciona para a página de resultados após enviar
+        return redirect(url_for('page_5'))
 
-# Student's project
-@app.route('/page_5')
-def page_5():
-    return render_template('page_3_6.html')
+    # Para GET, busca as respostas salvas para pré-preencher o formulário
+    saved_answers = {}
+    if person:
+        for i in range(16, 31):
+            key = f'AQ{i}'
+            if hasattr(person, key):
+                saved_answers[key] = getattr(person, key)
+            # else:
+            #     print(f"Aviso: Atributo {key} não encontrado no modelo Person para GET.") # Para debug
+
+    return render_template('page_4.html', success_message=success_message, **saved_answers)
 
 # Comparison analysis
-@app.route('/page_6', methods=['GET', 'POST'])
-def page_6():
+@app.route('/page_5', methods=['GET', 'POST'])
+def page_5():
     person_id = session.get('person_id')
     person = db.session.get(Person, person_id)
     if person:
@@ -690,7 +795,7 @@ def page_6():
         comparison_analysis = "Análise não disponível."
 
     return render_template(
-        'page_6.html',
+        'page_5.html',
         test_1_score=session.get('test_1_score', 0),
         grade_test_1=session.get('grade_test_1', 'N/A'),
         test_2_score=session.get('test_2_score', 0),
