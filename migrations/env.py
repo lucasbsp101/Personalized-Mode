@@ -91,8 +91,8 @@ def run_migrations_online():
 
     # engine_from_config usará a 'sqlalchemy.url' que foi definida no início do script
     connectable = engine_from_config(
-        config.get_section(config.main_option_name()),
-        prefix="sqlalchemy.",
+        config.get_section(config.config_ini_section),  # Nome da seção ini principal, geralmente 'alembic'
+        prefix="sqlalchemy.",  # Para pegar chaves como 'url', 'pool_size' etc.
         poolclass=pool.NullPool,
     )
 
