@@ -12,6 +12,8 @@ from azure.ai.inference.models import UserMessage
 from azure.core.credentials import AzureKeyCredential
 from flask_caching import Cache
 from datetime import timedelta
+import secrets
+print(secrets.token_hex(16))
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
