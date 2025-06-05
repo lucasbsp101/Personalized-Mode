@@ -1,9 +1,11 @@
 import logging
 from logging.config import fileConfig
+import os  # << ADICIONE ESTA LINHA
 
-from flask import current_app
+from flask import current_app  # Mantenha para target_metadata
 
 from alembic import context
+from sqlalchemy import pool, engine_from_config  # << VERIFIQUE SE engine_from_config ESTÁ IMPORTADO
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -11,38 +13,45 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-fileConfig(config.config_file_name)
+if config.config_file_name is not None:  # Corrigido de fileConfig(config.config_file_name) para a condição correta
+    fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
-
-def get_engine():
+# --- INÍCIO DA MODIFICAÇÃO SUGERIDA ---
+# Tenta definir sqlalchemy.url diretamente da variável de ambiente DATABASE_URL
+# Isso é mais robusto para ambientes de build.
+database_url_env = os.getenv('DATABASE_URL')
+if database_url_env:
+    # Garante compatibilidade com URLs do Heroku/Render (postgres:// -> postgresql://)
+    if database_url_env.startswith("postgres://"):
+        database_url_env = database_url_env.replace("postgres://", "postgresql://", 1)
+    config.set_main_option('sqlalchemy.url', database_url_env)
+    logger.info(f"Alembic using DATABASE_URL from environment: {database_url_env[:30]}...")  # Log para verificação
+else:
+    # Fallback para a lógica original usando current_app (se DATABASE_URL não estiver no env)
+    # (Mantenha suas funções get_engine e get_engine_url aqui se esta parte for usada)
+    logger.warning("DATABASE_URL not found in environment for Alembic, attempting current_app.")
+    # A sua lógica original com get_engine_url() iria aqui
+    # Por exemplo (simplificado, adapte se suas funções get_engine/get_engine_url são diferentes):
     try:
-        # this works with Flask-SQLAlchemy<3 and Alchemical
-        return current_app.extensions['migrate'].db.get_engine()
-    except (TypeError, AttributeError):
-        # this works with Flask-SQLAlchemy>=3
-        return current_app.extensions['migrate'].db.engine
+        engine_url_from_app = current_app.extensions['migrate'].db.engine.url.render_as_string(
+            hide_password=False).replace('%', '%%')
+        config.set_main_option('sqlalchemy.url', engine_url_from_app)
+    except Exception as e:
+        logger.error(f"Could not get engine URL from current_app: {e}")
+        # Se falhar, defina um placeholder ou levante um erro para indicar que a URL não foi configurada
+        # Exemplo: config.set_main_option('sqlalchemy.url', 'sqlite:///fallback_for_alembic_error.db')
+        raise RuntimeError("Alembic could not determine database URL.")
 
-
-def get_engine_url():
-    try:
-        return get_engine().url.render_as_string(hide_password=False).replace(
-            '%', '%%')
-    except AttributeError:
-        return str(get_engine().url).replace('%', '%%')
+# --- FIM DA MODIFICAÇÃO SUGERIDA ---
 
 
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-config.set_main_option('sqlalchemy.url', get_engine_url())
+# Esta parte para pegar o target_metadata do current_app geralmente funciona bem
 target_db = current_app.extensions['migrate'].db
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
 
 
 def get_metadata():
@@ -51,21 +60,15 @@ def get_metadata():
     return target_db.metadata
 
 
+target_metadata = get_metadata()  # Definindo target_metadata aqui
+
+
 def run_migrations_offline():
-    """Run migrations in 'offline' mode.
-
-    This configures the context with just a URL
-    and not an Engine, though an Engine is acceptable
-    here as well.  By skipping the Engine creation
-    we don't even need a DBAPI to be available.
-
-    Calls to context.execute() here emit the given string to the
-    script output.
-
-    """
+    """Run migrations in 'offline' mode."""
+    # url é pego da configuração já definida (seja do os.getenv ou do current_app)
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=get_metadata(), literal_binds=True
+        url=url, target_metadata=target_metadata, literal_binds=True  # Usando target_metadata definido globalmente
     )
 
     with context.begin_transaction():
@@ -73,16 +76,8 @@ def run_migrations_offline():
 
 
 def run_migrations_online():
-    """Run migrations in 'online' mode.
+    """Run migrations in 'online' mode."""
 
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
-
-    # this callback is used to prevent an auto-migration from being generated
-    # when there are no changes to the schema
-    # reference: http://alembic.zzzcomputing.com/en/latest/cookbook.html
     def process_revision_directives(context, revision, directives):
         if getattr(config.cmd_opts, 'autogenerate', False):
             script = directives[0]
@@ -94,12 +89,17 @@ def run_migrations_online():
     if conf_args.get("process_revision_directives") is None:
         conf_args["process_revision_directives"] = process_revision_directives
 
-    connectable = get_engine()
+    # engine_from_config usará a 'sqlalchemy.url' que foi definida no início do script
+    connectable = engine_from_config(
+        config.get_section(config.main_option_name()),
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
+    )
 
     with connectable.connect() as connection:
         context.configure(
             connection=connection,
-            target_metadata=get_metadata(),
+            target_metadata=target_metadata,  # Usando target_metadata definido globalmente
             **conf_args
         )
 

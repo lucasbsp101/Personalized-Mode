@@ -16,7 +16,16 @@ import secrets
 print(secrets.token_hex(16))
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+#app.secret_key = 'secret_key' VERSÃO ANTERIOR
+#daqui até 28 foi adicionado 17:29 05/06/25
+app.secret_key = os.getenv('SECRET_KEY')
+
+# Verificação importante para produção:
+if not app.secret_key and os.getenv('FLASK_ENV') == 'production':
+    raise ValueError("Variável de ambiente SECRET_KEY não definida em produção!")
+elif not app.secret_key:
+    print("AVISO: Variável de ambiente SECRET_KEY não definida. Usando uma chave padrão para desenvolvimento local. ISSO É INSEGURO PARA PRODUÇÃO.")
+    app.secret_key = 'uma_chave_padrao_para_desenvolvimento_local_ainda_insegura_para_prod'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///database.db')
 
