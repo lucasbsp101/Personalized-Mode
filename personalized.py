@@ -29,13 +29,21 @@ elif not app.secret_key:
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///database.db')
 
+# Garante que o SQLAlchemy funcione com as URLs do Render
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
+if db_url and db_url.startswith("postgres://"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://", 1)
+
+
 # Cache configuration
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+# A LINHA ABAIXO FOI REMOVIDA: app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
+
+# ... (restante do código)
 
 # Initialize the database
 db = SQLAlchemy(app)
@@ -50,7 +58,7 @@ def analyze_sentiment():
 
         endpoint = "https://models.inference.ai.azure.com"
         model_name = "Phi-4"
-        token = os.environ["GITHUB_TOKEN"]
+        token = os.getenv["AZURE_API_KEY"]
 
         client = ChatCompletionsClient(
             endpoint=endpoint,
@@ -213,7 +221,7 @@ def test_2():
 def generate_comparison_analysis(person):
     endpoint = "https://models.inference.ai.azure.com"
     model_name = "Phi-4"
-    token = os.environ["GITHUB_TOKEN"]
+    token = os.getenv["AZURE_API_KEY"]
 
     client = ChatCompletionsClient(
         endpoint=endpoint,
@@ -246,7 +254,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
     if learning_preference == 'Personalized Teaching':
         endpoint = "https://models.inference.ai.azure.com"
         model_name = "Phi-4"
-        token = os.environ["GITHUB_TOKEN"]
+        token = os.getenv["AZURE_API_KEY"]
 
         client = ChatCompletionsClient(
             endpoint=endpoint,
@@ -283,7 +291,7 @@ def ask_phi_4():
     question = request.json['question']
     endpoint = "https://models.inference.ai.azure.com"
     model_name = "Phi-4"
-    token = os.environ["GITHUB_TOKEN"]
+    token = os.getenv["AZURE_API_KEY"]
 
     client = ChatCompletionsClient(
         endpoint=endpoint,

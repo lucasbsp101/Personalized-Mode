@@ -1,106 +1,74 @@
 import logging
+import os
 from logging.config import fileConfig
-import os  # << ADICIONE ESTA LINHA
-
-from flask import current_app  # Mantenha para target_metadata
 
 from alembic import context
-from sqlalchemy import pool, engine_from_config  # << VERIFIQUE SE engine_from_config ESTÁ IMPORTADO
+from flask import current_app
+from sqlalchemy import pool, engine_from_config
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
+# --- Configuração do Logging ---
+# Interpreta o arquivo .ini para configurar o logging.
 config = context.config
-
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
-if config.config_file_name is not None:  # Corrigido de fileConfig(config.config_file_name) para a condição correta
+if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
-# --- INÍCIO DA MODIFICAÇÃO SUGERIDA ---
-# Tenta definir sqlalchemy.url diretamente da variável de ambiente DATABASE_URL
-# Isso é mais robusto para ambientes de build.
-database_url_env = os.getenv('DATABASE_URL')
-if database_url_env:
-    # Garante compatibilidade com URLs do Heroku/Render (postgres:// -> postgresql://)
-    if database_url_env.startswith("postgres://"):
-        database_url_env = database_url_env.replace("postgres://", "postgresql://", 1)
-    config.set_main_option('sqlalchemy.url', database_url_env)
-    logger.info(f"Alembic using DATABASE_URL from environment: {database_url_env[:30]}...")  # Log para verificação
-else:
-    # Fallback para a lógica original usando current_app (se DATABASE_URL não estiver no env)
-    # (Mantenha suas funções get_engine e get_engine_url aqui se esta parte for usada)
-    logger.warning("DATABASE_URL not found in environment for Alembic, attempting current_app.")
-    # A sua lógica original com get_engine_url() iria aqui
-    # Por exemplo (simplificado, adapte se suas funções get_engine/get_engine_url são diferentes):
+# --- DEFINIÇÃO DA URL DO BANCO DE DADOS PARA PRODUÇÃO ---
+# Esta é a parte mais importante para o Render.
+# Lemos a variável de ambiente DATABASE_URL.
+database_url = os.getenv('DATABASE_URL')
+
+# O Render usa "postgres://", mas SQLAlchemy prefere "postgresql://"
+if database_url and database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+# Se a variável não for encontrada (ambiente local, por exemplo),
+# tentamos pegar da configuração do Flask.
+if not database_url:
     try:
-        engine_url_from_app = current_app.extensions['migrate'].db.engine.url.render_as_string(
-            hide_password=False).replace('%', '%%')
-        config.set_main_option('sqlalchemy.url', engine_url_from_app)
-    except Exception as e:
-        logger.error(f"Could not get engine URL from current_app: {e}")
-        # Se falhar, defina um placeholder ou levante um erro para indicar que a URL não foi configurada
-        # Exemplo: config.set_main_option('sqlalchemy.url', 'sqlite:///fallback_for_alembic_error.db')
-        raise RuntimeError("Alembic could not determine database URL.")
+        database_url = current_app.config['SQLALCHEMY_DATABASE_URI']
+        logger.info("Usando a URL do banco de dados da configuração do Flask.")
+    except Exception:
+        logger.error("ERRO: DATABASE_URL não está definida e não foi possível acessar a configuração do Flask.")
+        raise ValueError("Não foi possível determinar a URL do banco de dados para o Alembic.")
 
-# --- FIM DA MODIFICAÇÃO SUGERIDA ---
+# Injeta a URL do banco de dados na configuração do Alembic.
+config.set_main_option('sqlalchemy.url', database_url)
+logger.info(f"Alembic configurado para usar o banco de dados: {database_url[:30]}...") # Log para confirmar
 
-
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-# Esta parte para pegar o target_metadata do current_app geralmente funciona bem
+# --- Configuração do Target Metadata para Autogenerate ---
+# Pega os metadados do modelo do Flask-SQLAlchemy para que as migrações automáticas funcionem.
 target_db = current_app.extensions['migrate'].db
+target_metadata = target_db.metadata
 
-
-def get_metadata():
-    if hasattr(target_db, 'metadatas'):
-        return target_db.metadatas[None]
-    return target_db.metadata
-
-
-target_metadata = get_metadata()  # Definindo target_metadata aqui
-
-
-def run_migrations_offline():
-    """Run migrations in 'offline' mode."""
-    # url é pego da configuração já definida (seja do os.getenv ou do current_app)
+def run_migrations_offline() -> None:
+    """Executa migrações em modo 'offline'.
+    """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url, target_metadata=target_metadata, literal_binds=True  # Usando target_metadata definido globalmente
+        url=url,
+        target_metadata=target_metadata,
+        literal_binds=True,
+        dialect_opts={"paramstyle": "named"},
     )
 
     with context.begin_transaction():
         context.run_migrations()
 
 
-def run_migrations_online():
-    """Run migrations in 'online' mode."""
-
-    def process_revision_directives(context, revision, directives):
-        if getattr(config.cmd_opts, 'autogenerate', False):
-            script = directives[0]
-            if script.upgrade_ops.is_empty():
-                directives[:] = []
-                logger.info('No changes in schema detected.')
-
-    conf_args = current_app.extensions['migrate'].configure_args
-    if conf_args.get("process_revision_directives") is None:
-        conf_args["process_revision_directives"] = process_revision_directives
-
-    # engine_from_config usará a 'sqlalchemy.url' que foi definida no início do script
+def run_migrations_online() -> None:
+    """Executa migrações em modo 'online'.
+    """
+    # Usa a engine_from_config, que lerá a 'sqlalchemy.url' que definimos acima.
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),  # Nome da seção ini principal, geralmente 'alembic'
-        prefix="sqlalchemy.",  # Para pegar chaves como 'url', 'pool_size' etc.
+        config.get_section(config.config_ini_section, {}),
+        prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection,
-            target_metadata=target_metadata,  # Usando target_metadata definido globalmente
-            **conf_args
+            connection=connection, target_metadata=target_metadata
         )
 
         with context.begin_transaction():
