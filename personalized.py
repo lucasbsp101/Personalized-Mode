@@ -58,7 +58,7 @@ def analyze_sentiment():
 
         endpoint = "https://models.inference.ai.azure.com"
         model_name = "Phi-4"
-        token = os.getenv["AZURE_API_KEY"]
+        token = os.environ["GITHUB_TOKEN"]
 
         client = ChatCompletionsClient(
             endpoint=endpoint,
@@ -195,6 +195,8 @@ class Person(db.Model):
     AQ28 = db.Column(db.String(500), nullable=True)
     AQ29 = db.Column(db.String(500), nullable=True)
     AQ30 = db.Column(db.String(500), nullable=True)
+    # apenas para cancelar o registro do DB deploy
+    cpf = db.Column(db.String(14), nullable=True)
 
     def calculate_grades(self):
         if self.test_1_score is not None:
@@ -221,7 +223,7 @@ def test_2():
 def generate_comparison_analysis(person):
     endpoint = "https://models.inference.ai.azure.com"
     model_name = "Phi-4"
-    token = os.getenv["AZURE_API_KEY"]
+    token = os.environ["GITHUB_TOKEN"]
 
     client = ChatCompletionsClient(
         endpoint=endpoint,
@@ -254,7 +256,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
     if learning_preference == 'Personalized Teaching':
         endpoint = "https://models.inference.ai.azure.com"
         model_name = "Phi-4"
-        token = os.getenv["AZURE_API_KEY"]
+        token = os.environ["GITHUB_TOKEN"]
 
         client = ChatCompletionsClient(
             endpoint=endpoint,
@@ -291,7 +293,7 @@ def ask_phi_4():
     question = request.json['question']
     endpoint = "https://models.inference.ai.azure.com"
     model_name = "Phi-4"
-    token = os.getenv["AZURE_API_KEY"]
+    token = os.environ["GITHUB_TOKEN"]
 
     client = ChatCompletionsClient(
         endpoint=endpoint,
