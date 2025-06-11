@@ -250,7 +250,7 @@ def generate_comparison_analysis(person):
     return comparison_analysis
 
 # Personalize content
-@cache.memoize(timeout=360000)  # Cache for 10 hours
+@cache.memoize(timeout=36000000)  # Cache for 10 hours
 def generate_custom_content(learning_preference, base_content, hobbies=None, work=None):
     print(f"--- Gerando conteúdo para: Pref={learning_preference}, Hobbies={hobbies}, Work={work} ---")
     if learning_preference == 'Personalized Teaching':
@@ -279,7 +279,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
             messages=[UserMessage(content=prompt)],
             temperature=1.0,
             top_p=0.9,
-            max_tokens=300,
+            max_tokens=200,
             model=model_name
         )
         generated_content = response.choices[0].message.content.strip()
