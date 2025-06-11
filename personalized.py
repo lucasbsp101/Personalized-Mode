@@ -279,7 +279,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
             messages=[UserMessage(content=prompt)],
             temperature=1.0,
             top_p=0.9,
-            max_tokens=500,
+            max_tokens=300,
             model=model_name
         )
         generated_content = response.choices[0].message.content.strip()
@@ -438,7 +438,7 @@ def page_3_3():
 
     topic_5 = extract_topic_content(base_content, 5)
     topic_6 = extract_topic_content(base_content, 6)
-    #topic_7 = extract_topic_content(base_content, 7)
+    topic_7 = extract_topic_content(base_content, 7)
 
 
     if person:
@@ -451,8 +451,8 @@ def page_3_3():
                 topic_5 = generate_custom_content(preference, topic_5, hobbies, work)
             if topic_6:
                 topic_6 = generate_custom_content(preference, topic_6, hobbies, work)
-            #if topic_7:
-                #topic_7 = generate_custom_content(preference, topic_7, hobbies, work)
+            if topic_7:
+                topic_7 = generate_custom_content(preference, topic_7, hobbies, work)
 
         else:
             # Se for Generic Teaching, usa o conteúdo extraído diretamente
@@ -461,13 +461,13 @@ def page_3_3():
     else:
         topic_5 = "Dados do usuário não encontrados."
         topic_6 = "Dados do usuário não encontrados."
-        #topic_7 = "Dados do usuário não encontrados."
+        topic_7 = "Dados do usuário não encontrados."
 
 
     return render_template('page_3_3.html',
                            topic_5=topic_5,
                            topic_6=topic_6,
-                           #topic_7=topic_7,
+                           topic_7=topic_7,
                            )
 
 @app.route('/page_3_4') #
