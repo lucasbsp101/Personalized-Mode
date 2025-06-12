@@ -266,6 +266,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
         #apenas a linha 122 ainda nao funciona, testar mais vezes e pesquisar
         prompt = f"""
         Personalize each topic of the content{base_content} based on the person's hobbies{hobbies} and work{work}. 
+        Limit the text to 100 tokens
         Rewrite to teenagers between 18 and 25 years!
         Make it more personal!
         Make it more engaging!
