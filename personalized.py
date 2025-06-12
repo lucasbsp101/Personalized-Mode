@@ -285,7 +285,7 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
             messages=[UserMessage(content=prompt)],
             temperature=0.75,
             top_p=0.9,
-            max_tokens=120,
+            max_tokens=100,
             model=model_name
         )
         generated_content = response.choices[0].message.content.strip()
