@@ -71,7 +71,7 @@ def analyze_sentiment():
             messages=[UserMessage(content=prompt)],
             temperature=0.7,
             top_p=0.9,
-            max_tokens=500,
+            max_tokens=10,
             model=model_name
         )
 
@@ -91,9 +91,9 @@ def analyze_sentiment():
                 return jsonify({'sentiment': sentiment, 'confidence': confidence})
             else:
                 if not sentiment_match:
-                    return jsonify({'error': 'Sentiment not found in API response'}), 500
+                    return jsonify({'error': 'Sentiment not found '}), 500
                 if not confidence_match:
-                    return jsonify({'error': 'Confidence not found in API response'}), 500
+                    return jsonify({'error': 'Confidence not found '}), 500
                 return jsonify({'error': 'Could not extract sentiment and confidence from API response (regex mismatch)'}), 500
 
         except Exception as regex_error:
