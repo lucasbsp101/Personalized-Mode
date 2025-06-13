@@ -266,7 +266,6 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
         prompt = f"""
         Your main goal is to be EXTREMELY CONCISE
         Personalize each topic of the content{base_content} based on the person's hobbies{hobbies} and work{work}. 
-        
         Instructions for personalization:
         The core explanation of the topic itself should be 1-2 very short, clear sentences.
         Rewrite to teenagers between 18 and 25 years!
@@ -511,10 +510,10 @@ def page_3_4():
                 topic_12 = generate_custom_content(preference, topic_12, hobbies, work)
             if topic_13:
                 topic_13 = generate_custom_content(preference, topic_13, hobbies, work)
-            if topic_14:
-                topic_14 = generate_custom_content(preference, topic_14, hobbies, work)
-            if topic_21:
-                topic_21 = generate_custom_content(preference, topic_21, hobbies, work)
+            #if topic_14:
+                #topic_14 = generate_custom_content(preference, topic_14, hobbies, work)
+            #if topic_21:
+                #topic_21 = generate_custom_content(preference, topic_21, hobbies, work)
             else:
                 # Se for Generic Teaching, usa o conteúdo extraído diretamente
                 pass  # Não precisa fazer nada, pois já extraímos o conteúdo
