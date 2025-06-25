@@ -268,9 +268,6 @@ def generate_custom_content(learning_preference, base_content, hobbies=None, wor
         Personalize each topic of the content{base_content} based on the person's hobbies{hobbies} and work{work}. 
         Instructions for personalization:
         The core explanation of the topic itself should be 1-2 very short, clear sentences.
-        Rewrite to teenagers between 18 and 25 years!
-        Make it more personal!
-        Make it more engaging!
         In the {base_content}, when you read Example:, create an example that is related to the person's hobbies{hobbies} and work{work}.
         The ENTIRE response (explanation + example, if applicable) MUST be very short
         Go STRAIGHT to the personalized content. Do NOT use introductory phrases like "Here's a personalized take..." or "Okay, so...".
